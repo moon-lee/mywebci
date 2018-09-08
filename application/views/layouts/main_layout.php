@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{pagetitle}</title>
+    <!-- CSS -->
+    {css}  
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- #sidebar -->
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-header">
+                <a href="#" class="site-title"><i class="fas fa-cloud fa-lg"></i><span>WOM</span></a>
+            </div>
+
+            <div class="sidebar-profile">
+                <span>Welcome,</span>
+                <span>{username}</span>
+            </div>
+
+            <div class="sidebar-list">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="{dashboard}"><i class="fas fa-tachometer-alt fa-lg"></i>Dashboard</a>
+                    </li>
+                    
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="collapse" href="#mydatalist" aria-expanded="false" aria-controls="mydatalist"><i class="fas fa-table fa-lg"></i>
+                            My Data 
+                        </a>
+
+                        <ul class="collapse list-unstyled sidebar-child-list" id="mydatalist">
+                            <li><a href="{payments}">Payments</a></li>
+                            <li><a href="{weights}">Weights</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /#sidebar -->
+
+        <!-- page content -->
+        <div class="content-wrapper">
+            <div class="content-header sticky-top">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="btn my-btn">
+                            <i class="fas fa-bars fa-lg"></i>
+                        </button>
+                        <button class="btn my-btn d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-bars fa-lg"></i>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                
+                                <li class="nav-item active">
+                                    <a href="{logout}" class="btn my-btn" role="button" aria-pressed="true"><i class="fas fa-sign-out-alt fa-lg fa-pull-right"></i> Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="content-body">
+                <div class="container-fluid">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h6><strong>{contenttitle}</strong></h6>
+                        </div>
+                        <div class="card-body">
+                            {content}
+                        </div>
+                        <div class="card-footer small text-muted">
+                            updated
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-footer">
+                <div class="container-fluid">
+                        <span> <strong>Copyright &copy; 2018 <a href="#">WOM</a>.</strong></span>
+                        <span> All rights reserved.</span>
+                </div>            
+            </div>
+
+        </div>
+        <!-- /page content -->
+    </div>
+    
+    <!-- Modal -->
+    {modal}
+    <!-- JavaScripts -->
+    {js}
+
+</body>
+</html>
