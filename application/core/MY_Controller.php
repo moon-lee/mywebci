@@ -7,84 +7,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Application extends CI_Controller {
 
 	protected $data = array(); // parameters for view components
-	protected $id;   // identifier for our content
-
-
+    protected $id;   // identifier for our content
+    
 	function __construct()
 	{
 		parent::__construct();
-		$this->data = array();
 		$this->data['title'] = 'Walking On the Moon';
         $this->errors = array();
         
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->library('googleclient');
+
         $this->config->load('myconfig', true);
 
         $this->myconfig = $this->config->item('myconfig');
-        
+
 	}
-
-    public function render_login()
-    {   
-        $page_title = 'Log In';
-
-        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
-        $this->data['login'] = base_url('main/login_user');;  
-        $this->data['authUrl'] = $this->googleclient->authUrl();
-        
-        $msg['error_msg'] = $this->session->flashdata('error_msg');
-        if(isset($msg['error_msg'])) {
-            $this->data['error_msg'] = $this->parser->parse('layouts/message_template', $msg, true);
-        } else {
-            $this->data['error_msg'] = '';
-        }
-
-        $this->render('login');
-    }
-
-    public function render_dashboard()
-    {   
-        $page_title = 'Dashboard';
-
-        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['contenttitle'] = $page_title;
-        $this->data['css'] = $this->set_css(CSS_JS_DASHBOARD);  
-        $this->data['js'] = $this->set_js(CSS_JS_DASHBOARD);  
-        $this->data['content'] = $this->set_content('dashboard');
-        $this->data['modal'] = $this->set_content('dashboard_modal');
-
-        $this->render();
-    }
-
-    public function render_payments()
-    {   
-        $page_title = 'Payments';
-
-        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['contenttitle'] = $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
-        $this->data['content'] = $this->set_content('payments');
-
-        $this->render();
-    }
-
-    public function render_weights()
-    {   
-        $page_title = 'Weights';
-
-        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['contenttitle'] = $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
-        $this->data['content'] = $this->set_content('weights');
-
-        $this->render();
-    }
 
     protected function set_css( $setstate = CSS_JS_DEFAULT)
     {
@@ -162,7 +101,7 @@ class Application extends CI_Controller {
     
     protected function _logout()
     {
-        $this->googleclient->revokeToken();
+        //$this->googleclient->revokeToken();
         
         $this->session->unset_userdata('loggedin');
         $this->session->unset_userdata('authUser');

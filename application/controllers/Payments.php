@@ -18,6 +18,20 @@ class Payments extends Application {
         }
         $this->render_payments();
     }
+
+    
+    private function render_payments()
+    {   
+        $page_title = 'Payments';
+
+        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
+        $this->data['contenttitle'] = $page_title;
+        $this->data['css'] = $this->set_css();  
+        $this->data['js'] = $this->set_js();  
+        $this->data['content'] = $this->set_content('payments');
+
+        $this->render();
+    }
 }
 
 /* End of file Payments.php */

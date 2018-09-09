@@ -5,6 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Googleclient
 {
+    private $client;
+    private $oauth2;
+    private $gCalendar;
+
     public function __construct() 
     {
         $CI =& get_instance();
@@ -21,8 +25,8 @@ class Googleclient
         $this->client->setAccessType($CI->config->item('access_type'));
         $this->client->setApprovalPrompt('auto');
 
-        $this->oauth2 = new Google_Service_Oauth2($this->client);
-        $this->gCalendar = new Google_Service_Calendar($this->client);
+        //$this->oauth2 = new Google_Service_Oauth2($this->client);
+        //$this->gCalendar = new Google_Service_Calendar($this->client);
 
     }
     /**
@@ -38,24 +42,26 @@ class Googleclient
         return $this->client->authenticate($code);
     }
 
-    public function getAccessToken()
-    {
-        return $this->client->getAccessToken();
-    }
+    // public function getAccessToken()
+    // {
+    //     return $this->client->getAccessToken();
+    // }
 
-    public function setAccessToken($token)
-    {
-        return $this->client->setAccessToken($token);
-    }
+    // public function setAccessToken($token)
+    // {
+    //     return $this->client->setAccessToken($token);
+    // }
 
     public function revokeToken()
     {
         return $this->client->revokeToken();
     }
 
-    public function getUserInfo()
+    public function getUserInfo($accessToken)
     {
-        return $this->oauth2->userinfo->get();
+        $this->client->setAccessToken($accessToken);
+        $this->$oauth2 = new Google_Service_Oauth2($this->client);
+        return $this->$oauth2->userinfo->get();
     }
 
     public function isAccessTokenExpired()
@@ -63,18 +69,24 @@ class Googleclient
         return $this->client->isAccessTokenExpired();
     }
 
-    public function getCalendarService()
+    public function getCalendarService($accessToken)
     {
+        $this->client->setAccessToken($accessToken);
+        $this->gCalendar = new Google_Service_Calendar($this->client);
         return $this->gCalendar;
     }
 
-    public function getCalendarList()
+    public function getCalendarList($accessToken)
     {
-        return $this->gCalendar->calendarList->get('en.australian#holiday@group.v.calendar.google.com')->getSummary();
+        $this->client->setAccessToken($accessToken);
+        $this->gCalendar = new Google_Service_Calendar($this->client);
+        return $this->gCalendar->calendarList->listCalendarList();
     }
 
-    public function getEvents()
+    public function getEvents($accessToken)
     {
+        $this->client->setAccessToken($accessToken);
+        $this->gCalendar = new Google_Service_Calendar($this->client);
         $events = $this->gCalendar->events->listEvents('en.australian#holiday@group.v.calendar.google.com');
         
         // $data = array();
@@ -84,8 +96,9 @@ class Googleclient
         //         array_push ($data, $event->getSummary());
         //     }
         // }
+        return $events;
 
-        return json_encode($events);
+       // return json_encode($events);
     }
 }
 

@@ -16,7 +16,7 @@ $config['css_list_dashboard'] = array(
 
 $config['js_list_default'] = array(
     'jslist' => array(
-    array('jsdata' => base_url('assets/dist/js/jquery.slim.min.js')),
+    array('jsdata' => base_url('assets/dist/js/jquery.min.js')),
     array('jsdata' => base_url('assets/dist/js/popper.min.js')),
     array('jsdata' => base_url('assets/dist/js/bootstrap.min.js')),
     array('jsdata' => base_url('assets/dist/js/fonts.js')),

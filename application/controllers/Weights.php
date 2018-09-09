@@ -17,6 +17,19 @@ class Weights extends Application {
         }
         $this->render_weights();
     }
+
+    private function render_weights()
+    {   
+        $page_title = 'Weights';
+
+        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
+        $this->data['contenttitle'] = $page_title;
+        $this->data['css'] = $this->set_css();  
+        $this->data['js'] = $this->set_js();  
+        $this->data['content'] = $this->set_content('weights');
+
+        $this->render();
+    }    
 }
 
 /* End of file Weights.php */

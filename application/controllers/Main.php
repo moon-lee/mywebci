@@ -26,6 +26,28 @@ class Main extends Application
         }
     }
 
+    private function render_login()
+    {   
+        $page_title = 'Log In';
+
+        $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
+        $this->data['css'] = $this->set_css();  
+        $this->data['js'] = $this->set_js();  
+        $this->data['login'] = base_url('main/login_user');
+        
+        $this->data['authUrl'] = $this->googleclient->authUrl();
+        $this->session->set_userdata('authUrl', $this->data['authUrl']);
+        
+        $msg['error_msg'] = $this->session->flashdata('error_msg');
+        if(isset($msg['error_msg'])) {
+            $this->data['error_msg'] = $this->parser->parse('layouts/message_template', $msg, true);
+        } else {
+            $this->data['error_msg'] = '';
+        }
+
+        $this->render('login');
+    }
+
     public function view_dashboard()
     {
         redirect('dashboard');
@@ -69,6 +91,10 @@ class Main extends Application
         $authCode = $this->input->get('code', true);
         $accessToken = $this->googleclient->getAuthenticate($authCode);
 
+        $this->session->set_userdata('authCode', $authCode);
+        $this->session->set_userdata('accessToken', $accessToken);
+
+
         if (array_key_exists('error', $accessToken)) {
 
             $this->session->set_flashdata('error_msg', $accessToken['error_description']);
@@ -76,24 +102,18 @@ class Main extends Application
 
         } else {
 
-            $this->googleclient->setAccessToken($accessToken);
-            $authUser = $this->googleclient->getUserInfo();
+            //$this->googleclient->setAccessToken($accessToken);
+            $authUser = $this->googleclient->getUserInfo($accessToken);
+
             $this->session->set_userdata('user_id', $authUser['id']);
             $this->session->set_userdata('user_email', $authUser['email']);
             $this->session->set_userdata('user_name', $authUser['givenName'].' '.$authUser['familyName']);
 
             $this->session->set_userdata('loggedin',true);
-            
+
             $this->view_dashboard();
         }
     }
-
-    // private function isLoggedin()
-    // {
-    //     $loggedin = $this->session->userdata('loggedin');
-
-    //     return $loggedin;
-    // }
 
     public function user_logout()
     {
