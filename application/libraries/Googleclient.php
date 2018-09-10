@@ -1,36 +1,36 @@
 <?php
 
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Googleclient
 {
     private $client;
     private $oauth2;
     private $gCalendar;
+    private $CI;
 
-    public function __construct() 
+    public function __construct()
     {
-        $CI =& get_instance();
-        $CI->config->load('google_auth');
+        $this->CI =& get_instance();
+        $this->CI->config->load('google_auth');
 
         require_once APPPATH."third_party/google-api-php/vendor/autoload.php";
         
         $this->client = new Google_Client();
-        $this->client->setApplicationName($CI->config->item('application_name'));
-        $this->client->setClientId($CI->config->item('client_id'));
-        $this->client->setClientSecret($CI->config->item('client_secret'));
-        $this->client->setRedirectUri($CI->config->item('redirect_uri'));
-        $this->client->setScopes($CI->config->item('scopes'));
-        $this->client->setAccessType($CI->config->item('access_type'));
+        $this->client->setApplicationName($this->CI->config->item('application_name'));
+        $this->client->setClientId($this->CI->config->item('client_id'));
+        $this->client->setClientSecret($this->CI->config->item('client_secret'));
+        $this->client->setRedirectUri($this->CI->config->item('redirect_uri'));
+        $this->client->setScopes($this->CI->config->item('scopes'));
+        $this->client->setAccessType($this->CI->config->item('access_type'));
         $this->client->setApprovalPrompt('auto');
 
         //$this->oauth2 = new Google_Service_Oauth2($this->client);
         //$this->gCalendar = new Google_Service_Calendar($this->client);
-
     }
     /**
-     * Request authorization from the user. 
+     * Request authorization from the user.
      */
     public function authUrl()
     {
@@ -83,11 +83,11 @@ class Googleclient
         return $this->gCalendar->calendarList->listCalendarList();
     }
 
-    public function getEvents($accessToken)
+    public function getEventss($accessToken)
     {
         $this->client->setAccessToken($accessToken);
         $this->gCalendar = new Google_Service_Calendar($this->client);
-        $events = $this->gCalendar->events->listEvents('en.australian#holiday@group.v.calendar.google.com');
+        $events = $this->gCalendar->events->listEvents($this->CI->config->item('calendar_id'));
         
         // $data = array();
 
@@ -98,7 +98,56 @@ class Googleclient
         // }
         return $events;
 
-       // return json_encode($events);
+        // return json_encode($events);
+    }
+
+    public function getEvents($accessToken, $tMin = false, $tMax = false, $maxResults = 10)
+    {
+        if (! $tMin) {
+            $tMin = date("c", strtotime(date('Y-m-01 ').' 00:00:00'));
+        } else {
+            $tMin = date("c", strtotime($tMin));
+        }
+
+        if (! $tMax) {
+            $tMax = date("c", strtotime(date('Y-m-t ').' 23:59:59'));
+        } else {
+            $tMax = date("c", strtotime($tMax));
+        }
+
+        $optParams = array(
+            //'maxResults'   => $maxResults,
+            'orderBy'      => 'startTime',
+            'singleEvents' => true,
+            'timeMin'      => $tMin,
+            'timeMax'      => $tMax,
+            'timeZone'     => 'Australia/Brisbane',
+
+        );
+
+        $this->client->setAccessToken($accessToken);
+        $this->gCalendar = new Google_Service_Calendar($this->client);
+        $results = $this->gCalendar->events->listEvents($this->CI->config->item('calendar_id'),$optParams);
+
+        $data = array();
+
+        foreach ($results->getItems() as $item) {
+            // $start = date('Y-m-d H:i', strtotime($item->getStart()->date));
+            array_push(
+
+                $data,
+                array(
+
+                    'id'          => $item->getId(),
+                    'title'       => $item->getSummary(),
+                    'start'       => $item->getStart()->date,
+                    'end'         => $item->getEnd()->date,
+                )
+
+            );
+        }
+        //return $results;
+        return json_encode($data);
     }
 }
 

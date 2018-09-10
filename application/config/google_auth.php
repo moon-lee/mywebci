@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $config['application_name']     = 'googlelogin';
     $config['access_type']          = 'online';
     $config['scopes']               = array('profile','email','https://www.googleapis.com/auth/calendar');
+    $config['calendar_id']          = 'en.australian#holiday@group.v.calendar.google.com';
 
 
 /* End of file google_auth.php */

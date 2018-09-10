@@ -41,18 +41,10 @@ class Dashboard extends Application {
     public function eventslist()
     {
         $token = $this->session->userdata('accessToken');
-        $this->_debug_print($this->googleclient->getEvents($token));
+        $events = $this->googleclient->getEvents($token);
  
-
-
-        // $arr = array(
-        //     array('name' => 'name1', 'age' => 34),
-        //     array('name' => 'name2', 'age' => 51),
-        //     array('name' => 'name3', 'age' => 36),
-        // );
-
-
-        //echo json_encode($arr);
+        //$this->_debug_print($events);
+        echo $events;
      }
 
 }
