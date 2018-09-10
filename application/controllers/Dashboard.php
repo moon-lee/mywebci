@@ -40,10 +40,12 @@ class Dashboard extends Application {
 
     public function eventslist()
     {
+        $p_start = $this->input->get("start");
+        $p_end = $this->input->get("end");
+
         $token = $this->session->userdata('accessToken');
-        $events = $this->googleclient->getEvents($token);
+        $events = $this->googleclient->getEvents($token, $p_start, $p_end);
  
-        //$this->_debug_print($events);
         echo $events;
      }
 
