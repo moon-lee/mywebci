@@ -9,6 +9,7 @@ application/logs/*
 !application/*/.htaccess
 
 application/third_party
+assets/
 
 composer.lock
 
@@ -55,3 +56,4 @@ typings/
 
 # Optional npm cache directory
 .npm
+
