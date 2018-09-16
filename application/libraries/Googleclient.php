@@ -25,9 +25,6 @@ class Googleclient
         $this->client->setScopes($this->CI->config->item('scopes'));
         $this->client->setAccessType($this->CI->config->item('access_type'));
         $this->client->setApprovalPrompt('auto');
-
-        //$this->oauth2 = new Google_Service_Oauth2($this->client);
-        //$this->gCalendar = new Google_Service_Calendar($this->client);
     }
     /**
      * Request authorization from the user.
@@ -41,16 +38,6 @@ class Googleclient
     {
         return $this->client->authenticate($code);
     }
-
-    // public function getAccessToken()
-    // {
-    //     return $this->client->getAccessToken();
-    // }
-
-    // public function setAccessToken($token)
-    // {
-    //     return $this->client->setAccessToken($token);
-    // }
 
     public function revokeToken()
     {
@@ -108,24 +95,20 @@ class Googleclient
 
         $this->client->setAccessToken($accessToken);
         $this->gCalendar = new Google_Service_Calendar($this->client);
-        $results = $this->gCalendar->events->listEvents($this->CI->config->item('calendar_id'),$optParams);
+        $results = $this->gCalendar->events->listEvents($this->CI->config->item('calendar_id'), $optParams);
 
         $data = array();
         foreach ($results->getItems() as $item) {
             array_push(
-
-                $data,
-                array(
-
-                    'id'          => $item->getId(),
-                    'title'       => $item->getSummary(),
-                    'start'       => $item->getStart()->date,
-                    'end'         => $item->getEnd()->date,
-                )
-
-            );
+                    $data,
+                    array(
+                        'id'          => $item->getId(),
+                        'title'       => $item->getSummary(),
+                        'start'       => $item->getStart()->date,
+                        'end'         => $item->getEnd()->date,
+                    )
+                );
         }
-
         return json_encode($data);
     }
 }

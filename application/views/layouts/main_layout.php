@@ -33,8 +33,8 @@
                         </a>
 
                         <ul class="collapse list-unstyled sidebar-child-list" id="mydatalist">
-                            <li><a href="{payments}">Payments</a></li>
-                            <li><a href="{weights}">Weights</a></li>
+                            <li><a href="{payments}"><i class="fas fa-money-check-alt"></i>Payments</a></li>
+                            <li><a href="{weights}"><i class="fas fa-weight"></i>Weights</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -66,23 +66,9 @@
                     </div>
                 </nav>
             </div>
-            
-            <div class="content-body">
-                <div class="container-fluid">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h6><strong>{contenttitle}</strong></h6>
-                        </div>
-                        <div class="card-body">
-                            {content}
-                        </div>
-                        <div class="card-footer small text-muted">
-                            updated
-                        </div>
-                    </div>
-                </div>
 
-            </div>
+            {content-body}
+            
             <div class="content-footer">
                 <div class="container-fluid">
                         <span> <strong>Copyright &copy; 2018 <a href="#">WOM</a>.</strong></span>

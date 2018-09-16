@@ -59,9 +59,8 @@ class Application extends CI_Controller
     }
 
     
-    protected function set_content($view)
+    protected function set_content($view, $view_data = array())
     {
-        $view_data = array();
         return $this->parser->parse($view, $view_data, true);
     }
     /**

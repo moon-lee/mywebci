@@ -23,10 +23,9 @@ class Weights extends Application {
         $page_title = 'Weights';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['contenttitle'] = $page_title;
-        $this->data['css'] = $this->set_css();  
+         $this->data['css'] = $this->set_css();  
         $this->data['js'] = $this->set_js();  
-        $this->data['content'] = $this->set_content('weights');
+        $this->data['content-body'] = $this->set_content('weights', array('contenttitle' => $page_title));
 
         $this->render();
     }    

@@ -29,10 +29,9 @@ class Dashboard extends Application {
         $page_title = 'Dashboard';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['contenttitle'] = $page_title;
         $this->data['css'] = $this->set_css(CSS_JS_DASHBOARD);  
         $this->data['js'] = $this->set_js(CSS_JS_DASHBOARD);  
-        $this->data['content'] = $this->set_content('dashboard');
+        $this->data['content-body'] = $this->set_content('dashboard', array('contenttitle' => $page_title));
         $this->data['modal'] = $this->set_content('dashboard_modal');
 
         $this->render();

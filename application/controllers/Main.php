@@ -102,7 +102,6 @@ class Main extends Application
 
         } else {
 
-            //$this->googleclient->setAccessToken($accessToken);
             $authUser = $this->googleclient->getUserInfo($accessToken);
 
             $this->session->set_userdata('user_id', $authUser['id']);
