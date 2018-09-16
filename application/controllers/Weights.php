@@ -26,6 +26,8 @@ class Weights extends Application {
          $this->data['css'] = $this->set_css();  
         $this->data['js'] = $this->set_js();  
         $this->data['content-body'] = $this->set_content('weights', array('contenttitle' => $page_title));
+        $this->data['modal'] = '';
+
 
         $this->render();
     }    
