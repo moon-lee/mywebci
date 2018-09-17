@@ -1,4 +1,4 @@
-<div class="content-body">
+<div class="d-flex content-body">
     <div class="container-fluid">
         <div class="cd-title card mb-3">
             <div class="card-header">

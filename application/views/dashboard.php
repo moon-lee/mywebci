@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <p class="card-text">Net Gross: <span>121212</span></p>
                         <p class="card-text">Net Gross: <span>121212</span></p>
-                        <a href="#" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
+                        <a href="{payments}" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
                     </div>
                 </div>
                 <div class="cd-weight  card my-5">
@@ -24,7 +24,7 @@
                     <div class="card-body">                        
                         <p class="card-text">Net Gross: <span>121212</span></p>
                         <p class="card-text">Net Gross: <span>121212</span></p>
-                        <a href="#" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
+                        <a href="{weights}" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
                     </div>
                 </div>        
              </div>

@@ -31,7 +31,12 @@ class Dashboard extends Application {
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
         $this->data['css'] = $this->set_css(CSS_JS_DASHBOARD);  
         $this->data['js'] = $this->set_js(CSS_JS_DASHBOARD);  
-        $this->data['content-body'] = $this->set_content('dashboard', array('contenttitle' => $page_title));
+        $this->data['content-body'] = $this->set_content('dashboard', 
+                                        array (
+                                            'contenttitle' => $page_title,
+                                            'payments' => base_url('main/view_payments'),
+                                            'weights' => base_url('main/view_weights')
+                                        ));
         $this->data['modal'] = $this->set_content('dashboard_modal');
 
         $this->render();
