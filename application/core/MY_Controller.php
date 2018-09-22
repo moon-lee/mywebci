@@ -45,14 +45,16 @@ class Application extends CI_Controller
     {
         $js_def =  $this->myconfig['js_list_default'];
 
-        if ($setstate === CSS_JS_DASHBOARD) {
-            $js_dash =  $this->myconfig['js_list_dashboard'];
-        }
-
         if ($setstate === CSS_JS_DEFAULT) {
             $jslists = $js_def;
-        } else {
+
+        } elseif ($setstate === CSS_JS_DASHBOARD) {
+            $js_dash =  $this->myconfig['js_list_dashboard'];
             $jslists = array_merge_recursive($js_def, $js_dash);
+
+        } elseif ($setstate === CSS_JS_PAYMENT) {
+            $js_payment =  $this->myconfig['js_list_payment'];
+            $jslists = array_merge_recursive($js_def, $js_payment);
         }
 
         return $this->parser->parse('layouts/js_template', $jslists, true);
