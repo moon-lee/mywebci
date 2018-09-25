@@ -51,8 +51,10 @@ class Googleclient
         return $this->$oauth2->userinfo->get();
     }
 
-    public function isAccessTokenExpired()
+    public function isAccessTokenExpired($accessToken)
     {
+        $this->client->setAccessToken($accessToken);
+
         return $this->client->isAccessTokenExpired();
     }
 

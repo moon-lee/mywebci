@@ -28,14 +28,14 @@ class Application extends CI_Controller
     {
         $css_def = $this->myconfig['css_list_default'];
 
-        if ($setstate === CSS_JS_DASHBOARD) {
-            $css_dash = $this->myconfig['css_list_dashboard'];
-        }
-
         if ($setstate === CSS_JS_DEFAULT) {
             $csslists = $css_def;
-        } else {
+        } elseif ($setstate === CSS_JS_DASHBOARD) {
+            $css_dash = $this->myconfig['css_list_dashboard'];
             $csslists = array_merge_recursive($css_def, $css_dash);
+        } elseif ($setstate === CSS_JS_PAYMENT) {
+            $css_payment = $this->myconfig['css_list_payment'];
+            $csslists = array_merge_recursive($css_def, $css_payment);
         }
         
         return $this->parser->parse('layouts/css_template', $csslists, true);
@@ -92,6 +92,17 @@ class Application extends CI_Controller
     {
         $loggedin = $this->session->userdata('loggedin');
 
+        $token = $this->session->userdata('accessToken');
+        
+        if (isset($token)) {
+            $expired = $this->googleclient->isAccessTokenExpired($token);
+            if ($expired) {
+                $this->session->unset_userdata('accessToken');
+                $loggedin = false;
+            }
+
+        }
+
         return $loggedin;
     }
 
@@ -99,7 +110,7 @@ class Application extends CI_Controller
     protected function _logout()
     {
         //$this->googleclient->revokeToken();
-        
+        $this->session->unset_userdata('accessToken');
         $this->session->unset_userdata('loggedin');
         $this->session->unset_userdata('authUser');
 

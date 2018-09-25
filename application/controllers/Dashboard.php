@@ -19,8 +19,6 @@ class Dashboard extends Application {
             $this->_logout();
         }
 
-
-
         $this->render_dashboard();
     }
 
