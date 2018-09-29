@@ -3,7 +3,7 @@
         <div class="cd-title card card-block align-middle mb-3">
             <div class="card-header">
                 <i class="fas fa-money-check-alt"></i><strong>{contenttitle}</strong>
-                <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addPaymentinfo">Add Data</button>
+                <button type="button" class="btn btn-success float-right" id="addPayment">Add Data</button>
             </div>
         </div>
         <div class="cd-payment card my-4">

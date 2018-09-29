@@ -63,12 +63,29 @@ class Payments extends Application {
         $data['inputerror'] = array();
         $data['status'] = true;
 
+        if ($post_data['pay_date'] == '') {
+            $data['inputerror'][] = 'paymentdate';
+            $data['error_string'][] = 'Please choose a date';
+            $data['status'] = false;
+        }
+        
+        if ($post_data['pay_gross'] == '') {
+            $data['inputerror'][] = 'grosspay';
+            $data['error_string'][] = 'Please provide a valid amount';
+            $data['status'] = false;
+        }
+        
+        if ($post_data['pay_net'] == '') {
+            $data['inputerror'][] = 'netpay';
+            $data['error_string'][] = 'Please provide a valid amount';
+            $data['status'] = false;
+        }
+
         if ((int)$post_data['pay_gross'] < (int)$post_data['pay_net']  )
         {
             $data['inputerror'][] = 'netpay';
-            $data['error_string'][] = 'net payment can not be more than gross payment';
+            $data['error_string'][] = 'It can not be much than gross';
             $data['status'] = false;
-
         }
 
         if (!$data['status']) {
