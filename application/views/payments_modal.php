@@ -10,7 +10,7 @@
                 </button>
 
             </div>
-            <form method="post" action="{adddata}">
+            <form id="form_payment">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="paymentDate" class="col-md-3 col-form-label">Payment Date</label>
@@ -22,14 +22,16 @@
                         <label for="grossPay" class="col-md-3 col-form-label">Gross Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control" data-format-type="currency" placeholder="9,999,999.00" required>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control" data-format-type="currency" required>
+                             <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="netPay" class="col-md-3 col-form-label">Net Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control" data-format-type="currency" placeholder="9,999,999.00" required>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control" data-format-type="currency" required>
+                             <span class="help-block"></span>
                         </div>
                     </div>
                 </div>

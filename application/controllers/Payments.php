@@ -8,6 +8,7 @@ class Payments extends Application {
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('payment_model');
     }
     
 
@@ -36,13 +37,44 @@ class Payments extends Application {
 
     public function add_paydata()
     {
+
+        $grosspay =  preg_replace("/([^0-9\\.])/i", "", $this->input->post('grosspay'));
+        $netpay =  preg_replace("/([^0-9\\.])/i", "", $this->input->post('netpay'));
+
         $post_data = array(
-                'paymentdate' => $this->input->post('paymentdate'), 
-                'grosspay' => $this->input->post('grosspay'),
-                'netpay' => $this->input->post('netpay'),
+                'pay_date'  => $this->input->post('paymentdate'), 
+                'pay_gross' => $grosspay,
+                'pay_net'   => $netpay
         );
 
-        $this->_debug_print($post_data);
+        $this->_validate($post_data);
+
+        //$result = $this->payment_model->add_payment_detail($post_data);
+       //$this->_debug_print($post_data);
+
+       $data = array("status" => true);
+       echo json_encode($data);
+    }
+
+    private function _validate($post_data) 
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = true;
+
+        if ((int)$post_data['pay_gross'] < (int)$post_data['pay_net']  )
+        {
+            $data['inputerror'][] = 'netpay';
+            $data['error_string'][] = 'net payment can not be more than gross payment';
+            $data['status'] = false;
+
+        }
+
+        if (!$data['status']) {
+            echo json_encode($data);
+            exit;
+        }
     }
 }
 
