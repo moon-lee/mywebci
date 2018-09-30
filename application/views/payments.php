@@ -8,8 +8,8 @@
         </div>
         <div class="cd-payment card my-4">
             <div class="card-body">
-                <div class="container-chart">
-                    <canvas id="demoChart"></canvas>
+               <div class="container-chart">
+                    <canvas id="paymentChart" width="50"></canvas>
                 </div>
             </div>
         </div>

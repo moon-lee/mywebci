@@ -49,11 +49,17 @@ class Payments extends Application {
 
         $this->_validate($post_data);
 
-        //$result = $this->payment_model->add_payment_detail($post_data);
+       $result = $this->payment_model->add_payment_detail($post_data);
        //$this->_debug_print($post_data);
 
        $data = array("status" => true);
        echo json_encode($data);
+    }
+
+    public function list_paydata() 
+    {
+        $result = $this->payment_model->payment_list();
+        echo json_encode($result);
     }
 
     private function _validate($post_data) 

@@ -10,7 +10,18 @@ class Payment_model extends CI_Model {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
-
+    public function payment_list()
+    {
+        $this->db->select('*');
+        $this->db->from($this->table);
+        
+        if ($query = $this->db->get())
+        {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
 }
 
 /* End of file Payment_model.php */
