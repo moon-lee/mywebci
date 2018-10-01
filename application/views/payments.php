@@ -8,9 +8,15 @@
         </div>
         <div class="cd-payment card my-4">
             <div class="card-body">
-               <div class="container-chart">
-                    <canvas id="paymentChart" width="50"></canvas>
+                <div class="row align-items-start justify-content-center">
+                    <div class="col-4">
+                        <canvas id="paymentChart1"></canvas>
+                    </div>
+                    <div class="col-8">
+                        <canvas id="paymentChart2"></canvas>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
