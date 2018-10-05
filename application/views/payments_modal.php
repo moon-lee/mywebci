@@ -39,10 +39,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-5 text-right">
-                            <p>Please provide the detail of payment.</p>
-                        </div>
-                        <div class="col-5">
+                        <label for="detailOpts" class="col-md-3 col-form-label text-right">Details</label>
+                        <div class="col-7">
                             <select id="detailOpts" class="form-control">
                                 <option value="0">Select detail</option>
                                 <option value="1">Base</option>
@@ -51,7 +49,7 @@
                                 <option value="4">Overtime(2)</option>
                                 <option value="5">Personal Leave</option>
                                 <option value="6">Holiday pay</option>
-                                <option value="7">Holiday Leave Loading</option>
+                                <option value="7">Holiday Load</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -62,8 +60,8 @@
                     </div>
                     <div class="form-group row dynamic-element" style="display:none">
 
-                        <label for="paydetails[]" class="col-5 col-form-label text-right">Net Pay</label>
-                        <div class="input-group col-5">
+                        <label for="paydetails[]" class="col-3 col-form-label text-right">Net Pay</label>
+                        <div class="input-group col-7">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
                             <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="paydetails[]" id="payDetails"
                                 class="form-control" data-format-type="currency" required>
