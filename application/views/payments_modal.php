@@ -10,31 +10,73 @@
                 </button>
 
             </div>
-            <form id="form_payment">
+            <form id="form_payment" novalidate>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="paymentDate" class="col-md-3 col-form-label">Payment Date</label>
+                        <label for="paymentDate" class="col-md-3 col-form-label text-right">Payment Date</label>
                         <div class="input-group col-md-9">
-                            <input type="text" name="paymentdate" id="paymentDate" class="form-control" placeholder="Select date ..." required >
+                            <input type="text" name="paymentdate" id="paymentDate" class="form-control" placeholder="Select date ..."
+                                required>
                             <div class="invalid-tooltip"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="grossPay" class="col-md-3 col-form-label">Gross Pay</label>
+                        <label for="grossPay" class="col-md-3 col-form-label text-right">Gross Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control" data-format-type="currency" required>
-                             <div class="invalid-tooltip"></div>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control"
+                                data-format-type="currency" required>
+                            <div class="invalid-tooltip"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="netPay" class="col-md-3 col-form-label">Net Pay</label>
+                        <label for="netPay" class="col-md-3 col-form-label text-right">Net Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control" data-format-type="currency" required>
-                             <div class="invalid-tooltip"></div>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control"
+                                data-format-type="currency" required>
+                            <div class="invalid-tooltip"></div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-5 text-right">
+                            <p>Please provide the detail of payment.</p>
+                        </div>
+                        <div class="col-5">
+                            <select id="detailOpts" class="form-control">
+                                <option value="0">Select detail</option>
+                                <option value="1">Base</option>
+                                <option value="2">Shift </option>
+                                <option value="3">Overtime(1.5)</option>
+                                <option value="4">Overtime(2)</option>
+                                <option value="5">Personal Leave</option>
+                                <option value="6">Holiday pay</option>
+                                <option value="7">Holiday Leave Loading</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success float-right" id="addDetails">
+                                <span class="far fa-plus-square fa-lg"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row dynamic-element" style="display:none">
+
+                        <label for="paydetails[]" class="col-5 col-form-label text-right">Net Pay</label>
+                        <div class="input-group col-5">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="paydetails[]" id="payDetails"
+                                class="form-control" data-format-type="currency" required>
+                            <div class="invalid-tooltip"></div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-danger float-right removeDetail">
+                                <span class="far fa-minus-square fa-lg"></span>
+                            </button>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
