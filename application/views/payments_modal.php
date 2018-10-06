@@ -62,10 +62,10 @@
 
                         <label for="paydetails[]" class="col-3 col-form-label text-right">Net Pay</label>
                         <div class="input-group col-7">
-                            <input type="text" name="payitems[]" id="payItems"
+                            <input type="text" id="payItems"
                                 class="form-control" value="0" style="display:none">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="paydetails[]" id="payDetails"
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" id="payDetails"
                                 class="form-control text-right" data-format-type="currency" required>
                             <div class="invalid-tooltip"></div>
                         </div>

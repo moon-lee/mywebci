@@ -47,7 +47,8 @@ class Payments extends Application
                 'pay_items'     => array($this->input->post('payitems')),
         );
 
-        //$this->_debug_print($post_data);
+        $this->_debug_print($post_data["pay_details"]);
+        $this->_debug_print($post_data["pay_items"]);
 
         $this->_validate($post_data);
 
