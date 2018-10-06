@@ -33,7 +33,7 @@ class Payments extends Application
         $template = $this->myconfig['option_template'];
         $options = $this->myconfig['payment_details'];
         foreach ($options as $option) {
-           $selections .= $this->parser->parse_string($template, $option, true );
+            $selections .= $this->parser->parse_string($template, $option, true);
         }
         $this->data['modal'] = $this->set_content('payments_modal', array('selections' => $selections));
 
@@ -44,18 +44,22 @@ class Payments extends Application
     {
         $grosspay =  preg_replace("/([^0-9\\.])/i", "", $this->input->post('grosspay'));
         $netpay =  preg_replace("/([^0-9\\.])/i", "", $this->input->post('netpay'));
+        $paydetails = $this->input->post('paydetails');
+        $unformatedpaydetails = array();
+        foreach ($paydetails as $paydetail) {
+            $unformatedpaydetails[] = preg_replace("/([^0-9\\.])/i", "", $paydetail);
+        }
 
+        // $this->_debug_print($unformatedpaydetails);
         $post_data = array(
                 'pay_date'      => $this->input->post('paymentdate'),
                 'pay_gross'     => $grosspay,
                 'pay_net'       => $netpay,
-                'pay_details'   => array($this->input->post('paydetails')),
-                'pay_items'     => array($this->input->post('payitems')),
+                'pay_items'     => $this->input->post('payitems'),
+                'pay_details'   => $unformatedpaydetails
         );
 
-        $this->_debug_print($post_data["pay_details"]);
-        $this->_debug_print($post_data["pay_items"]);
-
+        // $this->_debug_print($post_data);
         $this->_validate($post_data);
 
         //$result = $this->payment_model->add_payment_detail($post_data);
@@ -95,6 +99,16 @@ class Payments extends Application
             $data['error_string'][] = 'Please provide a valid amount';
             $data['status'] = false;
         }
+
+        foreach ($post_data['pay_details']as $key => $paydetail) {
+            if ($paydetail == '') {
+                $data['inputerror'][] = 'paydetails['. (string)$key .']';
+                $data['error_string'][] = 'Please provide a valid amount';
+                $data['status'] = false;
+                break;
+            }
+        }
+
 
         if ((int)$post_data['pay_gross'] < (int)$post_data['pay_net']) {
             $data['inputerror'][] = 'netpay';
