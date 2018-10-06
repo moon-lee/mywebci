@@ -81,6 +81,7 @@ class Payments extends Application
         $data['error_string'] = array();
         $data['inputerror'] = array();
         $data['status'] = true;
+        $sum = 0;
 
         if ($post_data['pay_date'] == '') {
             $data['inputerror'][] = 'paymentdate';
@@ -101,9 +102,22 @@ class Payments extends Application
         }
 
         foreach ($post_data['pay_details']as $key => $paydetail) {
+            $sum += (int)$paydetail;
             if ($paydetail == '') {
                 $data['inputerror'][] = 'paydetails['. (string)$key .']';
                 $data['error_string'][] = 'Please provide a valid amount';
+                $data['status'] = false;
+                break;
+            }
+            if ((int)$paydetail > (int)$post_data['pay_gross']) {
+                $data['inputerror'][] = 'paydetails['. (string)$key .']';
+                $data['error_string'][] = 'It can not be much than gross';
+                $data['status'] = false;
+                break;
+            }
+            if ($sum > (int)$post_data['pay_gross']) {
+                $data['inputerror'][] = 'paydetails['. (string)$key .']';
+                $data['error_string'][] = 'Total amount can not be much than gross';
                 $data['status'] = false;
                 break;
             }
