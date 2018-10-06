@@ -24,7 +24,7 @@
                         <label for="grossPay" class="col-md-3 col-form-label text-right">Gross Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control"
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="grosspay" id="grossPay" class="form-control text-right"
                                 data-format-type="currency" required>
                             <div class="invalid-tooltip"></div>
                         </div>
@@ -33,7 +33,7 @@
                         <label for="netPay" class="col-md-3 col-form-label text-right">Net Pay</label>
                         <div class="input-group col-md-9">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control"
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="netpay" id="netPay" class="form-control text-right"
                                 data-format-type="currency" required>
                             <div class="invalid-tooltip"></div>
                         </div>
@@ -62,9 +62,11 @@
 
                         <label for="paydetails[]" class="col-3 col-form-label text-right">Net Pay</label>
                         <div class="input-group col-7">
+                            <input type="text" name="payitems[]" id="payItems"
+                                class="form-control" value="0" style="display:none">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
                             <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="paydetails[]" id="payDetails"
-                                class="form-control" data-format-type="currency" required>
+                                class="form-control text-right" data-format-type="currency" required>
                             <div class="invalid-tooltip"></div>
                         </div>
                         <div class="col-2">
