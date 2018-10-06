@@ -45,5 +45,18 @@ $config['js_list_payment'] = array(
     )
 );
 
+$config['payment_details'] = array(
+    array('value' => "0", "text" => "Select detail"),
+    array('value' => "1", "text" => "Base"),
+    array('value' => "2", "text" => "Shift"),
+    array('value' => "3", "text" => "Overtime(1.5)"),
+    array('value' => "4", "text" => "Overtime(2)"),
+    array('value' => "5", "text" => "Personal Leave"),
+    array('value' => "6", "text" => "Holiday pay"),
+    array('value' => "7", "text" => "Holiday Load")
+);
+
+$config['option_template'] = '<option value={value}>{text}</option>';
+
 
 /* End of file filename.php */

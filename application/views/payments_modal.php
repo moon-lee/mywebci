@@ -42,14 +42,7 @@
                         <label for="detailOpts" class="col-md-3 col-form-label text-right">Details</label>
                         <div class="col-7">
                             <select id="detailOpts" class="form-control">
-                                <option value="0">Select detail</option>
-                                <option value="1">Base</option>
-                                <option value="2">Shift </option>
-                                <option value="3">Overtime(1.5)</option>
-                                <option value="4">Overtime(2)</option>
-                                <option value="5">Personal Leave</option>
-                                <option value="6">Holiday pay</option>
-                                <option value="7">Holiday Load</option>
+                                {selections}
                             </select>
                         </div>
                         <div class="col-2">

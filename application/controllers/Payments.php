@@ -23,13 +23,19 @@ class Payments extends Application
     private function render_payments()
     {
         $page_title = 'Payments';
+        $selections = '';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
         $this->data['css'] = $this->set_css(CSS_JS_PAYMENT);
         $this->data['js'] = $this->set_js(CSS_JS_PAYMENT);
         $this->data['content-body'] = $this->set_content('payments', array('contenttitle' => $page_title));
-        $this->data['modal'] = $this->set_content('payments_modal', array('adddata' => base_url('payments/add_paydata')));
-        // $this->data['modal'] = $this->set_content('payments_modal');;
+
+        $template = $this->myconfig['option_template'];
+        $options = $this->myconfig['payment_details'];
+        foreach ($options as $option) {
+           $selections .= $this->parser->parse_string($template, $option, true );
+        }
+        $this->data['modal'] = $this->set_content('payments_modal', array('selections' => $selections));
 
         $this->render();
     }
