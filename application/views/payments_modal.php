@@ -39,11 +39,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="withHolding" class="col-md-3 col-form-label text-right">PAYG</label>
+                        <div class="input-group col-md-9">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="withholding" id="withHolding" class="form-control text-right"
+                                data-format-type="currency" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="detailOpts" class="col-md-3 col-form-label text-right">Details</label>
                         <div class="col-7">
-                            <select id="detailOpts" class="form-control">
+                            <select id="detailOpts" name="detailopts" class="form-control">
                                 {selections}
                             </select>
+                            <div class="invalid-tooltip"></div>
                         </div>
                         <div class="col-2">
                             <button type="button" class="btn btn-success float-right" id="addDetails">
@@ -55,12 +65,12 @@
 
                         <label for="paydetails[]" class="col-3 col-form-label text-right">Net Pay</label>
                         <div class="input-group col-7">
-                            <input type="text" id="payItems"
-                                class="form-control" value="0" style="display:none">
+
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" id="payDetails"
-                                class="form-control text-right" data-format-type="currency" required>
+                            <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" id="payDetails" class="form-control text-right"
+                                data-format-type="currency" required>
                             <div class="invalid-tooltip"></div>
+                            <input type="text" id="payItems" class="form-control" value="0" style="display:none">
                         </div>
                         <div class="col-2">
                             <button class="btn btn-danger float-right removeDetail">
