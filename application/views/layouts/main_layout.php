@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{pagetitle}</title>
     <!-- CSS -->
-    {css}  
+    {css}
 </head>
+
 <body>
     <div class="app-wrapper">
         <!-- #sidebar -->
@@ -26,10 +28,11 @@
                     <li>
                         <a href="{dashboard}"><i class="fas fa-tachometer-alt fa-lg"></i>Dashboard</a>
                     </li>
-                    
+
                     <li>
-                        <a class="dropdown-toggle" data-toggle="collapse" href="#mydatalist" aria-expanded="false" aria-controls="mydatalist"><i class="fas fa-table fa-lg"></i>
-                            My Data 
+                        <a class="dropdown-toggle" data-toggle="collapse" href="#mydatalist" aria-expanded="false"
+                            aria-controls="mydatalist"><i class="fas fa-table fa-lg"></i>
+                            My Data
                         </a>
 
                         <ul class="collapse list-unstyled sidebar-child-list" id="mydatalist">
@@ -37,6 +40,17 @@
                             <li><a href="{weights}"><i class="fas fa-weight"></i>Weights</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="collapse" href="#mytestlist" aria-expanded="false"
+                            aria-controls="mytestlist"><i class="fas fa-cogs fa-lg"></i>
+                            TestPage
+                        </a>
+
+                        <ul class="collapse list-unstyled sidebar-child-list" id="mytestlist">
+                            <li><a href="{randomcolor}"><i class="fas fa-palette"></i>Ramdon Color</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -51,15 +65,18 @@
                         <button type="button" id="sidebarCollapse" class="btn my-btn">
                             <i class="fas fa-bars fa-lg"></i>
                         </button>
-                        <button class="btn my-btn d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="btn my-btn d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
                             <i class="fas fa-bars fa-lg"></i>
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
-                                
+
                                 <li class="nav-item active">
-                                    <a href="{logout}" class="btn my-btn" role="button" aria-pressed="true"><i class="fas fa-sign-out-alt fa-lg fa-pull-right"></i> Log Out</a>
+                                    <a href="{logout}" class="btn my-btn" role="button" aria-pressed="true"><i class="fas fa-sign-out-alt fa-lg fa-pull-right"></i>
+                                        Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -68,22 +85,23 @@
             </div>
 
             {content-body}
-            
+
             <div class="content-footer">
                 <div class="container-fluid">
-                        <span> <strong>Copyright &copy; 2018 <a href="#">WOM</a>.</strong></span>
-                        <span> All rights reserved.</span>
-                </div>            
+                    <span> <strong>Copyright &copy; 2018 <a href="#">WOM</a>.</strong></span>
+                    <span> All rights reserved.</span>
+                </div>
             </div>
 
         </div>
         <!-- /page content -->
     </div>
-    
+
     <!-- Modal -->
     {modal}
     <!-- JavaScripts -->
     {js}
 
 </body>
+
 </html>

@@ -79,6 +79,7 @@ class Application extends CI_Controller
             $this->data['dashboard'] = base_url('main/view_dashboard');
             $this->data['payments'] = base_url('main/view_payments');
             $this->data['weights'] = base_url('main/view_weights');
+            $this->data['randomcolor'] = base_url('main/view_randomcolor');
             $this->data['logout'] = base_url('main/user_logout');
         }
         

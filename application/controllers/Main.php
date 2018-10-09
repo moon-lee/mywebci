@@ -63,6 +63,10 @@ class Main extends Application
         redirect('weights');
     }
 
+    public function view_randomcolor()
+    {
+        redirect('randomcolor');
+    }
 
     public function login_user()
     {
