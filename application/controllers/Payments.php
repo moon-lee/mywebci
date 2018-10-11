@@ -78,13 +78,13 @@ class Payments extends Application
         $unformatedpaydetails = array();
         $sum = 0;
 
-        $grosspay =  preg_replace("/([^0-9\\.])/i", "", $post_data['pay_gross']);
-        $netpay =  preg_replace("/([^0-9\\.])/i", "", $post_data['pay_net']);
-        $payg =  preg_replace("/([^0-9\\.])/i", "", $post_data['pay_withholding']);
+        $grosspay =  preg_replace("/([^0-9\\.\\-])/i", "", $post_data['pay_gross']);
+        $netpay =  preg_replace("/([^0-9\\.\\-])/i", "", $post_data['pay_net']);
+        $payg =  preg_replace("/([^0-9\\.\\-])/i", "", $post_data['pay_withholding']);
         
         if (is_array($post_data['pay_details'])) {
             foreach ($post_data['pay_details'] as $key => $paydetail) {
-                $pdetail = preg_replace("/([^0-9\\.])/i", "", $paydetail);
+                $pdetail = preg_replace("/([^0-9\\.\\-])/i", "", $paydetail);
                 $unformatedpaydetails[] = $pdetail;
                 $sum += (float)$pdetail;
 
