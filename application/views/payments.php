@@ -10,10 +10,10 @@
             <div class="card-body">
                 <div class="row align-items-start justify-content-center">
                     <div class="col-4">
-                        <canvas id="paymentChart1"></canvas>
+                        <canvas id="paymentPieChart"></canvas>
                     </div>
                     <div class="col-8">
-                        <canvas id="paymentChart2"></canvas>
+                        <canvas id="paymentBarChart"></canvas>
                     </div>
                 </div>
 

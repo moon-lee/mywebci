@@ -39,7 +39,7 @@ $config['js_list_dashboard'] = array(
 
 $config['js_list_payment'] = array(
     'jslist' => array(
-    array('jsdata' => base_url('assets/dist/js/vendorChart.js')),  
+    //array('jsdata' => base_url('assets/dist/js/vendorChart.js')),  
     array('jsdata' => base_url('assets/dist/js/vendorFlatpickr.js')),   
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
