@@ -40,7 +40,7 @@ class Payments extends Application
         $post_data = $this->input->post(null, true);
         $validated_data = $this->validate_data($post_data);
 
-        //$result = $this->payment_model->add_payment_detail($validated_data);
+        $result = $this->payment_model->add_payment_detail($validated_data);
 
         $data["status"] =  true;
         $data["saved_data"] = $validated_data;
