@@ -53,6 +53,12 @@ class Payments extends Application
         echo json_encode($result);
     }
 
+    public function summary_paydata()
+    {
+        $result = $this->payment_model->payment_summary();
+        echo json_encode($result);
+    }
+
     private function validate_data($post_data)
     {
         $data = array();
