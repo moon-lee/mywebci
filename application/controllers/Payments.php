@@ -27,17 +27,7 @@ class Payments extends Application
         $this->data['css'] = $this->set_css(CSS_JS_PAYMENT);
         $this->data['js'] = $this->set_js(CSS_JS_PAYMENT);
  
-        $rows = $this->payment_model->payment_summary();
-        foreach ($rows as $row);
-
-        $contents = array(  'contenttitle'        => $page_title,
-                            'gross_sum'           => "$".preg_replace("/(\d)(?=(\d{3})+\.)/i", "$1,", $row['sum_gross']),
-                            'net_sum'             => "$".preg_replace("/(\d)(?=(\d{3})+\.)/i", "$1,", $row['sum_net']),
-                            'holiday_leave_sum'   => $row['sum_holiday_leave']."[hours]",
-                            'supperannuation_sum' => "$".preg_replace("/(\d)(?=(\d{3})+\.)/i", "$1,", $row['sum_super'])
-                        );
-            
-        $this->data['content-body'] = $this->set_content('payments', $contents);
+        $this->data['content-body'] = $this->set_content('payments', array('contenttitle' => $page_title ));
         $this->data['modal'] = $this->set_content('payments_modal');
 
         $this->render();

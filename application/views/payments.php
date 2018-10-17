@@ -22,23 +22,23 @@
                                     <th>Year to date</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody_summary">
                                 <tr>
                                     <th>Gross</th>
-                                    <td>{gross_sum}</td>
+                                    <td id="sum_gross"></td>
                                 </tr>
 
                                 <tr>
                                     <th>Net</th>
-                                    <td>{net_sum}</td>
-                                </tr>
-                                <tr>
-                                    <th>Holiday Leave</th>
-                                    <td>{holiday_leave_sum}</td>
+                                    <td id="sum_net"></td>
                                 </tr>
                                 <tr>
                                     <th>Superannuation</th>
-                                    <td>{supperannuation_sum}</td>
+                                    <td id="sum_super"></td>
+                                </tr>
+                                <tr>
+                                    <th>Holiday Leave</th>
+                                    <td id="sum_holiday_leave"></td>
                                 </tr>
                             </tbody>
 
