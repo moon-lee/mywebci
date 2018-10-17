@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['css_list_default'] = array(
     'csslist' => array(
     array('cssdata' => base_url('assets/dist/css/bootstrap.min.css')),
-    array('cssdata' => base_url('assets/dist/css/myScripts.css'))
+    array('cssdata' => base_url('assets/dist/css/myCommon.css'))
     )
 );
 $config['css_list_dashboard'] = array(
@@ -26,7 +26,7 @@ $config['js_list_default'] = array(
     array('jsdata' => base_url('assets/dist/js/jquery.min.js')),
     array('jsdata' => base_url('assets/dist/js/popper.min.js')),
     array('jsdata' => base_url('assets/dist/js/bootstrap.min.js')),
-    array('jsdata' => base_url('assets/dist/js/myScripts.js'))
+    array('jsdata' => base_url('assets/dist/js/myCommon.js'))
     )
 );
 
@@ -39,7 +39,7 @@ $config['js_list_dashboard'] = array(
 
 $config['js_list_payment'] = array(
     'jslist' => array(
-    //array('jsdata' => base_url('assets/dist/js/vendorChart.js')),  
+    array('jsdata' => base_url('assets/dist/js/myPayments.js')),  
     array('jsdata' => base_url('assets/dist/js/vendorFlatpickr.js')),   
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
