@@ -11,11 +11,12 @@ class Payment_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function payment_list()
+    public function payment_list($limit, $start)
     {
         $this->db->select('*');
         $this->db->from($this->table);
         $this->db->order_by('pay_date', 'ASC');
+        $this->db->limit($limit, $start);
         
         
         if ($query = $this->db->get())
@@ -49,6 +50,11 @@ class Payment_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function payment_count_all()
+    {
+        return $this->db->count_all($this->table);
     }
 }
 

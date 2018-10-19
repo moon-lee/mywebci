@@ -47,8 +47,7 @@
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Payments Details</p>
                         <canvas id="paymentBarChart"></canvas>
-                        <button>prev</button>
-                        <button>next</button>
+                        <nav id="payments_pagination_link"></nav>
                     </div>
                 </div>
 

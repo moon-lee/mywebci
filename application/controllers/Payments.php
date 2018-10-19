@@ -8,6 +8,7 @@ class Payments extends Application
     {
         parent::__construct();
         $this->load->model('payment_model');
+        
     }
     
 
@@ -27,7 +28,12 @@ class Payments extends Application
         $this->data['css'] = $this->set_css(CSS_JS_PAYMENT);
         $this->data['js'] = $this->set_js(CSS_JS_PAYMENT);
  
-        $this->data['content-body'] = $this->set_content('payments', array('contenttitle' => $page_title ));
+        $contents = array(
+                        'contenttitle'  => $page_title
+                        // 'pagination'    => $this->pagination_paydata()
+                        );
+                                        
+        $this->data['content-body'] = $this->set_content('payments', $contents);
         $this->data['modal'] = $this->set_content('payments_modal');
 
         $this->render();
@@ -124,6 +130,60 @@ class Payments extends Application
             );
         }
     }
+
+    public function pagination_paydata()
+    {
+        $config["base_url"] = "#";
+        $config["total_rows"] = $this->payment_model->payment_count_all();
+        $config["per_page"] = 5;
+        $config["uri_segment"] = 3;
+
+
+        // custom paging configuration
+        $config['num_links'] = 1;
+        $config['use_page_numbers'] = true;
+        // $config['reuse_query_string'] = true;
+             
+        $config['full_tag_open'] = '<ul class="pagination pagination-sm justify-content-end">';
+        $config['full_tag_close'] = '</ul>';
+             
+        $config['first_link'] = "First";
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+             
+        $config['last_link'] = "Last";
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_close'] = '</li>';
+             
+        $config['next_link'] = "<span aria-hidden=\"true\">&raquo;</span>";
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = "<span aria-hidden=\"true\">&laquo;</span>";
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+ 
+        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+ 
+        $config['attributes'] = array('class' => 'page-link');
+        $config['attributes']['rel'] = false;
+            
+        $this->load->library('pagination',$config);
+
+        $page = $this->uri->segment(3);
+        $start = ($page-1) * $config["per_page"];
+
+        $output = array(
+            'pagination_link'   => $this->pagination->create_links(),
+            'payment_details'   => $this->payment_model->payment_list($config["per_page"], $start)
+        );
+        echo json_encode($output);
+
+    }
 }
+
 
 /* End of file Payments.php */
