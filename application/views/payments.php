@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="row align-items-start justify-content-center">
                     <div class="col-4">
-                        <p><span class="far fa-plus-square"></span>Payments Summary</p>
+                        <p><span class="far fa-plus-square"></span>Summary</p>
                         <canvas id="paymentPieChart"></canvas>
 
 
@@ -45,7 +45,7 @@
                         </table>
                     </div>
                     <div class="col-8">
-                        <p><span class="far fa-plus-square"></span>Payments Details</p>
+                        <p><span class="far fa-plus-square"></span>Details</p>
                         <canvas id="paymentBarChart"></canvas>
                         <nav id="payments_pagination_link"></nav>
                     </div>

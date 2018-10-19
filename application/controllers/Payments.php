@@ -135,7 +135,7 @@ class Payments extends Application
     {
         $config["base_url"] = "#";
         $config["total_rows"] = $this->payment_model->payment_count_all();
-        $config["per_page"] = 5;
+        $config["per_page"] = 8;
         $config["uri_segment"] = 3;
 
 
