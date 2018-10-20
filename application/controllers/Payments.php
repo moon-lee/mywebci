@@ -60,7 +60,7 @@ class Payments extends Application
 
     public function summary_paydata()
     {
-        $result = $this->payment_model->payment_summary();
+        $result = $this->payment_model->payment_summary(SUMMARY_DEFAULT);
         echo json_encode($result);
     }
 

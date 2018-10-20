@@ -94,3 +94,5 @@ defined('CSS_JS_PAYMENT')      OR define('CSS_JS_PAYMENT', 2);
 defined('CSS_JS_WEIGHT')       OR define('CSS_JS_WEIGHT', 3);
 
 defined('VIEW_DEFAULT')        OR define('VIEW_DEFAULT', 'layouts/main_layout');
+defined('SUMMARY_DEFAULT')     OR define('SUMMARY_DEFAULT', 0);
+defined('SUMMARY_OTHER')       OR define('SUMMARY_OTHER', 1);

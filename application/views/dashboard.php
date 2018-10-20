@@ -6,30 +6,35 @@
             </div>
         </div>
         <div class="row align-items-start justify-content-center">
-            <div class="col-3 justify-content-between">
+            <div class="col-4 justify-content-between">
                 <div class="cd-payment card my-4">
                     <div class="card-header">
-                        <i class="fas fa-money-check-alt"></i><strong>Payment Summary</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Net Gross: <span>121212</span></p>
-                        <p class="card-text">Net Gross: <span>121212</span></p>
-                        <a href="{payments}" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <i class="fas fa-money-check-alt"></i><strong>Payment</strong>
+                            </div>
+                            <div class="col-6">
+                                <p class="card-text text-right">{sum_gross}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="cd-weight  card my-5">
                     <div class="card-header">
-                        <i class="fas fa-weight"></i><strong>Weight Summary</strong>
+                        <div class="row">
+                            <div class="col-5">
+                                <i class="fas fa-weight"></i><strong>Weight Summary</strong>
+                            </div>
+                            <div class="col-5">
+                                <p class="card-text  text-right">Weight: 88.9kg</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">                        
-                        <p class="card-text">Net Gross: <span>121212</span></p>
-                        <p class="card-text">Net Gross: <span>121212</span></p>
-                        <a href="{weights}" class="float-right btn btn-sm btn-outline-secondary">Goto detail</a>
-                    </div>
-                </div>        
-             </div>
+                </div>
+                {todo}
+            </div>
 
-            <div class="col-9">
+            <div class="col-8">
                 <div class="cd-cal card my-4">
                     <div class="card-body">
                         <div id='calendar'></div>

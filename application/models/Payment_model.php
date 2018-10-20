@@ -27,9 +27,10 @@ class Payment_model extends CI_Model {
         }
     }
 
-    public function payment_summary() 
+    public function payment_summary($option = SUMMARY_DEFAULT) 
     {
-        $sql = "SELECT 
+        if ($option == SUMMARY_DEFAULT) {
+                    $sql = "SELECT 
                     SUM(pay_gross) as sum_gross, 
                     SUM(pay_net) as sum_net, 
 	                SUM(pay_base) as sum_base, 
@@ -44,6 +45,13 @@ class Payment_model extends CI_Model {
                     SUM(pay_holiday_leave) as sum_holiday_leave
                 FROM wpayment";
 
+        } else {
+            $sql = "SELECT 
+                    SUM(pay_gross) as sum_gross, 
+                    SUM(pay_net) as sum_net, 
+                    SUM(pay_withholding) as sum_withholding
+                FROM wpayment";
+        }
         if ($query = $this->db->query($sql))
         {
             return $query->result_array();
