@@ -26,6 +26,7 @@ class Application extends CI_Controller
 
     protected function set_css($setstate = CSS_JS_DEFAULT)
     {
+        $css_template = '{csslist}<link rel="stylesheet" href="{cssdata}">{/csslist}';
         $css_def = $this->myconfig['css_list_default'];
 
         if ($setstate === CSS_JS_DEFAULT) {
@@ -38,11 +39,13 @@ class Application extends CI_Controller
             $csslists = array_merge_recursive($css_def, $css_payment);
         }
         
-        return $this->parser->parse('layouts/css_template', $csslists, true);
+//        return $this->parser->parse('layouts/css_template', $csslists, true);
+        return $this->parser->parse_string($css_template, $csslists, true);
     }
 
     protected function set_js($setstate = CSS_JS_DEFAULT)
     {
+        $js_template = '{jslist}<script src="{jsdata}"></script>{/jslist}';
         $js_def =  $this->myconfig['js_list_default'];
 
         if ($setstate === CSS_JS_DEFAULT) {
@@ -57,7 +60,8 @@ class Application extends CI_Controller
             $jslists = array_merge_recursive($js_def, $js_payment);
         }
 
-        return $this->parser->parse('layouts/js_template', $jslists, true);
+        //return $this->parser->parse('layouts/js_template', $jslists, true);
+        return $this->parser->parse_string($js_template, $jslists, true);
     }
 
     
