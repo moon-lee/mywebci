@@ -1,5 +1,5 @@
 <div class="content-body">
-    <div class="container-fluid">
+    <div class="container-fluid dashboard_container">
         <div class="cd-title card mb-3">
             <div class="card-header">
                 <i class="fas fa-tachometer-alt"></i><strong>{contenttitle}</strong>
@@ -22,10 +22,10 @@
                 <div class="cd-weight  card my-5">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-6">
                                 <i class="fas fa-weight"></i><strong>Weight Summary</strong>
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
                                 <p class="card-text  text-right">Weight: 88.9kg</p>
                             </div>
                         </div>

@@ -1,9 +1,9 @@
 <div class="d-flex content-body">
-    <div class="container-fluid">
+    <div class="container-fluid payments_container">
         <div class="cd-title card card-block align-middle mb-3">
             <div class="card-header">
                 <i class="fas fa-money-check-alt"></i><strong>{contenttitle}</strong>
-                <button type="button" class="btn btn-success float-right" id="addPayment">Add Data</button>
+
             </div>
         </div>
         <div class="cd-payment card my-4">
@@ -47,7 +47,16 @@
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Details</p>
                         <canvas id="paymentBarChart"></canvas>
-                        <nav id="payments_pagination_link"></nav>
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-success btn-sm" id="addPayment"><i class="fas fa-plus"></i>Add
+                                    Data</button>
+                            </div>
+                            <div class="col-6">
+                                <nav id="payments_pagination_link"></nav>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
