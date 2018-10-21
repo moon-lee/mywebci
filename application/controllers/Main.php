@@ -39,8 +39,9 @@ class Main extends Application
         $this->session->set_userdata('authUrl', $this->data['authUrl']);
         
         $msg['error_msg'] = $this->session->flashdata('error_msg');
+        $err_template = '<div class="alert alert-danger">{error_msg}</div>';
         if(isset($msg['error_msg'])) {
-            $this->data['error_msg'] = $this->parser->parse('layouts/message_template', $msg, true);
+            $this->data['error_msg'] = $this->parser->parse_string($err_template, $msg, true);
         } else {
             $this->data['error_msg'] = '';
         }
