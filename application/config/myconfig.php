@@ -10,13 +10,14 @@ $config['css_list_default'] = array(
 );
 $config['css_list_dashboard'] = array(
     'csslist' => array(
-    array('cssdata' => base_url('assets/dist/css/vendorCalendar.css'))
+    array('cssdata' => base_url('assets/dist/css/vendorCalendar.css')),
+    array('cssdata' => base_url('assets/dist/css/flatpickr.min.css'))
     )
 );
 
 $config['css_list_payment'] = array(
     'csslist' => array(
-    array('cssdata' => base_url('assets/dist/css/vendorFlatpickr.css'))
+    array('cssdata' => base_url('assets/dist/css/flatpickr.min.css'))
     )
 );
 
@@ -32,7 +33,9 @@ $config['js_list_default'] = array(
 
 $config['js_list_dashboard'] = array(
     'jslist' => array(
+    array('jsdata' => base_url('assets/dist/js/myDashboard.js')),
     array('jsdata' => base_url('assets/dist/js/vendorCalendar.js')),    
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),   
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
@@ -40,7 +43,7 @@ $config['js_list_dashboard'] = array(
 $config['js_list_payment'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/myPayments.js')),  
-    array('jsdata' => base_url('assets/dist/js/vendorFlatpickr.js')),   
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),   
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );

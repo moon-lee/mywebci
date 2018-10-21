@@ -29,7 +29,6 @@ class Dashboard extends Application
         $this->data['css'] = $this->set_css(CSS_JS_DASHBOARD);
         $this->data['js'] = $this->set_js(CSS_JS_DASHBOARD);
         $payments = $this->payment_summary();
-        //$this->data['content-body'] = $this->set_content('dashboard',$this->payment_summary());
         $this->data['content-body'] = $this->set_content(
             'dashboard',
                                         array(
@@ -42,7 +41,7 @@ class Dashboard extends Application
                                             'sum_withholding' => $payments['sum_withholding']
                                         )
         );
-        $this->data['modal'] = $this->set_content('dashboard_modal');
+        $this->data['modal'] = $this->set_content('layouts/dashboard_modal');
 
         $this->render();
     }

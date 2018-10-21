@@ -28,13 +28,10 @@ class Payments extends Application
         $this->data['css'] = $this->set_css(CSS_JS_PAYMENT);
         $this->data['js'] = $this->set_js(CSS_JS_PAYMENT);
  
-        $contents = array(
-                        'contenttitle'  => $page_title
-                        // 'pagination'    => $this->pagination_paydata()
-                        );
+        $contents = array('contenttitle'  => $page_title);
                                         
         $this->data['content-body'] = $this->set_content('payments', $contents);
-        $this->data['modal'] = $this->set_content('payments_modal');
+        $this->data['modal'] = $this->set_content('layouts/payments_modal');
 
         $this->render();
     }
