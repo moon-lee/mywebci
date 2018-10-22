@@ -23,15 +23,15 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <i class="fas fa-weight"></i><strong>Weight Summary</strong>
+                                <i class="fas fa-weight"></i><strong>Weight</strong>
                             </div>
                             <div class="col-6">
-                                <p class="card-text  text-right">Weight: 88.9kg</p>
+                                <p class="card-text  text-right">Current: 88.9kg</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                {todo}
+                {task}
             </div>
 
             <div class="col-8">

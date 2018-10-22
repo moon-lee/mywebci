@@ -2,17 +2,14 @@
 <div class="card my-5">
     <div class="card-header">
         <i class="far fa-clipboard"></i>
-        <strong>To Do List</strong>
+        <strong>Task List</strong>
     </div>
     <!-- /.box-header -->
     <div class="card-body">
         <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-        <ul class="todo-list">
+        <ul class="task-list">
             <li>
-                <!-- drag handle -->
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
+                <i class="fas fa-ellipsis-v"></i>
                 <!-- checkbox -->
                 <input type="checkbox" value="">
                 <!-- todo text -->
@@ -91,7 +88,8 @@
     <div class="card-footer">
         <div class="row">
             <div class="col-5">
-                <button type="button" class="btn btn-default btn-sm" id="addTodo_list"><i class="fas fa-plus"></i> Add item</button>
+                <button type="button" class="btn btn-default btn-sm" id="addTaskList"><i class="fas fa-plus"></i> Add
+                    Task</button>
             </div>
             <div class="col-7">
                 <nav>
