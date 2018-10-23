@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 $config['css_list_default'] = array(
     'csslist' => array(
@@ -34,16 +34,16 @@ $config['js_list_default'] = array(
 $config['js_list_dashboard'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/myDashboard.js')),
-    array('jsdata' => base_url('assets/dist/js/vendorCalendar.js')),    
-    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),   
+    array('jsdata' => base_url('assets/dist/js/vendorCalendar.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
 
 $config['js_list_payment'] = array(
     'jslist' => array(
-    array('jsdata' => base_url('assets/dist/js/myPayments.js')),  
-    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),   
+    array('jsdata' => base_url('assets/dist/js/myPayments.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );

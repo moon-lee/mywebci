@@ -115,6 +115,29 @@ class Dashboard extends Application
             return $post_data;
         }
     }
+
+    public function pagination_task()
+    {
+        $this->config->load('mypagination', true);
+
+        $config = $this->config->item('mypagination');
+        $config["base_url"] = "#";
+        $config["total_rows"] = $this->task_model->task_count_all();
+        $config["per_page"] = 6;
+        $config["uri_segment"] = 3;
+            
+        $this->load->library('pagination',$config);
+
+        $page = $this->uri->segment(3);
+        $start = ($page-1) * $config["per_page"];
+
+        $output = array(
+            'pagination_link'   => $this->pagination->create_links(),
+            'task_details'   => $this->task_model->task_list($config["per_page"], $start)
+        );
+        echo json_encode($output);
+
+    }
 }
 
 /* End of file Dashboard.php */
