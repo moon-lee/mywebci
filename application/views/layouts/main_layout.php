@@ -97,6 +97,13 @@
         <!-- /page content -->
     </div>
 
+    <!-- fontawesome symbol links  -->
+    <i data-fa-symbol="ellipsis-v" class="fas fa-ellipsis-v"></i>
+    <i data-fa-symbol="clock" class="far fa-clock"></i>
+    <i data-fa-symbol="edit" class="far fa-edit"></i>
+    <i data-fa-symbol="trash-alt" class="far fa-trash-alt"></i>
+
+
     <!-- Modal -->
     {modal}
     <!-- JavaScripts -->

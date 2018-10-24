@@ -88,6 +88,7 @@ class Dashboard extends Application
         // $data["saved_data"] = $validated_data;
         echo json_encode($data);
     }
+
     private function validate_data($post_data)
     {
         $data = array();
@@ -101,7 +102,7 @@ class Dashboard extends Application
                 $data['inputerror'][] = $key;
                 $data['error_string'][] = 'Please provide a valid data';
                 $data['status'] = false;
-            } 
+            }
             if (($key =="task_priority") && ($value == "0")) {
                 $data['inputerror'][] = $key;
                 $data['error_string'][] = 'Please provide a valid data';
@@ -126,7 +127,7 @@ class Dashboard extends Application
         $config["per_page"] = 6;
         $config["uri_segment"] = 3;
             
-        $this->load->library('pagination',$config);
+        $this->load->library('pagination', $config);
 
         $page = $this->uri->segment(3);
         $start = ($page-1) * $config["per_page"];
@@ -136,7 +137,13 @@ class Dashboard extends Application
             'task_details'   => $this->task_model->task_list($config["per_page"], $start)
         );
         echo json_encode($output);
+    }
 
+    public function delete_taskitem()
+    {
+        $task_id = $this->uri->segment(3);
+        $this->task_model->delete_task_item($task_id);
+        echo json_encode(array("status" => true));
     }
 }
 
