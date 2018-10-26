@@ -11,13 +11,16 @@
             </div>
             <form id="form_task" novalidate>
                 <div class="modal-body">
-                    <!-- <div class="form-row"> -->
-                    <div class="form-group">
-                        <label for="taskItem">Task</label>
-                        <div class="input-group">
-                            <input type="text" name="task_item" id="taskItem" class="form-control" required>
-                            <div class="invalid-tooltip"></div>
+                    <div class="form-row">
+                        <div class="form-group col-11">
+                            <label for="taskItem">Task</label>
+                            <div class="input-group">
+                                <input type="text" name="task_item" id="taskItem" class="form-control" maxlength="80"
+                                    required>
+                                <div class="invalid-tooltip"></div>
+                            </div>
                         </div>
+                        <div class="col-1 align-self-center"><span id="taskItemLength"></span></div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
@@ -40,7 +43,6 @@
                             <div class="invalid-tooltip"></div>
                         </div>
                     </div>
-                    <!--</div>-->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

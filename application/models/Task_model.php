@@ -33,12 +33,19 @@ class Task_model extends CI_Model
 
         if ($query = $this->db->get()) {
             foreach ($query->result() as $row) {
-                $output .= ' 
-                <li class="task_item">
-                    <svg class="icon"><use xlink:href="#ellipsis-v"></use></svg>
-                    <input type="checkbox" value="">
-                    <span class="text">'.$row->task_item.'</span>
-                ';
+
+                if ($row->task_status == 1) {
+                    $output .= '<li class="task_item done">
+                                <svg class="icon"><use xlink:href="#ellipsis-v"></use></svg>
+                                <input type="checkbox" value="" checked>';
+                } else {
+                    $output .= '<li class="task_item">
+                                <svg class="icon"><use xlink:href="#ellipsis-v"></use></svg>
+                                <input type="checkbox" value="">';
+                }
+
+                $output .= '<span class="text align-middle">'.$row->task_item.'</span>';
+
                 switch ($row->task_priority) {
                     case 1:
                         $output .= '<div class="badge badge-danger" data-task-id="'.$row->id.'">
@@ -70,10 +77,9 @@ class Task_model extends CI_Model
         return $output;
     }
 
-    public function delete_task_item($id)
+    public function update_task_item($postdata)
     {
-        //$this->db->delete($this->table, array('id', $id));
-        $this->db->update($this->table, array('task_status' => 99), array('id' => $id));
+        $this->db->update($this->table, array('task_status' => $postdata["task_status"]), array('id' =>  $postdata["id"]));
     }
 }
 

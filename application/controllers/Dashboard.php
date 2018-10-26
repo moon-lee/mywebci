@@ -139,10 +139,10 @@ class Dashboard extends Application
         echo json_encode($output);
     }
 
-    public function delete_taskitem()
+    public function update_taskstatus()
     {
-        $task_id = $this->uri->segment(3);
-        $this->task_model->delete_task_item($task_id);
+        $post_data = $this->input->post(null, true);
+        $this->task_model->update_task_item($post_data);
         echo json_encode(array("status" => true));
     }
 }
