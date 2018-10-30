@@ -69,6 +69,12 @@ class Main extends Application
         redirect('randomcolor');
     }
 
+
+    public function view_settings()
+    {
+        redirect('settings');
+    }
+
     public function login_user()
     {
 

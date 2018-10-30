@@ -49,11 +49,9 @@ class Application extends CI_Controller
 
         if ($setstate === CSS_JS_DEFAULT) {
             $jslists = $js_def;
-
         } elseif ($setstate === CSS_JS_DASHBOARD) {
             $js_dash =  $this->myconfig['js_list_dashboard'];
             $jslists = array_merge_recursive($js_def, $js_dash);
-
         } elseif ($setstate === CSS_JS_PAYMENT) {
             $js_payment =  $this->myconfig['js_list_payment'];
             $jslists = array_merge_recursive($js_def, $js_payment);
@@ -82,6 +80,7 @@ class Application extends CI_Controller
             $this->data['payments'] = base_url('main/view_payments');
             $this->data['weights'] = base_url('main/view_weights');
             $this->data['randomcolor'] = base_url('main/view_randomcolor');
+            $this->data['settings'] = base_url('main/view_settings');
             $this->data['logout'] = base_url('main/user_logout');
         }
         
@@ -103,7 +102,6 @@ class Application extends CI_Controller
                 $this->session->unset_userdata('accessToken');
                 $loggedin = false;
             }
-
         }
 
         return $loggedin;

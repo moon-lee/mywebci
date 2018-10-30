@@ -41,6 +41,10 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="{settings}"><i class="fas fa-cog fa-lg""></i>Settings</a>
+                    </li>
+
+                    <li>
                         <a class="dropdown-toggle" data-toggle="collapse" href="#mytestlist" aria-expanded="false"
                             aria-controls="mytestlist"><i class="fas fa-cogs fa-lg"></i>
                             TestPage
