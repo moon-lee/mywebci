@@ -57,6 +57,12 @@
                             </div>
                         </div>
 
+
+                        <div class="dropdown-menu" id="paymentContextMenu">
+                            <a class="dropdown-item" href="#">Update</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                        </div>
+
                     </div>
                 </div>
 
