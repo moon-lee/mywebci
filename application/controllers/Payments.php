@@ -154,9 +154,7 @@ class Payments extends Application
     public function delete_payment_detail()
     {
         $post_data = $this->input->post(null, true);
-
-
-        //$this->task_model->update_task_item($post_data);
+        $this->payment_model->update_payment_details($post_data);
         echo json_encode(array("status" => true));
     }
 }

@@ -15,6 +15,7 @@ class Payment_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from($this->table);
+        $this->db->where_not_in('pay_status', array(99));
         $this->db->order_by('pay_date', 'DESC');
         $this->db->limit($limit, $start);
         
@@ -43,14 +44,14 @@ class Payment_model extends CI_Model {
                     SUM(pay_withholding) as sum_withholding,
                     SUM(pay_super) as sum_super, 
                     SUM(pay_holiday_leave) as sum_holiday_leave
-                FROM wpayment";
+                FROM wpayment WHERE pay_status NOT IN (99) ";
 
         } else {
             $sql = "SELECT 
                     SUM(pay_gross) as sum_gross, 
                     SUM(pay_net) as sum_net, 
                     SUM(pay_withholding) as sum_withholding
-                FROM wpayment";
+                FROM wpayment WHERE pay_status NOT IN (99) ";
         }
         if ($query = $this->db->query($sql))
         {
@@ -62,7 +63,15 @@ class Payment_model extends CI_Model {
 
     public function payment_count_all()
     {
-        return $this->db->count_all($this->table);
+        $this->db->from($this->table);
+        $this->db->where_not_in('pay_status', array(99));
+
+        return $this->db->count_all_results();
+    }
+
+    public function update_payment_details($postdata)
+    {
+        $this->db->update($this->table, array('pay_status' => $postdata["pay_status"]), array('id' =>  $postdata["id"]));
     }
 }
 
