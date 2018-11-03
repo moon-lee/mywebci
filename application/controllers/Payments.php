@@ -41,6 +41,7 @@ class Payments extends Application
         $data = array();
         $post_data = $this->input->post(null, true);
         $validated_data = $this->validate_data($post_data);
+        $validated_data['pay_user'] = $this->session->userdata('user_name');
 
         $result = $this->payment_model->add_payment_detail($validated_data);
 
@@ -148,7 +149,15 @@ class Payments extends Application
             'payment_details'   => $this->payment_model->payment_list($config["per_page"], $start)
         );
         echo json_encode($output);
+    }
 
+    public function delete_payment_detail()
+    {
+        $post_data = $this->input->post(null, true);
+
+
+        //$this->task_model->update_task_item($post_data);
+        echo json_encode(array("status" => true));
     }
 }
 
