@@ -43,7 +43,11 @@ class Payment_model extends CI_Model {
                     SUM(pay_holiday_load) as sum_holiday_load,
                     SUM(pay_withholding) as sum_withholding,
                     SUM(pay_super) as sum_super, 
-                    SUM(pay_holiday_leave) as sum_holiday_leave
+                    SUM(pay_holiday_leave) as sum_holiday_leave,
+                    ROUND(AVG(pay_gross)*52,2) as est_gross, 
+                    ROUND(AVG(pay_net)*52,2) as est_net,
+                    ROUND(AVG(pay_withholding)*52,2) as est_withholding,
+                    ROUND(AVG(pay_super)*52,2) as est_super
                 FROM wpayment WHERE pay_status NOT IN (99) ";
 
         } else {

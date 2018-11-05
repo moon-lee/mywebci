@@ -14,31 +14,41 @@
                         <canvas id="paymentPieChart"></canvas>
 
 
-                        <table class="table table-sm table-hover table-summary">
+                        <table class="table table-sm table-hover table-summary text-right">
 
                             <thead class="thead-light">
                                 <tr>
                                     <th>#</th>
                                     <th>Year to date</td>
+                                    <th>Estimation of Year</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_summary">
                                 <tr>
                                     <th>Gross</th>
-                                    <td id="sum_gross"></td>
+                                    <td class="table-primary" id="sum_gross"></td>
+                                    <td class="table-success" id="est_gross"></td>
                                 </tr>
 
                                 <tr>
                                     <th>Net</th>
-                                    <td id="sum_net"></td>
+                                    <td class="table-primary" id="sum_net"></td>
+                                    <td class="table-success" id="est_net"></td>
+                                </tr>
+                                <tr>
+                                    <th>Withholding</th>
+                                    <td id="sum_withholding"></td>
+                                    <td id="est_withholding"></td>
                                 </tr>
                                 <tr>
                                     <th>Superannuation</th>
                                     <td id="sum_super"></td>
+                                    <td id="est_super"></td>
                                 </tr>
                                 <tr>
-                                    <th>Holiday Leave</th>
+                                    <th>Holiday Leave[Hours]</th>
                                     <td id="sum_holiday_leave"></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
 
