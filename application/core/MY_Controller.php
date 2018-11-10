@@ -78,6 +78,7 @@ class Application extends CI_Controller
         if ($template_view == VIEW_DEFAULT) {
             $this->data['dashboard'] = base_url('main/view_dashboard');
             $this->data['payments'] = base_url('main/view_payments');
+            $this->data['spendings'] = base_url('main/view_spendings');
             $this->data['weights'] = base_url('main/view_weights');
             $this->data['randomcolor'] = base_url('main/view_randomcolor');
             $this->data['settings'] = base_url('main/view_settings');

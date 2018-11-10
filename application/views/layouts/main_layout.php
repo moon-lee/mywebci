@@ -37,6 +37,7 @@
 
                         <ul class="collapse list-unstyled sidebar-child-list" id="mydatalist">
                             <li><a href="{payments}"><i class="fas fa-money-check-alt"></i>Payments</a></li>
+                            <li><a href="{spendings}"><i class="fas fa-money-check"></i>Spending</a></li>
                             <li><a href="{weights}"><i class="fas fa-weight"></i>Weights</a></li>
                         </ul>
                     </li>
@@ -79,7 +80,7 @@
                             <ul class="nav navbar-nav ml-auto">
 
                                 <li class="nav-item active">
-                                    <a href="{logout}" class="btn my-btn" role="button" aria-pressed="true"><i class="fas fa-sign-out-alt fa-lg fa-pull-right"></i>
+                                    <a href="{logout}" class="btn btn-sm my-btn" role="button" aria-pressed="true"><i class="fas fa-sign-out-alt fa-lg fa-pull-right"></i>
                                         Log Out</a>
                                 </li>
                             </ul>
