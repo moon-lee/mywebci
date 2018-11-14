@@ -21,6 +21,11 @@ $config['css_list_payment'] = array(
     )
 );
 
+$config['css_list_spending'] = array(
+    'csslist' => array(
+    array('cssdata' => base_url('assets/dist/css/flatpickr.min.css'))
+    )
+);
 
 $config['js_list_default'] = array(
     'jslist' => array(
@@ -47,6 +52,15 @@ $config['js_list_payment'] = array(
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
+
+$config['js_list_spending'] = array(
+    'jslist' => array(
+    array('jsdata' => base_url('assets/dist/js/mySpendings.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
+    )
+);
+
 
 $config['payment_details'] = array(
     array('value' => "0", "text" => "Select detail"),

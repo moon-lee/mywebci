@@ -23,11 +23,10 @@ class Spendings extends Application {
         $page_title = 'Spendings';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
+        $this->data['css'] = $this->set_css(CSS_JS_SPENDING);  
+        $this->data['js'] = $this->set_js(CSS_JS_SPENDING);  
         $this->data['content-body'] = $this->set_content('spendings', array('contenttitle' => $page_title));
-        $this->data['modal'] = '';
-
+        $this->data['modal'] = $this->set_content('layouts/spendings_modal');
 
         $this->render();
     }  
