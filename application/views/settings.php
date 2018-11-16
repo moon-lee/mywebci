@@ -12,38 +12,33 @@
                     <div class="col-6">
                         <form action="" method="post">
                             <p><span class="far fa-plus-square"></span>General</p>
-                            <div class="form-group">
-                                <label for="paymentDate">General Setting1</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="invalid-tooltip"></div>
-                                </div>
+
+                            <div class="custom-control custom-checkbox form-group">
+                                <input type="checkbox" name="" id="customCheck1" class="custom-control-input">
+                                <label for="customCheck1" class="custom-control-label">Enable the notification of tasks</label>
                             </div>
+
                             <p><span class="far fa-plus-square"></span>Payments</p>
                             <div class="form-group">
-                                <label for="paymentDate">Payments Setting1</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="invalid-tooltip"></div>
-                                </div>
+                                <label for="customSelect1">Pay frequency</label>
+                                <select class="custom-select" id="customSelect1">
+                                    <option value="1">Weekly</option>
+                                    <option value="2">Fortnightly</option>
+                                    <option value="3">Monthly</option>
+                                </select>
                             </div>
                             <p><span class="far fa-plus-square"></span>Spendings</p>
                             <div class="form-group">
-                                <label for="paymentDate">Spendings Setting1</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="invalid-tooltip"></div>
-                                </div>
+                                <a name="" id="" class="btn btn-primary btn-sm" href="#" role="button">Setting Category</a>
                             </div>
                             <p><span class="far fa-plus-square"></span>Weights</p>
                             <div class="form-group">
-                                <label for="paymentDate">Weights Setting1</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <div class="invalid-tooltip"></div>
-                                </div>
+                             <div class="custom-control custom-checkbox form-group">
+                                <input type="checkbox" name="" id="customCheck2" class="custom-control-input">
+                                <label for="customCheck2" class="custom-control-label">Enable the notification</label>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary float-right">Save</button>
                         </form>
                     </div>
                 </div>

@@ -32,28 +32,16 @@
                     <li>
                         <a class="dropdown-toggle" data-toggle="collapse" href="#mydatalist" aria-expanded="false"
                             aria-controls="mydatalist"><i class="fas fa-table fa-lg"></i>
-                            My Data
+                            My Finance
                         </a>
 
                         <ul class="collapse list-unstyled sidebar-child-list" id="mydatalist">
-                            <li><a href="{payments}"><i class="fas fa-money-check-alt"></i>Payments</a></li>
-                            <li><a href="{spendings}"><i class="fas fa-money-check"></i>Spending</a></li>
-                            <li><a href="{weights}"><i class="fas fa-weight"></i>Weights</a></li>
+                            <li><a href="{payments}"><i class="fas fa-money-check-alt"></i>Income</a></li>
+                            <li><a href="{spendings}"><i class="fas fa-money-check"></i>Expenses</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="{settings}"><i class="fas fa-cog fa-lg""></i>Settings</a>
-                    </li>
-
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="collapse" href="#mytestlist" aria-expanded="false"
-                            aria-controls="mytestlist"><i class="fas fa-cogs fa-lg"></i>
-                            TestPage
-                        </a>
-
-                        <ul class="collapse list-unstyled sidebar-child-list" id="mytestlist">
-                            <li><a href="{randomcolor}"><i class="fas fa-palette"></i>Ramdon Color</a></li>
-                        </ul>
                     </li>
 
                 </ul>
