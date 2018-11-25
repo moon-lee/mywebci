@@ -8,7 +8,7 @@
 
         <div class="card-settings card my-4">
             <div class="card-body">
-                <div class="row justify-content-center">
+                <div class="row justify-content-around">
                     <div class="col-5">
                         <p><span class="far fa-plus-square"></span>General</p>
 
@@ -44,10 +44,6 @@
                             </tbody>
                         </table>
 
-                        <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse"
-                            data-target="#mainCategory" aria-expanded="false" aria-controls="mainCategory">add
-
-                        </button>
 
                         <div class="collapse" id="mainCategory">
                             <div class="row">
@@ -71,7 +67,9 @@
                                 </div>
                             </div>
                         </div>
-
+                        <button class="btn btn-sm btn-primary float-right" type="button" data-toggle="collapse"
+                            data-target="#mainCategory" aria-expanded="false" aria-controls="mainCategory">add
+                        </button>
 
                     </div>
                 </div>
