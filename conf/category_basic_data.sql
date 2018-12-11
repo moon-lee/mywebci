@@ -1,0 +1,16 @@
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('A00','Housing Expenses');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('A99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('B00','Transportation');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('B99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('C00','Medical/Health');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('C99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('D00','Daily Living');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('D99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('E00','Entertainment');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('E99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('F00','Debt');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('F99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('G00','Saving');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('G99','Other');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('H00','Miscellaneous');
+INSERT INTO wcategory (cat_code,cat_name) VALUES ('H99','Other');

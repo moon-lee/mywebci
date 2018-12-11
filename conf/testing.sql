@@ -1,10 +1,21 @@
-SELECT CONVERT(SUBSTR(testcol,2,2), SIGNED)FROM test
-WHERE NOT SUBSTR(testcol,2,2) IN ('00','99')
-AND testcol LIKE 'A%';
+SELECT CONVERT(SUBSTR(cat_code,2,2), SIGNED)FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'A%';
 
-SELECT LPAD(MAX(SUBSTR(testcol,2,2)) + 1,2,'0') FROM test
-WHERE NOT SUBSTR(testcol,2,2) IN ('00','99')
-AND testcol LIKE 'B%';
+SELECT LPAD(IFNULL(MAX(SUBSTR(cat_code,2,2)) + 1,1),2,'0') FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'A%';
 
-SELECT * FROM TEST
-WHERE testcol LIKE 'B%';
+SELECT * FROM wcategory
+WHERE cat_code LIKE 'B%';
+
+
+SELECT * FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'B%';
+
+
+SELECT IFNULL(MAX(SUBSTR(cat_code,2,2)) + 1, 1)
+FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'B%';
