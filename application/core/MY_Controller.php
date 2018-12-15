@@ -37,6 +37,9 @@ class Application extends CI_Controller
         } elseif ($setstate === CSS_JS_PAYMENT) {
             $css_payment = $this->myconfig['css_list_payment'];
             $csslists = array_merge_recursive($css_def, $css_payment);
+        } elseif ($setstate === CSS_JS_SPENDING) {
+            $css_spending = $this->myconfig['css_list_spending'];
+            $csslists = array_merge_recursive($css_def, $css_spending);
         }
         
         return $this->parser->parse_string($css_template, $csslists, true);
@@ -55,6 +58,9 @@ class Application extends CI_Controller
         } elseif ($setstate === CSS_JS_PAYMENT) {
             $js_payment =  $this->myconfig['js_list_payment'];
             $jslists = array_merge_recursive($js_def, $js_payment);
+        } elseif ($setstate === CSS_JS_SPENDING) {
+            $js_spending =  $this->myconfig['js_list_spending'];
+            $jslists = array_merge_recursive($js_def, $js_spending);
         }
 
         return $this->parser->parse_string($js_template, $jslists, true);
@@ -78,8 +84,7 @@ class Application extends CI_Controller
         if ($template_view == VIEW_DEFAULT) {
             $this->data['dashboard'] = base_url('main/view_dashboard');
             $this->data['payments'] = base_url('main/view_payments');
-            $this->data['weights'] = base_url('main/view_weights');
-            $this->data['randomcolor'] = base_url('main/view_randomcolor');
+            $this->data['spendings'] = base_url('main/view_spendings');
             $this->data['settings'] = base_url('main/view_settings');
             $this->data['logout'] = base_url('main/user_logout');
         }

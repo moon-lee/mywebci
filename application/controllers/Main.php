@@ -59,6 +59,11 @@ class Main extends Application
         redirect('payments');
     }
 
+    public function view_spendings()
+    {
+        redirect('spendings');
+    }
+
     public function view_weights()
     {
         redirect('weights');

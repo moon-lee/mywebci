@@ -1,0 +1,21 @@
+SELECT CONVERT(SUBSTR(cat_code,2,2), SIGNED)FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'A%';
+
+SELECT LPAD(IFNULL(MAX(SUBSTR(cat_code,2,2)) + 1,1),2,'0') FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'A%';
+
+SELECT * FROM wcategory
+WHERE cat_code LIKE 'B%';
+
+
+SELECT * FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'B%';
+
+
+SELECT IFNULL(MAX(SUBSTR(cat_code,2,2)) + 1, 1)
+FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'B%';

@@ -13,7 +13,6 @@
                         <p><span class="far fa-plus-square"></span>Summary</p>
                         <canvas id="paymentPieChart"></canvas>
 
-
                         <table class="table table-sm table-hover table-summary text-right">
 
                             <thead class="thead-light">
