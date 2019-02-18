@@ -97,7 +97,7 @@ switch (ENVIRONMENT)
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-	$system_path = 'E:\Documents\MyProjects\mywebci\system';
+	$system_path = '/mnt/MyData/MyDirectory/mywebci/system';
 
 /*
  *---------------------------------------------------------------
@@ -114,7 +114,7 @@ switch (ENVIRONMENT)
  *
  * NO TRAILING SLASH!
  */
-	$application_folder = 'E:\Documents\MyProjects\mywebci\application';
+	$application_folder = '/mnt/MyData/MyDirectory/mywebci/application';
 
 /*
  *---------------------------------------------------------------

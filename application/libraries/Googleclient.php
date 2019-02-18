@@ -15,7 +15,7 @@ class Googleclient
         $this->CI =& get_instance();
         $this->CI->config->load('google_auth');
 
-        require_once APPPATH."third_party/google-api-php/vendor/autoload.php";
+        require_once APPPATH."third_party/google-api-php-client-2.2.2/vendor/autoload.php";
         
         $this->client = new Google_Client();
         $this->client->setApplicationName($this->CI->config->item('application_name'));
