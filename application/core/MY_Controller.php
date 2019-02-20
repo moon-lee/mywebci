@@ -80,7 +80,10 @@ class Application extends CI_Controller
             $this->data['pagetitle'] = $this->data['title'];
         }
         $this->data['username'] = $this->session->userdata('user_name');
-        
+
+        // Add Automatic Copyright Year
+        $this->data['copyrightyear'] = $this->getCopyRightYear();
+
         if ($template_view == VIEW_DEFAULT) {
             $this->data['dashboard'] = base_url('main/view_dashboard');
             $this->data['payments'] = base_url('main/view_payments');
@@ -112,6 +115,13 @@ class Application extends CI_Controller
         return $loggedin;
     }
 
+    protected function getCopyRightYear()
+    {
+        $fromyear = 2018;
+        $thisyear = (int)date('Y');
+
+        return $fromyear . (($fromyear != $thisyear) ? '-' . $thisyear : '');
+    }
     
     protected function _logout()
     {

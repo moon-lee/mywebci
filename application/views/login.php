@@ -48,7 +48,10 @@
                 </div>
 
                 <div>
-                    <p>©2018 All Rights Reserved. </p>
+                    <p>
+                        <span>&copy; {copyrightyear} <a href="#">WOM</a>.</span>
+                        <span> All rights reserved.</span>
+                    </p>
                 </div>
             </form>
         </div>

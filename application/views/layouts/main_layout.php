@@ -81,7 +81,7 @@
 
             <div class="content-footer">
                 <div class="container-fluid">
-                    <span> <strong>Copyright &copy; 2018 <a href="#">WOM</a>.</strong></span>
+                    <span> <strong>Copyright &copy; {copyrightyear} <a href="#">WOM</a>.</strong></span>
                     <span> All rights reserved.</span>
                 </div>
             </div>
