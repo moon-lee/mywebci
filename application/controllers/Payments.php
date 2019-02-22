@@ -106,6 +106,18 @@ class Payments extends Application
             $data['error_string'][] = 'It can not be much than gross';
             $data['status'] = false;
         }
+
+        // Calculate Holiday hours from holidaypay
+
+        if ((float)$unformatted["dholidaypay"] > 0) {
+            $holidaypay = (float)$unformatted["dholidaypay"];
+            $holidayhours = (float)$unformatted["oholidayhours"];
+            $base_rate = $this->data['base_rate'];
+            $calculated_holidayhours = round((float)($holidayhours - ($holidaypay/$base_rate)),2);
+
+        } else {
+            $calculated_holidayhours = $unformatted['oholidayhours'];
+        }
  
         if (!$data['status']) {
             echo json_encode($data);
@@ -123,7 +135,8 @@ class Payments extends Application
                 'pay_personal_leave' => $unformatted['dpersonalleave'],
                 'pay_holiday_pay'    => $unformatted['dholidaypay'],
                 'pay_holiday_load'   => $unformatted['dholidayload'],
-                'pay_holiday_leave'  => $unformatted['oholidayhours'],
+//                'pay_holiday_leave'  => $unformatted['oholidayhours'],
+                'pay_holiday_leave'  => $calculated_holidayhours,
                 'pay_super'          => $unformatted['osuperannuation']
             );
         }

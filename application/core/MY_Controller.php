@@ -20,8 +20,9 @@ class Application extends CI_Controller
         $this->load->library('googleclient');
 
         $this->config->load('myconfig', true);
-
         $this->myconfig = $this->config->item('myconfig');
+
+        $this->data['base_rate'] = $this->myconfig['base_rate'];
     }
 
     protected function set_css($setstate = CSS_JS_DEFAULT)
@@ -136,9 +137,6 @@ class Application extends CI_Controller
 
     protected function _debug_print($output)
     {
-        echo "<pre>";
-        print_r($output);
-        echo "</pre>";
-        //die();
+        echo "<script>console.log(".json_encode($output).")</script>";
     }
 }

@@ -31,6 +31,9 @@ where pay_date < 20181123;
 select * from wpayment
 where pay_date < 20181123;
 
-select 113.73 - 7.6 + 2.92 + 2.92;
+select 113.73 - 7.6 + 2.92 ;
 
 select 174.8/23;
+
+
+
