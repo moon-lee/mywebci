@@ -1,16 +1,16 @@
-<!-- Modal -->
+<!-- Add Payment Modal -->
 <div class="modal fade" id="addPaymentinfo" tabindex="-1" role="dialog" aria-labelledby="addPaymentinfoLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addPaymentinfoLabel">Add Payment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-            </div>
             <form id="form_payment" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPaymentinfoLabel">Add Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
                 <div class="modal-body">
                     <p><span class="far fa-plus-square"></span>Basic</p>
                     <div class="form-row">

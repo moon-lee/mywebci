@@ -84,6 +84,8 @@ class Application extends CI_Controller
 
         // Add Automatic Copyright Year
         $this->data['copyrightyear'] = $this->getCopyRightYear();
+        // Codeigniter Version 
+        $this->data['ci_version'] = " ". CI_VERSION . " ";
 
         if ($template_view == VIEW_DEFAULT) {
             $this->data['dashboard'] = base_url('main/view_dashboard');

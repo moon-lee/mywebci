@@ -82,7 +82,7 @@
             <div class="content-footer">
                 <div class="container-fluid">
                     <span> <strong>Copyright &copy; {copyrightyear} <a href="#">WOM</a>.</strong></span>
-                    <span> All rights reserved.</span>
+                    <span> All rights reserved. CI Version <strong> {ci_version} </strong></span>
                 </div>
             </div>
 

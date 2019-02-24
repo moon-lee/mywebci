@@ -1,4 +1,4 @@
-<!-- TO DO List -->
+<!-- Add Task Modal -->
 <div class="card my-5">
     <div class="card-header">
         <i class="far fa-clipboard"></i>

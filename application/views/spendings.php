@@ -14,14 +14,6 @@
                     </div>
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Details</p>
-                        <div class="row">
-                            <div class="col-8">
-                                section
-                            </div>
-                            <div class="col-4">
-                                section
-                            </div>
-                        </div>
 
                         <table id="datatable" class="table table-sm table-striped table-bordered">
                             <thead>
