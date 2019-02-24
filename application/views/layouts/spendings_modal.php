@@ -34,14 +34,20 @@
                     </div>
                     <p><span class="far fa-plus-square"></span>Details</p>
                     <div class="form-row">
+
                         <div class="form-group col-4">
-                            <label for="spendingAccount">Account</label>
+                            <label for="accountType">Account Type</label>
                             <div class="input-group">
-                                <input type="text" name="spendingaccount" id="spendingAccount"
-                                    class="form-control" required>
+                                <select class="form-control" name="accountType" id="accountType">
+                                    <option value="0">Select Account Type</option>
+                                    <option value="1">Saving</option>
+                                    <option value="2">Credit</option>
+                                    <option value="3">Cash</option>
+                                </select>
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
+
                         <div class="form-group col-4">
                             <label for="mainCategory">Category</label>
                             <div class="input-group">

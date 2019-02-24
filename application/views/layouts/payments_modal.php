@@ -9,7 +9,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-
                 </div>
                 <div class="modal-body">
                     <p><span class="far fa-plus-square"></span>Basic</p>

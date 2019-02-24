@@ -7,7 +7,7 @@ WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
 AND cat_code LIKE 'A%';
 
 SELECT * FROM wcategory
-WHERE cat_code LIKE 'B%';
+WHERE cat_code LIKE 'A%';
 
 
 SELECT * FROM wcategory
