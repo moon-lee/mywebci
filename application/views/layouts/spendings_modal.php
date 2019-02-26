@@ -39,10 +39,7 @@
                             <label for="accountType">Account Type</label>
                             <div class="input-group">
                                 <select class="form-control" name="accountType" id="accountType">
-                                    <option value="0">Select Account Type</option>
-                                    <option value="1">Saving</option>
-                                    <option value="2">Credit</option>
-                                    <option value="3">Cash</option>
+                                    {account_type}
                                 </select>
                                 <div class="invalid-tooltip"></div>
                             </div>

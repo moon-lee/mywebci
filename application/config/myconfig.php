@@ -73,6 +73,14 @@ $config['payment_details'] = array(
     array('value' => "7", "text" => "Holiday Load")
 );
 
+
+$config['selection_accountType'] = array(
+    array('value' => "0", "text" => "-- Select Account Type --"),
+    array('value' => "1", "text" => "Bank Saving Account"),
+    array('value' => "2", "text" => "Credit Card"),
+    array('value' => "3", "text" => "Cash")
+);
+
 $config['option_template'] = '<option value={value}>{text}</option>';
 
 $config['base_rate'] = 23.00;
