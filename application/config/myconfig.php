@@ -83,7 +83,7 @@ $config['selection_accountType'] = array(
 
 $config['option_template'] = '<option value={value}>{text}</option>';
 
-$config['base_rate'] = 23.00;
+//$config['base_rate'] = 23.00;
 
 
 /* End of file filename.php */

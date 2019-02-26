@@ -112,8 +112,9 @@ class Payments extends Application
         if ((float)$unformatted["dholidaypay"] > 0) {
             $holidaypay = (float)$unformatted["dholidaypay"];
             $holidayhours = (float)$unformatted["oholidayhours"];
-            $base_rate = $this->data['base_rate'];
-            $calculated_holidayhours = round((float)($holidayhours - ($holidaypay/$base_rate)),2);
+            //$base_rate = $this->data['base_rate'];
+            //$calculated_holidayhours = round((float)($holidayhours - ($holidaypay/$base_rate)),2);
+            $calculated_holidayhours = round((float)($holidayhours - ($holidaypay/BASE_RATE)),2);
 
         } else {
             $calculated_holidayhours = $unformatted['oholidayhours'];

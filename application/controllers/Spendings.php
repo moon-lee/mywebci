@@ -26,10 +26,8 @@ class Spendings extends Application {
         $this->data['css'] = $this->set_css(CSS_JS_SPENDING);  
         $this->data['js'] = $this->set_js(CSS_JS_SPENDING);  
         $this->data['content-body'] = $this->set_content('spendings', array('contenttitle' => $page_title));
-        // Set Selection 
-        
-
-        $this->data['modal'] = $this->set_content('layouts/spendings_modal', 
+        // Set modal with selections 
+         $this->data['modal'] = $this->set_content('layouts/spendings_modal', 
                                 array('account_type' => $this->set_selection('selection_accountType')));
 
         $this->render();

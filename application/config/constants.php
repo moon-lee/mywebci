@@ -88,6 +88,8 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 | Custom defines
 |--------------------------------------------------------------------------
 */
+defined('BASE_RATE')           OR define('BASE_RATE', 23.00);
+
 defined('CSS_JS_DEFAULT')      OR define('CSS_JS_DEFAULT', 0);
 defined('CSS_JS_DASHBOARD')    OR define('CSS_JS_DASHBOARD', 1);
 defined('CSS_JS_PAYMENT')      OR define('CSS_JS_PAYMENT', 2);
