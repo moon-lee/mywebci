@@ -22,8 +22,6 @@ class Application extends CI_Controller
         $this->config->load('myconfig', true);
         $this->myconfig = $this->config->item('myconfig');
 
-        //$this->data['base_rate'] = BASE_RATE;
-//        $this->data['base_rate'] = $this->myconfig['base_rate'];
     }
 
     protected function set_css($setstate = CSS_JS_DEFAULT)
