@@ -38,7 +38,7 @@
                         <div class="form-group col-4">
                             <label for="accountType">Account Type</label>
                             <div class="input-group">
-                                <select class="form-control" name="accountType" id="accountType">
+                                <select class="form-control" name="accountType" id="accountType" required>
                                     {account_type}
                                 </select>
                                 <div class="invalid-tooltip"></div>
@@ -46,18 +46,21 @@
                         </div>
 
                         <div class="form-group col-4">
-                            <label for="mainCategory">Category</label>
+                            <label for="mainCategory">Main Category</label>
                             <div class="input-group">
-                                <input type="text" name="maincategory" id="mainCategory"
-                                    class="form-control" required>
+                                <select class="form-control" name="maincategory" id="mainCategory" required>
+                                    {main_category_first}
+                                    {main_category}
+                                </select>
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
                         <div class="form-group col-4">
                             <label for="subCategory">Sub-Category</label>
                             <div class="input-group">
-                                <input type="text" name="subcategory" id="subCategory"
-                                    class="form-control" required>
+                                <select class="form-control" name="subcategory" id="subCategory" required>
+                                    {sub_category_first}
+                                </select>
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -66,8 +69,7 @@
                         <div class="form-group col-12">
                             <label for="spendingDesc">Description</label>
                             <div class="input-group">
-                                <input type="text"  name="spendingdesc" id="spendingDesc"
-                                    class="form-control" required>
+                                <input type="text" name="spendingdesc" id="spendingDesc" class="form-control" required>
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>

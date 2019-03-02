@@ -74,11 +74,19 @@ $config['payment_details'] = array(
 );
 
 
-$config['selection_accountType'] = array(
+$config['account_type'] = array(
     array('value' => "0", "text" => "-- Select Account Type --"),
     array('value' => "1", "text" => "Bank Saving Account"),
     array('value' => "2", "text" => "Credit Card"),
     array('value' => "3", "text" => "Cash")
+);
+
+$config['main_category_first'] = array(
+    array('value' => "", "text" => "-- Select Main Category --"),
+);
+
+$config['sub_category_first'] = array(
+    array('value' => "", "text" => "-- Select Main Category first --"),
 );
 
 $config['option_template'] = '<option value={value}>{text}</option>';

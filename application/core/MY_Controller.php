@@ -66,14 +66,13 @@ class Application extends CI_Controller
         return $this->parser->parse_string($js_template, $jslists, true);
     }
 
-    protected function set_selection($which_option)
+    protected function set_selection($options)
     {
         $selections = '';
 
-        if (isset($which_option)) {
+        if (isset($options)) {
             $option_template = $this->myconfig['option_template'];
-            $options = $this->myconfig[$which_option];
-            
+           
             foreach ($options as $option) {
                 $selections .= $this->parser->parse_string($option_template, $option, true );
             }
