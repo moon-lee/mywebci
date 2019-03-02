@@ -35,5 +35,14 @@ select 113.73 - 7.6 + 2.92 ;
 
 select 174.8/23;
 
+-- Get Main Category Code and Name
+SELECT SUBSTR(cat_code,1,1) as cat_code, cat_name FROM wcategory
+WHERE cat_code LIKE '%00';
+
+-- Get Sub Category Code and Name
+SELECT * FROM wcategory
+WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
+AND cat_code LIKE 'B%';
+
 
 
