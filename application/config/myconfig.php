@@ -40,7 +40,9 @@ $config['js_list_dashboard'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/myDashboard.js')),
     array('jsdata' => base_url('assets/dist/js/vendorCalendar.js')),
-    array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    // array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
+    //array('jsdata' => base_url('assets/dist/js/bundles.datatable.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
@@ -48,7 +50,8 @@ $config['js_list_dashboard'] = array(
 $config['js_list_payment'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/myPayments.js')),
-    array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    // array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
@@ -56,7 +59,8 @@ $config['js_list_payment'] = array(
 $config['js_list_spending'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/mySpendings.js')),
-    array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    // array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
@@ -75,18 +79,18 @@ $config['payment_details'] = array(
 
 
 $config['account_type'] = array(
-    array('value' => "0", "text" => "-- Select Account Type --"),
+    array('value' => "0", "text" => "Select Account Type"),
     array('value' => "1", "text" => "Bank Saving Account"),
     array('value' => "2", "text" => "Credit Card"),
     array('value' => "3", "text" => "Cash")
 );
 
 $config['main_category_first'] = array(
-    array('value' => "", "text" => "-- Select Main Category --"),
+    array('value' => "", "text" => "Select Main Category"),
 );
 
 $config['sub_category_first'] = array(
-    array('value' => "", "text" => "-- Select Main Category first --"),
+    array('value' => "", "text" => "Select Main Category first"),
 );
 
 $config['option_template'] = '<option value={value}>{text}</option>';

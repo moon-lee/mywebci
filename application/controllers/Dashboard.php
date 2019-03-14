@@ -32,7 +32,7 @@ class Dashboard extends Application
         $payments = $this->payment_summary();
         $this->data['content-body'] = $this->set_content(
             'dashboard',
-                                        array(
+            array(
                                             'contenttitle' => $page_title,
                                             'payments' => base_url('main/view_payments'),
                                             'weights' => base_url('main/view_weights'),
