@@ -23,7 +23,8 @@ $config['css_list_payment'] = array(
 
 $config['css_list_spending'] = array(
     'csslist' => array(
-    array('cssdata' => base_url('assets/dist/css/flatpickr.min.css'))
+    array('cssdata' => base_url('assets/dist/css/flatpickr.min.css')),
+    array('cssdata' => base_url('assets/dist/css/dataTables.bootstrap4.min.css'))
     )
 );
 
@@ -42,7 +43,6 @@ $config['js_list_dashboard'] = array(
     array('jsdata' => base_url('assets/dist/js/vendorCalendar.js')),
     // array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
-    //array('jsdata' => base_url('assets/dist/js/bundles.datatable.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
@@ -61,6 +61,7 @@ $config['js_list_spending'] = array(
     array('jsdata' => base_url('assets/dist/js/mySpendings.js')),
     // array('jsdata' => base_url('assets/dist/js/flatpickr.min.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
+    array('jsdata' => base_url('assets/dist/js/bundles.datatable.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
