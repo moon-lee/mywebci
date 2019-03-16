@@ -16,7 +16,7 @@
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label for="spendingDate">Spending Date</label>
-                            <div class="input-group">
+                            <div class="input-group-sm">
                                 <input type="text" name="spendingdate" id="spendingDate" class="form-control"
                                     placeholder="Select date ..." required>
                                 <div class="invalid-tooltip"></div>
@@ -24,30 +24,31 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="spendingAmount">Amount</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                                <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="spendingamount" id="spendingAmount"
-                                    class="form-control text-right" data-format-type="currency" required>
-                                <div class="invalid-tooltip"></div>
+                            <div class="input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" pattern="^\d{1,3}(,\d{3})*(\.\d+)?$" name="spendingamount"
+                                        id="spendingAmount" class="form-control form-control-sm text-right" data-format-type="currency"
+                                        required>
+                                    <div class="invalid-tooltip"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <p><span class="far fa-plus-square"></span>Details</p>
                     <div class="form-row">
-
                         <div class="form-group col-4">
                             <label for="accountType">Account Type</label>
-                            <div class="input-group">
-                                <select class="form-control" name="accountType" id="accountType" required>
+                            <div class="input-group-sm">
+                                <select class="form-control" name="accounttype" id="accountType" required>
                                     {account_type}
                                 </select>
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
-
                         <div class="form-group col-4">
                             <label for="mainCategory">Main Category</label>
-                            <div class="input-group">
+                            <div class="input-group-sm">
                                 <select class="form-control" name="maincategory" id="mainCategory" required>
                                     {main_category_first}
                                     {main_category}
@@ -57,7 +58,7 @@
                         </div>
                         <div class="form-group col-4">
                             <label for="subCategory">Sub-Category</label>
-                            <div class="input-group">
+                            <div class="input-group-sm">
                                 <select class="form-control" name="subcategory" id="subCategory" required>
                                     {sub_category_first}
                                 </select>
@@ -66,11 +67,23 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="spendingDesc">Description</label>
-                            <div class="input-group">
-                                <input type="text" name="spendingdesc" id="spendingDesc" class="form-control" required>
-                                <div class="invalid-tooltip"></div>
+                        <div class="form-group col-3">
+                            <div class="input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <input type="checkbox" id="spendingTax" aria-label="">
+                                    </span>
+                                    <span class="input-group-text">Tax Refundable</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-9">
+                            <div class="input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Description</span>
+                                    <input type="text" name="spendingdesc" id="spendingDesc"
+                                        class="form-control form-control-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
