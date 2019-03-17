@@ -46,7 +46,7 @@ class Payments extends Application
         $result = $this->payment_model->add_payment_detail($validated_data);
 
         $data["status"] =  true;
-        $data["saved_data"] = $validated_data;
+        //$data["saved_data"] = $validated_data;
         echo json_encode($data);
     }
 

@@ -71,7 +71,7 @@
                             <div class="input-group-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <input type="checkbox" id="spendingTax" aria-label="">
+                                        <input type="checkbox" name="ospendingtax" id="spendingTax" value="true">
                                     </span>
                                     <span class="input-group-text">Tax Refundable</span>
                                 </div>
@@ -81,7 +81,7 @@
                             <div class="input-group-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Description</span>
-                                    <input type="text" name="spendingdesc" id="spendingDesc"
+                                    <input type="text" name="ospendingdesc" id="spendingDesc"
                                         class="form-control form-control-sm">
                                 </div>
                             </div>
