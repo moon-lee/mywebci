@@ -3,7 +3,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends Application
+class Dashboard extends MY_Controller
 {
     public function __construct()
     {

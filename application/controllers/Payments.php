@@ -2,13 +2,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Payments extends Application
+class Payments extends MY_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->model('payment_model');
-        
     }
     
 
@@ -112,8 +111,7 @@ class Payments extends Application
         if ((float)$unformatted["dholidaypay"] > 0) {
             $holidaypay = (float)$unformatted["dholidaypay"];
             $holidayhours = (float)$unformatted["oholidayhours"];
-            $calculated_holidayhours = round((float)($holidayhours - ($holidaypay/BASE_RATE)),2);
-
+            $calculated_holidayhours = round((float)($holidayhours - ($holidaypay/BASE_RATE)), 2);
         } else {
             $calculated_holidayhours = $unformatted['oholidayhours'];
         }
@@ -151,7 +149,7 @@ class Payments extends Application
         $config["per_page"] = 8;
         $config["uri_segment"] = 3;
             
-        $this->load->library('pagination',$config);
+        $this->load->library('pagination', $config);
 
         $page = $this->uri->segment(3);
         $start = ($page-1) * $config["per_page"];

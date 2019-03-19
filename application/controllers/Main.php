@@ -2,9 +2,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Main extends Application
+class Main extends MY_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -21,18 +20,17 @@ class Main extends Application
         if ($this->isLoggedin()) {
             $this->view_dashboard();
         } else {
-
             $this->render_login();
         }
     }
 
     private function render_login()
-    {   
+    {
         $page_title = 'Log In';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
+        $this->data['css'] = $this->set_css();
+        $this->data['js'] = $this->set_js();
         $this->data['login'] = base_url('main/login_user');
         
         $this->data['authUrl'] = $this->googleclient->authUrl();
@@ -40,7 +38,7 @@ class Main extends Application
         
         $msg['error_msg'] = $this->session->flashdata('error_msg');
         $err_template = '<div class="alert alert-danger">{error_msg}</div>';
-        if(isset($msg['error_msg'])) {
+        if (isset($msg['error_msg'])) {
             $this->data['error_msg'] = $this->parser->parse_string($err_template, $msg, true);
         } else {
             $this->data['error_msg'] = '';
@@ -82,7 +80,6 @@ class Main extends Application
 
     public function login_user()
     {
-
         $user_login = array('user_email' => $this->input->post('user_email'), 'user_password' => $this->input->post('user_password'));
 
         $data = $this->user_model->login_user($user_login['user_email'], $user_login['user_password']);
@@ -91,15 +88,13 @@ class Main extends Application
             $this->session->set_userdata('user_id', $data['user_id']);
             $this->session->set_userdata('user_email', $data['user_email']);
             $this->session->set_userdata('user_name', $data['user_name']);
-            $this->session->set_userdata('loggedin',true);
+            $this->session->set_userdata('loggedin', true);
 
             $this->view_dashboard();
-
         } else {
             $this->session->set_flashdata('error_msg', 'Error occured, Try again');
             $this->view_login();
         }
-
     }
 
     public function login_with_google()
@@ -112,19 +107,16 @@ class Main extends Application
 
 
         if (array_key_exists('error', $accessToken)) {
-
             $this->session->set_flashdata('error_msg', $accessToken['error_description']);
             $this->view_login();
-
         } else {
-
             $authUser = $this->googleclient->getUserInfo($accessToken);
 
             $this->session->set_userdata('user_id', $authUser['id']);
             $this->session->set_userdata('user_email', $authUser['email']);
             $this->session->set_userdata('user_name', $authUser['givenName'].' '.$authUser['familyName']);
 
-            $this->session->set_userdata('loggedin',true);
+            $this->session->set_userdata('loggedin', true);
 
             $this->view_dashboard();
         }
@@ -134,7 +126,6 @@ class Main extends Application
     {
         $this->_logout();
     }
-
 }
 
 /* End of file Main.php */

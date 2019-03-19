@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Spendings extends Application
+class Spendings extends MY_Controller
 {
     public function __construct()
     {
@@ -114,7 +114,7 @@ class Spendings extends Application
         $data = array();
         $post_data = $this->input->post(null, true);
 
-        $list = $this->spending_model->spending_list();
+        $list = $this->spending_model->spending_list($post_data);
         foreach ($list as $key => $value) {
             $data[$key] = $value;
         }

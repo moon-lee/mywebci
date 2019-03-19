@@ -1,13 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Settings extends Application {
-
+class Settings extends MY_Controller
+{
     public function __construct()
     {
         parent::__construct();
-
     }
 
     public function index()
@@ -19,19 +18,18 @@ class Settings extends Application {
     }
 
     private function render_settings()
-    {   
+    {
         $page_title = 'Settings';
 
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
-        $this->data['css'] = $this->set_css();  
-        $this->data['js'] = $this->set_js();  
+        $this->data['css'] = $this->set_css();
+        $this->data['js'] = $this->set_js();
         $this->data['content-body'] = $this->set_content('settings', array('contenttitle' => $page_title));
         $this->data['modal'] = '';
 
 
         $this->render();
-    }  
-
+    }
 }
 
 /* End of file Settings.php */

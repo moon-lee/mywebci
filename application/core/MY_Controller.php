@@ -4,7 +4,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Application extends CI_Controller
+class MY_Controller extends CI_Controller
 {
     protected $data = array(); // parameters for view components
     protected $id;   // identifier for our content
