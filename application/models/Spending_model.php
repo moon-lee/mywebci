@@ -2,11 +2,17 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Spending_model extends CI_Model {
-    private $table = "wspending";
+class Spending_model extends MY_Model {
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->tb_name = "wspending";
+    }
+    
     public function add_spending_detail ($data) {
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->tb_name, $data);
         return $this->db->insert_id();
     }
 
@@ -14,11 +20,11 @@ class Spending_model extends CI_Model {
     {
         $limit = $post_data['length'];
         $start = $post_data['start'];
-        $columns = $post_data['columns'];
+        $columns = $this->get_columns_name($post_data['columns']);
         $search = $post_data['search'];
         
-        $this->db->select('spend_date,spend_description,spend_account,spend_category,spend_amount');
-        $this->db->from($this->table);
+        $this->db->select( $columns);
+        $this->db->from($this->tb_name);
         $this->db->limit($limit, $start);
         
         if ($query = $this->db->get())
@@ -27,11 +33,18 @@ class Spending_model extends CI_Model {
         } else {
             return false;
         }
+
+        $result = array(
+            'draw' => $post_data['draw'],
+            'recordsTotal' => $this->spending_count_all(),
+            'recordsFiltered' => $this->spending_count_all(),
+            'data' => $data
+        );
     }
 
     public function spending_count_all()
     {
-        $this->db->from($this->table);
+        $this->db->from($this->tb_name);
         return $this->db->count_all_results();
     }
 
