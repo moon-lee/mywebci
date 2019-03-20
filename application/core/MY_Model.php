@@ -20,6 +20,30 @@ class MY_Model extends CI_Model
 
         return $columns_name;
     }
+
+    protected function get_orders($orders, $columns) {
+        $orderby_clauses = array();
+
+        foreach ($orders as $key => $value) {
+            if ($columns[$value["column"]]["orderable"]) {
+                $orderby_cluse[$columns[$value["column"]]["data"]] = $value["dir"];
+            }
+        }
+        
+        return  $orderby_clauses;
+    }
+
+    protected function get_like_clauses($columns) {
+        $like_clauses = array();
+        
+        foreach ($columns as $key => $value) {
+            if ($value["searchable"]) {
+                $like_clauses[] = $value["data"];
+            }
+        }
+
+        return $like_clauses;
+    }
 }
 
 /* End of file MY_Model.php */

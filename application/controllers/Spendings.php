@@ -114,17 +114,7 @@ class Spendings extends MY_Controller
         $data = array();
         $post_data = $this->input->post(null, true);
 
-        $list = $this->spending_model->spending_list($post_data);
-        foreach ($list as $key => $value) {
-            $data[$key] = $value;
-        }
-        
-        $result = array(
-            'draw' => $post_data['draw'],
-            'recordsTotal' => $this->spending_model->spending_count_all(),
-            'recordsFiltered' => $this->spending_model->spending_count_all(),
-            'data' => $data
-        );
+        $result = $this->spending_model->spending_list($post_data);
 
         echo json_encode($result);
     }
