@@ -21,7 +21,8 @@ class MY_Model extends CI_Model
         return $columns_name;
     }
 
-    protected function get_orders($orders, $columns) {
+    protected function get_orders($orders, $columns)
+    {
         $orderby_clauses = array();
 
         foreach ($orders as $key => $value) {
@@ -33,7 +34,8 @@ class MY_Model extends CI_Model
         return  $orderby_clauses;
     }
 
-    protected function get_like_clauses($columns) {
+    protected function get_like_clauses($columns)
+    {
         $like_clauses = array();
         
         foreach ($columns as $key => $value) {
