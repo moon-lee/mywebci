@@ -6,6 +6,15 @@ class MY_Model extends CI_Model
 {
     protected $tb_name;
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->config->load('myconfig', true);
+        $this->myconfig = $this->config->item('myconfig');
+    }
+    
+    
     protected function get_columns_name($columns)
     {
         $columns_name = "";

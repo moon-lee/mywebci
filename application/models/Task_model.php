@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Task_model extends CI_Model
+class Task_model extends MY_Model
 {
     private $table = "wtasks";
 

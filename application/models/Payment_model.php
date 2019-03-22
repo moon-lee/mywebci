@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Payment_model extends CI_Model {
+class Payment_model extends MY_Model {
 
     private $table = "wpayment";
 
