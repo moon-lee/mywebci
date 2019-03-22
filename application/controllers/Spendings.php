@@ -114,9 +114,9 @@ class Spendings extends MY_Controller
         $data = array();
         $post_data = $this->input->post(null, true);
 
-        $result = $this->spending_model->spending_list($post_data);
+        $list_data = $this->spending_model->spending_list($post_data);
 
-        echo json_encode($result);
+        echo json_encode($list_data);
     }
 }
 

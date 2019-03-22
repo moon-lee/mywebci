@@ -27,7 +27,7 @@ class Spending_model extends MY_Model
         $this->db->limit($post_data['length'], $post_data['start']);
         
         foreach ($orders as $key => $value) {
-            $this->db->order_by($key, $value);
+            $this->db->order_by($key, strtoupper($value));
         }
 
         foreach ($search_columns as $key => $value) {

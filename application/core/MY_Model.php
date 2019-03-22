@@ -27,7 +27,7 @@ class MY_Model extends CI_Model
 
         foreach ($orders as $key => $value) {
             if ($columns[$value["column"]]["orderable"]) {
-                $orderby_cluse[$columns[$value["column"]]["data"]] = $value["dir"];
+                $orderby_clauses[$columns[$value["column"]]["data"]] = $value["dir"];
             }
         }
         
