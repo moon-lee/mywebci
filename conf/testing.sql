@@ -7,12 +7,13 @@ WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
 AND cat_code LIKE 'A%';
 
 SELECT * FROM wcategory
-WHERE cat_code LIKE 'A%';
+WHERE cat_code =  'A%';
 
 
-SELECT * FROM wcategory
-WHERE NOT SUBSTR(cat_code,2,2) IN ('00','99')
-AND cat_code LIKE 'B%';
+SELECT CONCAT(SUBSTR(cat_code,1,1),'00') as master_category FROM wcategory;
+
+
+
 
 
 SELECT IFNULL(MAX(SUBSTR(cat_code,2,2)) + 1, 1)
@@ -62,13 +63,29 @@ OR `spend_category` LIKE '%w%' ESCAPE '!'
 ) 
 ORDER BY `spend_date` ASC LIMIT 10;
 
-CREATE VIEW v_spending AS 
-SELECT 	s.spend_date AS spend_date, 
-		s.spend_amount AS spend_amount,
-		s.spend_account AS spend_account, 
-		s.spend_description AS description,  
-		c.cat_name AS category
-FROM wspending AS s
-LEFT JOIN wcategory AS c 
-ON s.spend_category = c.cat_code;
+
+SELECT 
+	a.spend_date as spend_date,
+    a.spend_amount as spend_amount,
+    a.spend_account as spend_account,
+    a.spend_description as spend_description,
+	concat(c.cat_name, "\t  --  ", a.spend_category) as spend_category  
+FROM 
+	(SELECT 
+			`s`.`spend_date` AS `spend_date`,
+			`s`.`spend_amount` AS `spend_amount`,
+			(CASE `s`.`spend_account`
+				WHEN 1 THEN 'Bank Saving'
+				WHEN 2 THEN 'Credit Card'
+				WHEN 3 THEN 'Cash'
+				ELSE ''
+			END) AS `spend_account`,
+			`s`.`spend_description` AS `spend_description`,
+			CONCAT(SUBSTR(cat_code,1,1),'00') as master_category,
+				   `c`.`cat_name` AS `spend_category`
+		FROM
+			(`wspending` `s`
+			LEFT JOIN `wcategory` `c` ON ((`s`.`spend_category` = `c`.`cat_code`)))) as a
+LEFT JOIN wcategory c ON a.master_category = c.cat_code;
+
 
