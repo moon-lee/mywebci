@@ -60,5 +60,15 @@ WHERE (
  `spend_account` LIKE '%w%' ESCAPE '!' 
 OR `spend_category` LIKE '%w%' ESCAPE '!' 
 ) 
-ORDER BY `spend_date` ASC LIMIT 10
+ORDER BY `spend_date` ASC LIMIT 10;
+
+CREATE VIEW v_spending AS 
+SELECT 	s.spend_date AS spend_date, 
+		s.spend_amount AS spend_amount,
+		s.spend_account AS spend_account, 
+		s.spend_description AS description,  
+		c.cat_name AS category
+FROM wspending AS s
+LEFT JOIN wcategory AS c 
+ON s.spend_category = c.cat_code;
 
