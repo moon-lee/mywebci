@@ -19,10 +19,11 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Account Type</th>
                                     <th>Category</th>
                                     <th>Amount</th>
+                                    <th>Account Type</th>
+                                    <th>Description</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                         </table>
@@ -31,9 +32,6 @@
                             <div class="col-6">
                                 <button type="button" class="btn btn-primary btn-sm" id="addSpending"><i class="fas fa-plus"></i>Add
                                     Data</button>
-                            </div>
-                            <div class="col-6">
-                                <nav id="spendings_pagination_link"></nav>
                             </div>
                         </div>
                     </div>

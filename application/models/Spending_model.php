@@ -19,17 +19,40 @@ class Spending_model extends MY_Model
 
     public function spending_list($post_data)
     {
+        $this->_get_select_spending($post_data);
+        $this->db->limit($post_data['length'], $post_data['start']);
+
+        if ($query = $this->db->get()) {
+            $result = $query->result_array();
+            return array(
+                'draw' => $post_data['draw'],
+                'recordsTotal' => $this->spending_count_all(),
+                'recordsFiltered' => $this->filtered_spending_count($post_data),
+                'data' =>  $result
+            );
+        } else {
+            return false;
+        }
+    }
+
+    private function _get_select_spending($post_data)
+    {
         $select_columns = $this->get_columns_name($post_data['columns']);
-        $search_columns = $this->get_like_clauses($post_data['columns']);
         $orders = $this->get_orders($post_data['order'], $post_data['columns']);
 
         $this->db->select($select_columns);
         $this->db->from($this->view_tb_name);
-        $this->db->limit($post_data['length'], $post_data['start']);
         
         foreach ($orders as $key => $value) {
             $this->db->order_by($key, strtoupper($value));
         }
+
+        $this->_get_filtered_spending($post_data);
+    }
+
+    private function _get_filtered_spending($post_data)
+    {
+        $search_columns = $this->get_like_clauses($post_data['columns']);
 
         foreach ($search_columns as $key => $value) {
             if ($post_data['search']['value']) {
@@ -44,26 +67,19 @@ class Spending_model extends MY_Model
                 }
             }
         }
-        //echo $sql = $this->db->get_compiled_select();
-
-        if ($query = $this->db->get()) {
-            return array(
-                'draw' => $post_data['draw'],
-                'recordsTotal' => $this->spending_count_all(),
-                'recordsFiltered' => $query->num_rows(),
-                'data' => $query->result_array()
-            );
-        } else {
-            return false;
-        }
     }
 
     public function spending_count_all()
     {
-        $this->db->from($this->tb_name);
-        return $this->db->count_all_results();
+        return $this->db->count_all($this->tb_name);
     }
 
+    public function filtered_spending_count($post_data)
+    {
+        $this->_get_select_spending($post_data);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
 }
 
 /* End of file Spending_model.php */

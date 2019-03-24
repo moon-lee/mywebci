@@ -56,6 +56,11 @@ class MY_Model extends CI_Model
 
         return $like_clauses;
     }
+
+    protected function _debug_print($output)
+    {
+        echo "<pre>.$output.</pre>";
+    }
 }
 
 /* End of file MY_Model.php */
