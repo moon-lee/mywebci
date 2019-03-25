@@ -21,14 +21,13 @@ class Spending_model extends MY_Model
     {
         $this->_get_select_spending($post_data);
         $this->db->limit($post_data['length'], $post_data['start']);
-
+        
         if ($query = $this->db->get()) {
-            $result = $query->result_array();
             return array(
                 'draw' => $post_data['draw'],
                 'recordsTotal' => $this->spending_count_all(),
                 'recordsFiltered' => $this->filtered_spending_count($post_data),
-                'data' =>  $result
+                'data' => $query->result_array()
             );
         } else {
             return false;
