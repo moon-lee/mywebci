@@ -36,7 +36,9 @@ class MY_Model extends CI_Model
         $orderby_clauses = array();
 
         foreach ($orders as $key => $value) {
-            if ($columns[$value["column"]]["orderable"]) {
+            $orderable = $columns[$value["column"]]["orderable"] === "true" ? true: false;
+
+            if ($orderable) {
                 $orderby_clauses[$columns[$value["column"]]["data"]] = $value["dir"];
             }
         }
@@ -49,7 +51,9 @@ class MY_Model extends CI_Model
         $like_clauses = array();
         
         foreach ($columns as $key => $value) {
-            if ($value["searchable"]) {
+            $searchable = $value["searchable"] === "true" ? true: false;
+
+            if ($searchable) {
                 $like_clauses[] = $value["data"];
             }
         }

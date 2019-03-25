@@ -27,7 +27,8 @@ class Spending_model extends MY_Model
                 'draw' => $post_data['draw'],
                 'recordsTotal' => $this->spending_count_all(),
                 'recordsFiltered' => $this->filtered_spending_count($post_data),
-                'data' => $query->result_array()
+                'data' => $query->result_array(),
+                'query' => $this->db->last_query()
             );
         } else {
             return false;
@@ -41,6 +42,7 @@ class Spending_model extends MY_Model
 
         $this->db->select($select_columns);
         $this->db->from($this->view_tb_name);
+        
         
         foreach ($orders as $key => $value) {
             $this->db->order_by($key, strtoupper($value));
