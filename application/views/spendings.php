@@ -15,7 +15,7 @@
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Details</p>
 
-                        <table id="tb-spending" class="table table-sm table-striped table-bordered">
+                        <table id="tb-spending" class="table table-sm striped row-border">
                             <thead>
                                 <tr>
                                     <th>Date</th>

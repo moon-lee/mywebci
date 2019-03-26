@@ -24,7 +24,8 @@ $config['css_list_payment'] = array(
 $config['css_list_spending'] = array(
     'csslist' => array(
     array('cssdata' => base_url('assets/dist/css/flatpickr.min.css')),
-    array('cssdata' => base_url('assets/dist/css/dataTables.bootstrap4.min.css'))
+    array('cssdata' => base_url('assets/dist/css/dataTables.bootstrap4.min.css')),
+    //array('cssdata' => base_url('assets/dist/css/jquery.dataTables.min.css'))
     )
 );
 
