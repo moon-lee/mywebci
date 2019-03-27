@@ -15,15 +15,14 @@
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Details</p>
 
-                        <table id="tb-spending" class="table table-sm striped row-border">
+                        <table id="tb-spending" class="table table-sm table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Date</th>
                                     <th>Category</th>
-                                    <th>Amount</th>
                                     <th>Account Type</th>
+                                    <th>Amount</th>
                                     <th>Description</th>
-                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                         </table>
