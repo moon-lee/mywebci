@@ -15,7 +15,7 @@
                     <div class="col-8">
                         <p><span class="far fa-plus-square"></span>Details</p>
 
-                        <table id="tb-spending" class="table table-sm table-striped table-bordered">
+                        <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -27,13 +27,6 @@
                                 </tr>
                             </thead>
                         </table>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-primary btn-sm" id="addSpending"><i class="fas fa-plus-circle"></i>Add
-                                    Data</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
