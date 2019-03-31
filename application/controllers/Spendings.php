@@ -115,6 +115,13 @@ class Spendings extends MY_Controller
         $list_data = $this->spending_model->spending_list($post_data);
         echo json_encode($list_data);
     }
+
+    public function delete_spendingdata()
+    {
+        $post_data = $this->input->post(null, true);
+        $this->spending_model->spending_delete($post_data);
+        echo json_encode(array("status" => true));
+    }
 }
 
 /* End of file Spendings.php */

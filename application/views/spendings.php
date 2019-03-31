@@ -18,6 +18,7 @@
                         <table id="tb-spending" class="table table-sm table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Date</th>
                                     <th>Category</th>
                                     <th>Account Type</th>
@@ -29,7 +30,7 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <button type="button" class="btn btn-primary btn-sm" id="addSpending"><i class="fas fa-plus"></i>Add
+                                <button type="button" class="btn btn-primary btn-sm" id="addSpending"><i class="fas fa-plus-circle"></i>Add
                                     Data</button>
                             </div>
                         </div>

@@ -37,7 +37,7 @@ class Spending_model extends MY_Model
 
     private function _get_select_spending($post_data)
     {
-        $select_columns = $this->get_columns_name($post_data['columns']);
+        $select_columns = 'DT_RowId, '.$this->get_columns_name($post_data['columns']);
         $orders = $this->get_orders($post_data['order'], $post_data['columns']);
 
         $this->db->select($select_columns);
@@ -80,6 +80,10 @@ class Spending_model extends MY_Model
         $this->_get_select_spending($post_data);
         $query = $this->db->get();
         return $query->num_rows();
+    }
+
+    public function spending_delete($post_data) {
+        $this->db->delete($this->tb_name, array('id'=> $post_data['id']));
     }
 }
 

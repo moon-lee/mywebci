@@ -95,6 +95,7 @@
     <i data-fa-symbol="clock" class="far fa-clock"></i>
     <i data-fa-symbol="edit" class="far fa-edit"></i>
     <i data-fa-symbol="trash-alt" class="far fa-trash-alt"></i>
+    <i data-fa-symbol="minus-circle" class="fas fa-minus-circle"></i>
 
 
     <!-- Modal -->

@@ -12,7 +12,7 @@
     <div class="card-footer">
         <div class="row">
             <div class="col-5">
-                <button type="button" class="btn btn-default btn-sm" id="addTaskList"><i class="fas fa-plus"></i> Add
+                <button type="button" class="btn btn-default btn-sm" id="addTaskList"><i class="fas fa-plus-circle"></i> Add
                     Task</button>
             </div>
             <div class="col-7">

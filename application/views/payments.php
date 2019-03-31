@@ -58,7 +58,7 @@
                         <canvas id="paymentBarChart"></canvas>
                         <div class="row">
                             <div class="col-6">
-                                <button type="button" class="btn btn-success btn-sm" id="addPayment"><i class="fas fa-plus"></i>Add
+                                <button type="button" class="btn btn-success btn-sm" id="addPayment"><i class="fas fa-plus-circle"></i>Add
                                     Data</button>
                             </div>
                             <div class="col-6">
