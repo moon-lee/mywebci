@@ -122,6 +122,30 @@ class Spendings extends MY_Controller
         $this->spending_model->spending_delete($post_data);
         echo json_encode(array("status" => true));
     }
+
+    public function upload_spendingdata()
+    {
+        $config['upload_path']  = './assets/uploads/';
+        $config['allowed_types'] = 'csv|pdf';
+        $config['encrypt_name'] = true;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('spend_data')) {
+            $upload_result = array('upload_data' => $this->upload->data());
+            $data['file_name'] = $upload_result['upload_data']['orig_name'];
+            $data['file_size'] = $upload_result['upload_data']['file_size'];
+            $data['msg'] = 'File successfully uploaded. ';
+            $data['status'] = true;
+        } else {
+            $error = array('error' => $this->upload->display_errors('',''));
+            $data['inputerror'][] = 'spend_data';
+            $data['error_string'][] = $error['error'];
+            $data['status'] = false;
+        }
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Spendings.php */

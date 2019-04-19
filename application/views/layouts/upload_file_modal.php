@@ -9,15 +9,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="input-group input-group-sm">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                <form id="form_upload" novalidate>
+                    <div class="input-group input-group-sm">
+                        <div class="custom-file">
+                            <input type="file" name="spend_data" class="custom-file-input" id="upload_spend_file">
+                            <div class="invalid-tooltip"></div>
+                            <label class="custom-file-label" for="upload_spend_file">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button type="submit"  class="btn btn-sm btn-primary">Upload</button>
+                        </div>
+  
                     </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-sm btn-primary">Upload</button>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                </div>
+                    <div id="upload_status"></div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
