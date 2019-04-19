@@ -38,7 +38,7 @@ class Spendings extends MY_Controller
                     'main_category_first' => $this->set_selection($mainCategory_first),
                     'main_category' => $this->set_selection($mainCategory),
                     'sub_category_first' => $this->set_selection($subCategory_first))
-         );
+         ).$this->set_content('layouts/upload_file_modal');
 
         $this->render();
     }
