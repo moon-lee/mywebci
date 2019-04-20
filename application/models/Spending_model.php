@@ -7,13 +7,13 @@ class Spending_model extends MY_Model
     public function __construct()
     {
         parent::__construct();
-        $this->tb_name = "wspending";
-        $this->view_tb_name = "v_spending";
+        $this->tb_name['spend'] = "wspending";
+        $this->view_tb_name['view_spend'] = "v_spending";
     }
     
     public function add_spending_detail($data)
     {
-        $this->db->insert($this->tb_name, $data);
+        $this->db->insert($this->tb_name['spend'], $data);
         return $this->db->insert_id();
     }
 
@@ -41,7 +41,7 @@ class Spending_model extends MY_Model
         $orders = $this->get_orders($post_data['order'], $post_data['columns']);
 
         $this->db->select($select_columns);
-        $this->db->from($this->view_tb_name);
+        $this->db->from($this->view_tb_name['view_spend']);
         
         
         foreach ($orders as $key => $value) {
@@ -72,7 +72,7 @@ class Spending_model extends MY_Model
 
     public function spending_count_all()
     {
-        return $this->db->count_all($this->tb_name);
+        return $this->db->count_all($this->tb_name['spend']);
     }
 
     public function filtered_spending_count($post_data)
@@ -83,7 +83,33 @@ class Spending_model extends MY_Model
     }
 
     public function spending_delete($post_data) {
-        $this->db->delete($this->tb_name, array('id'=> $post_data['id']));
+        $this->db->delete($this->tb_name['spend'], array('id'=> $post_data['id']));
+    }
+
+    /* ////////////////////////////////////
+    // wcategory table functions
+    */ /////////////////////////////////////
+    public function getMainCategory()
+    {
+        $sql = "SELECT SUBSTR(cat_code,1,1) as value, cat_name as text FROM wcategory
+        WHERE cat_code LIKE '%00' ";
+        if ($query = $this->db->query($sql)) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
+    public function getSubCategory($mainCategory_code)
+    {
+        $sql = "SELECT cat_code as value, cat_name as text FROM wcategory
+        WHERE SUBSTR(cat_code,2,2) != '00'
+        AND cat_code LIKE '".$mainCategory_code."%' ";
+        if ($query = $this->db->query($sql)) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
     }
 }
 

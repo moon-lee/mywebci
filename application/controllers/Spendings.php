@@ -7,7 +7,6 @@ class Spendings extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('category_model');
         $this->load->model('spending_model');
     }
 
@@ -31,7 +30,7 @@ class Spendings extends MY_Controller
         $accountType = $this->myconfig['account_type'];
         $mainCategory_first =  $this->myconfig['main_category_first'];
         $subCategory_first =  $this->myconfig['sub_category_first'];
-        $mainCategory = $this->category_model->getMainCategory();
+        $mainCategory = $this->spending_model->getMainCategory();
         $this->data['modal'] = $this->set_content(
             'layouts/spendings_modal',
             array('account_type' => $this->set_selection($accountType),
@@ -46,7 +45,7 @@ class Spendings extends MY_Controller
     public function get_subcategory()
     {
         $post_data = $this->input->post(null, true);
-        $result = $this->category_model->getSubCategory($post_data['mcategory_code']);
+        $result = $this->spending_model->getSubCategory($post_data['mcategory_code']);
         $subCategory = $this->set_selection($result);
         $subCategory_first =  $this->myconfig['sub_category_first'];
         echo  $this->set_selection($subCategory_first) . $subCategory;
