@@ -8,9 +8,13 @@ class Spending_model extends MY_Model
     {
         parent::__construct();
         $this->tb_name['spend'] = "wspending";
+        $this->tb_name['upload'] = "wuploaddata";
         $this->view_tb_name['view_spend'] = "v_spending";
     }
-    
+ 
+    /* ///////////////////////////////////////////////
+    // wspending table and v_spending view functions
+    */ ///////////////////////////////////////////////   
     public function add_spending_detail($data)
     {
         $this->db->insert($this->tb_name['spend'], $data);
@@ -110,6 +114,14 @@ class Spending_model extends MY_Model
         } else {
             return false;
         }
+    }
+
+    /* ///////////////////////////////////////////////
+    // wuploaddata table functions
+    */ ///////////////////////////////////////////////   
+
+    public function add_upload_data($data) {
+        return $this->db->insert($this->tb_name['upload'], $data);
     }
 }
 
