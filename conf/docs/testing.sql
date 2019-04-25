@@ -88,4 +88,19 @@ FROM
 			LEFT JOIN `wcategory` `c` ON ((`s`.`spend_category` = `c`.`cat_code`)))) as a
 LEFT JOIN wcategory c ON a.master_category = c.cat_code;
 
+/* //////////////////////////////////////////////////////////////
+stored procedure mysql
+///////////////////////////////////////////////////////////////*/
+DROP TABLE IF EXISTS tmp_spend;
 
+CREATE TABLE IF NOT EXISTS tmp_spend  AS
+SELECT 	spend_date, spend_amount, spend_description,
+		spend_category
+FROM wspending;
+
+
+LOAD DATA INFILE './assets/uploads/6209a408fd5142eb01e663bac12ae5eb.csv'
+INTO TABLE tmp_spend;
+
+Error Code: 1148. The used command is not allowed with this MySQL version
+Error Code: 1045. Access denied for user 'wom'@'localhost' (using password: YES)
