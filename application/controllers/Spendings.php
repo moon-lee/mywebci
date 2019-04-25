@@ -132,7 +132,7 @@ class Spendings extends MY_Controller
 
         if ($this->upload->do_upload('spend_data')) {
             $upload_result = array('upload_data' => $this->upload->data());
-            $data['upload_file_name'] = $upload_result['upload_data']['file_name'];
+            $data['upload_file_name'] = $config['upload_path'].$upload_result['upload_data']['file_name'];
             $data['upload_orig_name'] = $upload_result['upload_data']['orig_name'];
             $data['upload_file_type'] = $upload_result['upload_data']['file_type'];
             $data['upload_file_size'] = $upload_result['upload_data']['file_size'];
