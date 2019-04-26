@@ -99,8 +99,18 @@ SELECT 	spend_date, spend_amount, spend_description,
 FROM wspending;
 
 
-LOAD DATA INFILE './assets/uploads/6209a408fd5142eb01e663bac12ae5eb.csv'
-INTO TABLE tmp_spend;
+LOAD DATA INFILE '/home/moon/myData/mywebci/assets/uploads/3a2aafbc1e12c44201dcae89189a893b.csv'
+INTO TABLE tmp_spend
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(@spend_date, spend_amount, spend_description, spend_category)
+SET spend_date = str_to_date(@spend_date,'%Y-%m-%d');
 
 Error Code: 1148. The used command is not allowed with this MySQL version
 Error Code: 1045. Access denied for user 'wom'@'localhost' (using password: YES)
+Error Code: 1290. The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+
+./assets/uploads/3a2aafbc1e12c44201dcae89189a893b.csv
+Error Code: 1292. Incorrect date value: 'spend_date,spend_amount,spend_description,category,spend_category' for column 'spend_date' at row 1
+
