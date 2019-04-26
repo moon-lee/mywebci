@@ -121,7 +121,32 @@ class Spending_model extends MY_Model
     */ ///////////////////////////////////////////////   
 
     public function add_upload_data($data) {
-        return $this->db->insert($this->tb_name['upload'], $data);
+        //return $this->db->insert($this->tb_name['upload'], $data);
+
+        if ($this->db->insert($this->tb_name['upload'], $data)) {
+            $upload_id = $this->db->insert_id();
+            if ($this->_load_csv_data($data['upload_file_name'])) {
+                return $this->_update_upload_status(99, $upload_id);
+            }
+        }
+        
+        return false;
+    }
+
+    private function _load_csv_data($file_name) {
+        $sql = "LOAD DATA INFILE '".$file_name."'
+                INTO TABLE tmp_spend
+                FIELDS TERMINATED BY ','
+                LINES TERMINATED BY '\n'
+                IGNORE 1 ROWS
+                (@spend_date, spend_amount, spend_description, spend_category)
+                SET spend_date = str_to_date(@spend_date,'%Y-%m-%d')";
+
+        return $this->db->simple_query($sql);
+    }
+
+    private function _update_upload_status($status, $id) {
+        return $this->db->update($this->tb_name['upload'], array('upload_file_status' => $status), array('id' =>  $id));
     }
 }
 

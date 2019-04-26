@@ -124,7 +124,7 @@ class Spendings extends MY_Controller
 
     public function upload_spendingdata()
     {
-        $config['upload_path']  = './assets/uploads/';
+        $config['upload_path']  = '/opt/lampstack-7.1.26-0/mysql/uploads/';
         $config['allowed_types'] = 'csv|pdf';
         $config['encrypt_name'] = true;
 
@@ -139,6 +139,7 @@ class Spendings extends MY_Controller
             $data['upload_user'] = $this->session->userdata('user_name');
             $data['status'] = $this->spending_model->add_upload_data($data);
             $data['msg'] = 'File successfully uploaded. ';
+
             // $data['status'] = true;
         } else {
             $error = array('error' => $this->upload->display_errors('',''));
