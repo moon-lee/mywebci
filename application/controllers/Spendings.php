@@ -137,10 +137,14 @@ class Spendings extends MY_Controller
             $data['upload_file_type'] = $upload_result['upload_data']['file_type'];
             $data['upload_file_size'] = $upload_result['upload_data']['file_size'];
             $data['upload_user'] = $this->session->userdata('user_name');
-            $data['status'] = $this->spending_model->add_upload_data($data);
-            $data['msg'] = 'File successfully uploaded. ';
-
-            // $data['status'] = true;
+            if ($this->spending_model->add_upload_data($data)) {
+                $data['status'] = true;
+                $data['msg'] = 'File successfully uploaded. ';     
+            } else {
+                $data['status'] = false;
+                $data['inputerror'][] = 'spend_data';
+                $data['error_string'][] = $error['error'];
+                }
         } else {
             $error = array('error' => $this->upload->display_errors('',''));
             $data['inputerror'][] = 'spend_data';

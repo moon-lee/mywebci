@@ -9,6 +9,7 @@ class Spending_model extends MY_Model
         parent::__construct();
         $this->tb_name['spend'] = "wspending";
         $this->tb_name['upload'] = "wuploaddata";
+        $this->tb_name['temp'] = "tmp_spend";
         $this->view_tb_name['view_spend'] = "v_spending";
     }
  
@@ -120,21 +121,37 @@ class Spending_model extends MY_Model
     // wuploaddata table functions
     */ ///////////////////////////////////////////////   
 
-    public function add_upload_data($data) {
+    public function add_upload_data(&$data) {
         //return $this->db->insert($this->tb_name['upload'], $data);
 
         if ($this->db->insert($this->tb_name['upload'], $data)) {
-            $upload_id = $this->db->insert_id();
-            if ($this->_load_csv_data($data['upload_file_name'])) {
-                return $this->_update_upload_status(99, $upload_id);
+            $data['upload_id'] = $this->db->insert_id();
+            if ($this->_load_csv_data($data)) {
+                return true;
+            } else {
+                $data['error_msg'] = 'Fail to load upload file to database.';
+                return false;
             }
+        } else {
+            $data['error_msg'] = 'Fail to insert the upload information.';
+            return false;
         }
-        
-        return false;
-    }
+     }
 
-    private function _load_csv_data($file_name) {
-        $sql = "LOAD DATA INFILE '".$file_name."'
+    private function _load_csv_data($data) {
+        /* //////////////////////////////////////////////////// */
+        $this->db->trans_start();    
+            
+
+        /* /////////////////////////////////////////
+            1. Prepare - empty temp table (tmp_spend)
+        //////////////////////////////////////////*/
+        $sql = "TRUNCATE " .$this->tb_name['temp'];
+        $this->db->query($sql);
+        /* /////////////////////////////////////////
+            2. Load csv file to temp table
+        //////////////////////////////////////////*/        
+        $sql = "LOAD DATA INFILE '".$data['upload_file_name']."'
                 INTO TABLE tmp_spend
                 FIELDS TERMINATED BY ','
                 LINES TERMINATED BY '\n'
@@ -142,7 +159,24 @@ class Spending_model extends MY_Model
                 (@spend_date, spend_amount, spend_description, spend_category)
                 SET spend_date = str_to_date(@spend_date,'%Y-%m-%d')";
 
-        return $this->db->simple_query($sql);
+       $this->db->query($sql);
+        /* ////////////////////////////////////////////////////
+            3. Transfer data from temp table to spending table 
+        /////////////////////////////////////////////////////*/   
+        $default_account = '1';
+
+        $sql = "CALL sp_trans_spend_data('".$default_account."', '". $data['upload_user'] ."')";
+        $this->db->query($sql);
+        /* ////////////////////////////////////////////////////
+            4. Update status  to upload data table 
+        /////////////////////////////////////////////////////*/   
+        $this->db->update($this->tb_name['upload'], array('upload_file_status' => 99), array('id' =>  $data['upload_id']));
+
+
+        /* //////////////////////////////////////////////////// */
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
     }
 
     private function _update_upload_status($status, $id) {
