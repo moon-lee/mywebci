@@ -179,9 +179,6 @@ class Spending_model extends MY_Model
         return $this->db->trans_status();
     }
 
-    private function _update_upload_status($status, $id) {
-        return $this->db->update($this->tb_name['upload'], array('upload_file_status' => $status), array('id' =>  $id));
-    }
 }
 
 /* End of file Spending_model.php */

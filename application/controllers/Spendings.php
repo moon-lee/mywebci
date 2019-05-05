@@ -26,7 +26,10 @@ class Spendings extends MY_Controller
         $this->data['css'] = $this->set_css(CSS_JS_SPENDING);
         $this->data['js'] = $this->set_js(CSS_JS_SPENDING);
         $this->data['content-body'] = $this->set_content('spendings', array('contenttitle' => $page_title));
-        // Set modal with selections
+
+        /**
+         * Render for Modal
+         */
         $accountType = $this->myconfig['account_type'];
         $mainCategory_first =  $this->myconfig['main_category_first'];
         $subCategory_first =  $this->myconfig['sub_category_first'];

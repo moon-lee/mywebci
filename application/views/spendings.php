@@ -8,27 +8,55 @@
 
         <div class="card-spendings card my-4">
             <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <p><span class="far fa-plus-square"></span>Summary</p>
-                    </div>
-                    <div class="col-8">
-                        <p><span class="far fa-plus-square"></span>Details</p>
 
-                        <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Date</th>
-                                    <th>Category</th>
-                                    <th>Account Type</th>
-                                    <th>Amount</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                        </table>
+                <p><span class="far fa-plus-square"></span>Summary</p>
+
+
+                <div class="row" id="sp_summary_section">
+                    <div class="col-2">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="sp_year_month">Year-Month</label>
+                            </div>
+                            <select class="custom-select" id="sp_year_month">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" selected>3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="col-2">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="sp_category">Category</label>
+                                </div>
+                                <select class="custom-select" id="sp_category">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </div>
                 </div>
+
+
+                <p><span class="far fa-plus-square"></span>Details</p>
+
+                <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Account Type</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                </table>
+
             </div>
         </div>
 
