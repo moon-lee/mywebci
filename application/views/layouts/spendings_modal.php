@@ -50,7 +50,6 @@
                             <label for="mainCategory">Main Category</label>
                             <div class="input-group-sm">
                                 <select class="form-control" name="maincategory" id="mainCategory" required>
-                                    {main_category_first}
                                     {main_category}
                                 </select>
                                 <div class="invalid-tooltip"></div>

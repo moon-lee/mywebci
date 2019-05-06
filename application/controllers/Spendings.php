@@ -25,21 +25,29 @@ class Spendings extends MY_Controller
         $this->data['pagetitle'] = $this->data['title'].' | '. $page_title;
         $this->data['css'] = $this->set_css(CSS_JS_SPENDING);
         $this->data['js'] = $this->set_js(CSS_JS_SPENDING);
-        $this->data['content-body'] = $this->set_content('spendings', array('contenttitle' => $page_title));
+
+        /**
+         * Render Content Body
+         */
+        $this->data['content-body'] = $this->set_content('spendings', 
+                        array('contenttitle' => $page_title,
+                        'spend_year_month' => 
+                        $this->set_selection(SPEND_YM_SELECTION, $this->spending_model->get_spending_year_month()),
+                        'category' => 
+                        $this->set_selection(CODE_SELECTION, $this->spending_model->getMainCategory(SPEND_YM_SELECTION))
+                    ));
 
         /**
          * Render for Modal
          */
         $accountType = $this->myconfig['account_type'];
-        $mainCategory_first =  $this->myconfig['main_category_first'];
         $subCategory_first =  $this->myconfig['sub_category_first'];
-        $mainCategory = $this->spending_model->getMainCategory();
+        $mainCategory = $this->spending_model->getMainCategory(CODE_SELECTION);
         $this->data['modal'] = $this->set_content(
             'layouts/spendings_modal',
-            array('account_type' => $this->set_selection($accountType),
-                    'main_category_first' => $this->set_selection($mainCategory_first),
-                    'main_category' => $this->set_selection($mainCategory),
-                    'sub_category_first' => $this->set_selection($subCategory_first))
+            array('account_type' => $this->set_selection(CODE_SELECTION, $accountType),
+                    'main_category' => $this->set_selection(CODE_SELECTION, $mainCategory),
+                    'sub_category_first' => $this->set_selection(CODE_SELECTION, $subCategory_first))
          ).$this->set_content('layouts/upload_file_modal');
 
         $this->render();
@@ -49,9 +57,9 @@ class Spendings extends MY_Controller
     {
         $post_data = $this->input->post(null, true);
         $result = $this->spending_model->getSubCategory($post_data['mcategory_code']);
-        $subCategory = $this->set_selection($result);
+        $subCategory = $this->set_selection(CODE_SELECTION, $result);
         $subCategory_first =  $this->myconfig['sub_category_first'];
-        echo  $this->set_selection($subCategory_first) . $subCategory;
+        echo  $this->set_selection(CODE_SELECTION, $subCategory_first) . $subCategory;
     }
 
     public function add_spendingdata()

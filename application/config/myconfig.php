@@ -65,35 +65,16 @@ $config['js_list_spending'] = array(
     )
 );
 
-
-$config['payment_details'] = array(
-    array('value' => "0", "text" => "Select detail"),
-    array('value' => "1", "text" => "Base"),
-    array('value' => "2", "text" => "Shift"),
-    array('value' => "3", "text" => "Overtime(1.5)"),
-    array('value' => "4", "text" => "Overtime(2)"),
-    array('value' => "5", "text" => "Personal Leave"),
-    array('value' => "6", "text" => "Holiday pay"),
-    array('value' => "7", "text" => "Holiday Load")
-);
-
-
 $config['account_type'] = array(
-    array('value' => "", "text" => "Select Account Type"),
-    array('value' => "1", "text" => "Bank Saving Account"),
-    array('value' => "2", "text" => "Credit Card"),
-    array('value' => "3", "text" => "Cash")
-);
-
-$config['main_category_first'] = array(
-    array('value' => "", "text" => "Select Main Category"),
+    array('code_value' => "",  "code_name" => "Select Account Type"),
+    array('code_value' => "1", "code_name" => "Bank Saving Account"),
+    array('code_value' => "2", "code_name" => "Credit Card"),
+    array('code_value' => "3", "code_name" => "Cash")
 );
 
 $config['sub_category_first'] = array(
-    array('value' => "", "text" => "Select Main Category first"),
+    array('code_value' => "", "code_name" => "Select Main Category first"),
 );
-
-$config['option_template'] = '<option value={value}>{text}</option>';
 
 
 /* End of file filename.php */

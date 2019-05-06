@@ -48,7 +48,6 @@ class Spending_model extends MY_Model
         $this->db->select($select_columns);
         $this->db->from($this->view_tb_name['view_spend']);
         
-        
         foreach ($orders as $key => $value) {
             $this->db->order_by($key, strtoupper($value));
         }
@@ -73,6 +72,12 @@ class Spending_model extends MY_Model
                 }
             }
         }
+
+        $this->db->like('spend_date', $post_data['spend_year_month'], 'after');
+
+        if ($post_data['spend_category_code'] != '') {
+            $this->db->like('category_code', $post_data['spend_category_code'], 'after');
+        }
     }
 
     public function spending_count_all()
@@ -91,13 +96,33 @@ class Spending_model extends MY_Model
         $this->db->delete($this->tb_name['spend'], array('id'=> $post_data['id']));
     }
 
+    public function get_spending_year_month() {
+        $sql = "SELECT DISTINCT DATE_FORMAT(spend_date, '%Y-%m') AS spend_year_month
+        FROM wspending ORDER BY spend_year_month DESC";
+        if ($query = $this->db->query($sql)) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+
     /* ////////////////////////////////////
     // wcategory table functions
     */ /////////////////////////////////////
-    public function getMainCategory()
+    public function getMainCategory($selection = CODE_SELECTION)
     {
-        $sql = "SELECT SUBSTR(cat_code,1,1) as value, cat_name as text FROM wcategory
-        WHERE cat_code LIKE '%00' ";
+        if ($selection == CODE_SELECTION) {
+            $sql = "SELECT '' AS code_value, 'Select Main Category' as code_name
+                    UNION
+                    SELECT SUBSTR(cat_code,1,1) as code_value, cat_name as code_name FROM wcategory
+                    WHERE cat_code LIKE '%00' ";
+        } elseif ($selection == SPEND_YM_SELECTION) {
+            $sql = "SELECT '' AS code_value, 'ALL' as code_name
+                    UNION
+                    SELECT SUBSTR(cat_code,1,1) as code_value, cat_name as code_name FROM wcategory
+                    WHERE cat_code LIKE '%00' ";
+        }
+
         if ($query = $this->db->query($sql)) {
             return $query->result_array();
         } else {
@@ -107,7 +132,7 @@ class Spending_model extends MY_Model
 
     public function getSubCategory($mainCategory_code)
     {
-        $sql = "SELECT cat_code as value, cat_name as text FROM wcategory
+        $sql = "SELECT cat_code as code_value, cat_name as code_name FROM wcategory
         WHERE SUBSTR(cat_code,2,2) != '00'
         AND cat_code LIKE '".$mainCategory_code."%' ";
         if ($query = $this->db->query($sql)) {
@@ -146,8 +171,7 @@ class Spending_model extends MY_Model
         /* /////////////////////////////////////////
             1. Prepare - empty temp table (tmp_spend)
         //////////////////////////////////////////*/
-        $sql = "TRUNCATE " .$this->tb_name['temp'];
-        $this->db->query($sql);
+        $this->db->truncate($this->tb_name['temp']);
         /* /////////////////////////////////////////
             2. Load csv file to temp table
         //////////////////////////////////////////*/        

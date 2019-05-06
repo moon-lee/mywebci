@@ -99,3 +99,6 @@ defined('CSS_JS_SPENDING')     OR define('CSS_JS_SPENDING', 4);
 defined('VIEW_DEFAULT')        OR define('VIEW_DEFAULT', 'layouts/main_layout');
 defined('SUMMARY_DEFAULT')     OR define('SUMMARY_DEFAULT', 0);
 defined('SUMMARY_OTHER')       OR define('SUMMARY_OTHER', 1);
+
+defined('CODE_SELECTION')      OR define('CODE_SELECTION', 0);
+defined('SPEND_YM_SELECTION')  OR define('SPEND_YM_SELECTION', 1);

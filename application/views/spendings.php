@@ -11,7 +11,6 @@
 
                 <p><span class="far fa-plus-square"></span>Summary</p>
 
-
                 <div class="row" id="sp_summary_section">
                     <div class="col-2">
                         <div class="input-group input-group-sm">
@@ -19,10 +18,7 @@
                                 <label class="input-group-text" for="sp_year_month">Year-Month</label>
                             </div>
                             <select class="custom-select" id="sp_year_month">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3" selected>3</option>
-                                <option value="4">4</option>
+                                {spend_year_month}
                             </select>
                         </div>
                     </div>
@@ -32,10 +28,7 @@
                                     <label class="input-group-text" for="sp_category">Category</label>
                                 </div>
                                 <select class="custom-select" id="sp_category">
-                                    <option value="1">1</option>
-                                    <option value="2" selected>2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                   {category}
                                 </select>
                             </div>
                         </div>

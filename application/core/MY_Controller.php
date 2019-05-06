@@ -66,13 +66,18 @@ class MY_Controller extends CI_Controller
         return $this->parser->parse_string($js_template, $jslists, true);
     }
 
-    protected function set_selection($options)
+    protected function set_selection( $template = CODE_SELECTION, $options)
     {
         $selections = '';
+        $option_template = '';
+
+        if ($template == CODE_SELECTION) {
+            $option_template = '<option value={code_value}>{code_name}</option>';
+        } elseif ($template == SPEND_YM_SELECTION) {
+            $option_template = '<option value={spend_year_month}>{spend_year_month}</option>';
+        }
 
         if (isset($options)) {
-            $option_template = $this->myconfig['option_template'];
-           
             foreach ($options as $option) {
                 $selections .= $this->parser->parse_string($option_template, $option, true );
             }
