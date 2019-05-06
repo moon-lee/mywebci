@@ -128,7 +128,7 @@ class Spendings extends MY_Controller
         */
 
         $summary_data = $this->spending_model->get_summary_by_year_month();
-        $this->_debug_print($summary_data);
+       // $this->_debug_print($summary_data);
         echo json_encode($list_data);
     }
 
