@@ -106,6 +106,15 @@ class Spending_model extends MY_Model
         }
     }
 
+    public function get_summary_by_year_month() {
+        $sql = "CALL sp_spend_year_month_by_category()";
+        if ($query = $this->db->query($sql)) {
+            return $query->result_array();
+        } else {
+            return false;
+        }     
+    }
+
     /* ////////////////////////////////////
     // wcategory table functions
     */ /////////////////////////////////////

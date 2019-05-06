@@ -123,6 +123,12 @@ class Spendings extends MY_Controller
     {
         $post_data = $this->input->post(null, true);
         $list_data = $this->spending_model->spending_list($post_data);
+        /*
+        * Get Summary
+        */
+
+        $summary_data = $this->spending_model->get_summary_by_year_month();
+        $this->_debug_print($summary_data);
         echo json_encode($list_data);
     }
 
