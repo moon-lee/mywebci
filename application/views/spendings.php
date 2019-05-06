@@ -34,6 +34,12 @@
                         </div>
                 </div>
 
+                <div>
+                    {test}
+
+                </div>
+
+
 
                 <p><span class="far fa-plus-square"></span>Details</p>
 

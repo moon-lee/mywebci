@@ -127,9 +127,14 @@ class Spendings extends MY_Controller
         * Get Summary
         */
 
-        $summary_data = $this->spending_model->get_summary_by_year_month();
+        $summary_data = $this->spending_model->get_summary_by_year_month($post_data);
        // $this->_debug_print($summary_data);
         echo json_encode($list_data);
+    }
+
+    public function test() {
+        $post_data['spend_category_code'] = '2019';
+        echo json_encode($this->spending_model->get_summary_by_year_month($post_data));
     }
 
     public function delete_spendingdata()
