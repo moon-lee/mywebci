@@ -123,18 +123,28 @@ class Spendings extends MY_Controller
     {
         $post_data = $this->input->post(null, true);
         $list_data = $this->spending_model->spending_list($post_data);
-        /*
-        * Get Summary
-        */
-
         $summary_data = $this->spending_model->get_summary_by_year_month($post_data);
        // $this->_debug_print($summary_data);
         echo json_encode($list_data);
     }
 
-    public function test() {
-        $post_data['spend_category_code'] = '2019';
-        echo json_encode($this->spending_model->get_summary_by_year_month($post_data));
+    public function summary_spendingdata() {
+        $this->load->library('table');
+
+        $tb_template = array(
+            'table_open' => '<table class="table table-sm table-bordered table-hover text-right">',
+            'thead_open' => '<thead class="thead-light">'
+        );
+
+        $this->table->set_template($tb_template);
+
+        $post_data = $this->input->post(null, true);
+        $summary_year_month = $this->spending_model->get_summary_by_year_month($post_data);
+        
+        $output = array(
+            'summary_year_month'  => $this->table->generate($summary_year_month)
+        );
+        echo json_encode($output);
     }
 
     public function delete_spendingdata()

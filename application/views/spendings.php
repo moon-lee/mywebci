@@ -33,14 +33,7 @@
                             </div>
                         </div>
                 </div>
-
-                <div>
-                    {test}
-
-                </div>
-
-
-
+                <div id="test"></div>
                 <p><span class="far fa-plus-square"></span>Details</p>
 
                 <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
