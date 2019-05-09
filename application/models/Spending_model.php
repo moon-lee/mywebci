@@ -34,7 +34,7 @@ class Spending_model extends MY_Model
                 'recordsFiltered' => $this->filtered_spending_count($post_data),
                 'data' => $query->result_array(),
                 'query' => $this->db->last_query(),
-                'summary_year_month'  => $this->get_summary_by_year_month($post_data )
+                'summary_year_month'  => $this->get_summary_by_year_month($post_data)
             );
         } else {
             return false;
@@ -118,11 +118,15 @@ class Spending_model extends MY_Model
         $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
         if ($query = $this->db->query($sql)) {
             $query_result = $query->result_array();
-            foreach ($query_result as $key => $value) {
-                $table_headers[] = $key;
-                $table_cells_data[] = $value;
-            }            
-            return $this->table->generate($query_result);
+            foreach ($query_result as $row) {
+                foreach ($row as $key => $value) {
+                    $table_headers[] = $key;
+                    $table_cells_data[] = $value;
+                }
+            }     
+            $this->table->set_heading($table_headers);
+            $this->table->add_row($table_cells_data);       
+            return $this->table->generate();
         } else {
             return '';
         }    
