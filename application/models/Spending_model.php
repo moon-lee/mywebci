@@ -33,7 +33,8 @@ class Spending_model extends MY_Model
                 'recordsTotal' => $this->spending_count_all(),
                 'recordsFiltered' => $this->filtered_spending_count($post_data),
                 'data' => $query->result_array(),
-                'query' => $this->db->last_query()
+                'query' => $this->db->last_query(),
+                'summary_year_month'  => $this->get_summary_by_year_month($post_data )
             );
         } else {
             return false;
@@ -107,12 +108,24 @@ class Spending_model extends MY_Model
     }
 
     public function get_summary_by_year_month($post_data) {
+        $this->load->library('table');
+        $tb_template = array(
+            'table_open' => '<table class="table table-sm table-bordered table-hover text-right">',
+            'thead_open' => '<thead class="thead-light">'
+        );
+        $this->table->set_template($tb_template);
+
         $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
         if ($query = $this->db->query($sql)) {
-            return $query;
+            $query_result = $query->result_array();
+            foreach ($query_result as $key => $value) {
+                $table_headers[] = $key;
+                $table_cells_data[] = $value;
+            }            
+            return $this->table->generate($query_result);
         } else {
-            return false;
-        }     
+            return '';
+        }    
     }
 
     /* ////////////////////////////////////
