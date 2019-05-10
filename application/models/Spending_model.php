@@ -111,25 +111,32 @@ class Spending_model extends MY_Model
 
     public function get_summary_by_year_month($post_data)
     {
-        $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
-        if ($query = $this->db->query($sql)) {
-            $CI = & get_instance();
-            mysqli_next_result($CI->db->conn_id);
-            $query_result = $query->result_array();
-            $query->free_result();
-            return $this->_get_generated_html_table($query_result, $post_data['spend_category_code']);
-        } else {
-            return '';
+        $generated_html_table = '';
+
+        if (isset($post_data['spend_year_month'])) {
+            $mainCategoryNameList = $this->getMainCategory(CODE_NAME_SELECTION);
+            $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
+            if ($query = $this->db->query($sql)) {
+                $query_result = $query->result_array();
+                $generated_html_table = $this->_getByMonth_MainCategory($query_result, $post_data['spend_category_code'], $mainCategoryNameList);
+            }
         }
+
+        if (isset($post_data['spend_category_code'])) {
+                $generated_html_table .= $this->_getByMonth_SubCategory($post_data['spend_category_code']);
+        }
+
+        return $generated_html_table;
     }
 
-    private function _get_generated_html_table($query_result, $category_code)
+    private function _getByMonth_MainCategory($query_result, $category_code, $code_list)
     {
-        $code_name_list = $this->getMainCategory(CODE_NAME_SELECTION);
+        $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+
         foreach ($query_result as $row) {
             foreach ($row as $key => $value) {
                 if ($key == 'Total') {
-                    $cell = array('data' => $value, 'class' => 'table-primary');
+                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table_red_font table-primary');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
                 } elseif ($key == 'Year Month') {
@@ -137,12 +144,12 @@ class Spending_model extends MY_Model
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
                 } elseif ($key == $category_code) {
-                    $cell = array('data' => $value, 'class' => 'table-warning');
-                    $table_headers[] = $this->getCategoryName($code_name_list, $key.'00');
+                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table_red_font table-warning');
+                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                     $table_cells_data[] = $cell;
                 } else {
-                    $table_headers[] = $this->getCategoryName($code_name_list, $key.'00');
-                    $table_cells_data[] = $value;
+                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
+                    $table_cells_data[] = $fmt->formatCurrency($value, "USD");
                 }
             }
         }
@@ -155,6 +162,20 @@ class Spending_model extends MY_Model
         $this->table->set_template($tb_template);
         $this->table->set_heading($table_headers);
         $this->table->add_row($table_cells_data);
+        return $this->table->generate();
+    }
+
+
+    private function _getByMonth_SubCategory($category_code)
+    {
+        $this->load->library('table');
+        $tb_template = array(
+            'table_open' => '<table class="table table-sm table-bordered table-hover text-right">',
+            'thead_open' => '<thead class="thead-light">'
+        );
+        $this->table->set_template($tb_template);
+        $this->table->set_heading("Sub Category");
+        $this->table->add_row($category_code);
         return $this->table->generate();
     }
 
