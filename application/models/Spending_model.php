@@ -15,7 +15,7 @@ class Spending_model extends MY_Model
  
     /* ///////////////////////////////////////////////
     // wspending table and v_spending view functions
-    */ ///////////////////////////////////////////////   
+    */ ///////////////////////////////////////////////
     public function add_spending_detail($data)
     {
         $this->db->insert($this->tb_name['spend'], $data);
@@ -93,11 +93,13 @@ class Spending_model extends MY_Model
         return $query->num_rows();
     }
 
-    public function spending_delete($post_data) {
+    public function spending_delete($post_data)
+    {
         $this->db->delete($this->tb_name['spend'], array('id'=> $post_data['id']));
     }
 
-    public function get_spending_year_month() {
+    public function get_spending_year_month()
+    {
         $sql = "SELECT DISTINCT DATE_FORMAT(spend_date, '%Y-%m') AS spend_year_month
         FROM wspending ORDER BY spend_year_month DESC";
         if ($query = $this->db->query($sql)) {
@@ -107,29 +109,53 @@ class Spending_model extends MY_Model
         }
     }
 
-    public function get_summary_by_year_month($post_data) {
+    public function get_summary_by_year_month($post_data)
+    {
+        $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
+        if ($query = $this->db->query($sql)) {
+            $CI = & get_instance();
+            mysqli_next_result($CI->db->conn_id);
+            $query_result = $query->result_array();
+            $query->free_result();
+            return $this->_get_generated_html_table($query_result, $post_data['spend_category_code']);
+        } else {
+            return '';
+        }
+    }
+
+    private function _get_generated_html_table($query_result, $category_code)
+    {
+        $code_name_list = $this->getMainCategory(CODE_NAME_SELECTION);
+        foreach ($query_result as $row) {
+            foreach ($row as $key => $value) {
+                if ($key == 'Total') {
+                    $cell = array('data' => $value, 'class' => 'table-primary');
+                    $table_headers[] = $key;
+                    $table_cells_data[] = $cell;
+                } elseif ($key == 'Year Month') {
+                    $cell = array('data' => $value, 'class' => 'table-success');
+                    $table_headers[] = $key;
+                    $table_cells_data[] = $cell;
+                } elseif ($key == $category_code) {
+                    $cell = array('data' => $value, 'class' => 'table-warning');
+                    $table_headers[] = $this->getCategoryName($code_name_list, $key.'00');
+                    $table_cells_data[] = $cell;
+                } else {
+                    $table_headers[] = $this->getCategoryName($code_name_list, $key.'00');
+                    $table_cells_data[] = $value;
+                }
+            }
+        }
+
         $this->load->library('table');
         $tb_template = array(
             'table_open' => '<table class="table table-sm table-bordered table-hover text-right">',
             'thead_open' => '<thead class="thead-light">'
         );
         $this->table->set_template($tb_template);
-
-        $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
-        if ($query = $this->db->query($sql)) {
-            $query_result = $query->result_array();
-            foreach ($query_result as $row) {
-                foreach ($row as $key => $value) {
-                    $table_headers[] = $key;
-                    $table_cells_data[] = $value;
-                }
-            }     
-            $this->table->set_heading($table_headers);
-            $this->table->add_row($table_cells_data);       
-            return $this->table->generate();
-        } else {
-            return '';
-        }    
+        $this->table->set_heading($table_headers);
+        $this->table->add_row($table_cells_data);
+        return $this->table->generate();
     }
 
     /* ////////////////////////////////////
@@ -146,6 +172,9 @@ class Spending_model extends MY_Model
             $sql = "SELECT '' AS code_value, 'ALL' as code_name
                     UNION
                     SELECT SUBSTR(cat_code,1,1) as code_value, cat_name as code_name FROM wcategory
+                    WHERE cat_code LIKE '%00' ";
+        } elseif ($selection == CODE_NAME_SELECTION) {
+            $sql = "SELECT cat_code as code_value, cat_name as code_name FROM wcategory
                     WHERE cat_code LIKE '%00' ";
         }
 
@@ -168,11 +197,22 @@ class Spending_model extends MY_Model
         }
     }
 
+    public function getCategoryName($name_lists, $categoryCode)
+    {
+        foreach ($name_lists as $list) {
+            if ($list['code_value'] == $categoryCode) {
+                return $list['code_name'];
+            }
+        }
+        return '';
+    }
+
     /* ///////////////////////////////////////////////
     // wuploaddata table functions
-    */ ///////////////////////////////////////////////   
+    */ ///////////////////////////////////////////////
 
-    public function add_upload_data(&$data) {
+    public function add_upload_data(&$data)
+    {
         //return $this->db->insert($this->tb_name['upload'], $data);
 
         if ($this->db->insert($this->tb_name['upload'], $data)) {
@@ -187,11 +227,12 @@ class Spending_model extends MY_Model
             $data['error_msg'] = 'Fail to insert the upload information.';
             return false;
         }
-     }
+    }
 
-    private function _load_csv_data($data) {
+    private function _load_csv_data($data)
+    {
         /* //////////////////////////////////////////////////// */
-        $this->db->trans_start();    
+        $this->db->trans_start();
             
 
         /* /////////////////////////////////////////
@@ -200,7 +241,7 @@ class Spending_model extends MY_Model
         $this->db->truncate($this->tb_name['temp']);
         /* /////////////////////////////////////////
             2. Load csv file to temp table
-        //////////////////////////////////////////*/        
+        //////////////////////////////////////////*/
         $sql = "LOAD DATA INFILE '".$data['upload_file_name']."'
                 INTO TABLE tmp_spend
                 FIELDS TERMINATED BY ','
@@ -209,17 +250,17 @@ class Spending_model extends MY_Model
                 (@spend_date, spend_amount, spend_description, spend_category)
                 SET spend_date = str_to_date(@spend_date,'%Y-%m-%d')";
 
-       $this->db->query($sql);
+        $this->db->query($sql);
         /* ////////////////////////////////////////////////////
-            3. Transfer data from temp table to spending table 
-        /////////////////////////////////////////////////////*/   
+            3. Transfer data from temp table to spending table
+        /////////////////////////////////////////////////////*/
         $default_account = '1';
 
         $sql = "CALL sp_trans_spend_data('".$default_account."', '". $data['upload_user'] ."')";
         $this->db->query($sql);
         /* ////////////////////////////////////////////////////
-            4. Update status  to upload data table 
-        /////////////////////////////////////////////////////*/   
+            4. Update status  to upload data table
+        /////////////////////////////////////////////////////*/
         $this->db->update($this->tb_name['upload'], array('upload_file_status' => 99), array('id' =>  $data['upload_id']));
 
 
@@ -228,7 +269,6 @@ class Spending_model extends MY_Model
 
         return $this->db->trans_status();
     }
-
 }
 
 /* End of file Spending_model.php */
