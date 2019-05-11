@@ -33,7 +33,7 @@
                             </div>
                         </div>
                 </div>
-                <div id="test"></div>
+                <div class="row justify-content-end" id="spending_summary_wrapper"></div>
                 <p><span class="far fa-plus-square"></span>Details</p>
 
                 <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
