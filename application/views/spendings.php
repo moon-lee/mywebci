@@ -36,8 +36,8 @@
                 <div class="row justify-content-end" id="spending_summary_wrapper"></div>
                 <p><span class="far fa-plus-square"></span>Details</p>
 
-                <table id="tb-spending" class="table table-sm table-striped table-bordered" width="100%">
-                    <thead>
+                <table id="tb-spending" class="table table-sm table-bordered table-hover" width="100%">
+                    <thead class="thead-light">
                         <tr>
                             <th></th>
                             <th>Date</th>

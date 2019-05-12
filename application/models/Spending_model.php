@@ -183,7 +183,8 @@ class Spending_model extends MY_Model
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
 
         $table_headers[] = 'Sub Category';
-        $table_cells_data[] = $this->getCategoryName($code_list, $category_code.'00');
+        $cell = array('data' => $this->getCategoryName($code_list, $category_code.'00'), 'class' => 'table-success');
+        $table_cells_data[] = $cell;
 
         foreach ($query_result as $row) {
             foreach ($row as $key => $value) {
