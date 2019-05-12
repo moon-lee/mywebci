@@ -104,3 +104,4 @@ defined('CODE_SELECTION')      OR define('CODE_SELECTION', 0);
 defined('SPEND_YM_SELECTION')  OR define('SPEND_YM_SELECTION', 1);
 defined('CODE_NAME_SELECTION') OR define('CODE_NAME_SELECTION', 2);
 
+defined('CODE_INCOME_IN_SPEND') OR define('CODE_INCOME_IN_SPEND', 'G');
