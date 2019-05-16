@@ -33,7 +33,9 @@
                             </div>
                         </div>
                 </div>
-                <div class="row justify-content-end" id="spending_summary_wrapper"></div>
+                <div class="row justify-content-end" id="spending_main_summary_wrapper"></div>
+                <div class="row justify-content-end" id="spending_sub_summary_wrapper"></div>
+
                 <p><span class="far fa-plus-square"></span>Details</p>
 
                 <table id="tb-spending" class="table table-sm table-bordered table-hover" width="100%">
