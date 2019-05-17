@@ -53,9 +53,12 @@ class Dashboard extends MY_Controller
         $p_end = $this->input->get("end");
 
         $token = $this->session->userdata('accessToken');
-        $events = $this->googleclient->getEvents($token, $p_start, $p_end);
- 
-        echo $events;
+
+        if(isset($token)) {
+            echo $this->googleclient->getEvents($token, $p_start, $p_end);
+        } else {
+            echo json_encode('');
+        }
     }
 
     private function payment_summary()

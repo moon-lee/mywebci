@@ -165,6 +165,7 @@ class Spending_model extends MY_Model
     {
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         $sum_mainCategory = $query_result[0]['Total'];
+        $max_key = min( array_keys( $query_result[0] ) );
 
         foreach ($query_result as $row) {
             foreach ($row as $key => $value) {
