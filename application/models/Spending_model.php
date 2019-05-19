@@ -165,7 +165,11 @@ class Spending_model extends MY_Model
     {
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         $sum_mainCategory = $query_result[0]['Total'];
-        $max_key = min( array_keys( $query_result[0] ) );
+
+        $filterOutKeys = array('Total', 'Year Month');
+        $filteredArr = array_diff_key($query_result[0], array_flip($filterOutKeys));
+
+        $max_key = array_keys($filteredArr, min($filteredArr));
 
         foreach ($query_result as $row) {
             foreach ($row as $key => $value) {
@@ -181,6 +185,11 @@ class Spending_model extends MY_Model
                 } elseif ($key == $category_code) {
                     $percentage_value = round(($value/$sum_mainCategory)*100,2);
                     $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
+                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
+                    $table_cells_data[] = $cell;
+                } elseif ($key == $max_key[0]) {
+                    $percentage_value = round(($value/$sum_mainCategory)*100,2);
+                    $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table_red_font');
                     $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                     $table_cells_data[] = $cell;
                 } else {
