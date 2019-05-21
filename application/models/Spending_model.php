@@ -119,7 +119,7 @@ class Spending_model extends MY_Model
 
         if ($post_data['spend_year_month'] != '') {
             $mainCategoryNameList = $this->getMainCategory(CODE_NAME_SELECTION);
-            $sql = "CALL sp_spend_year_month_by_category('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_spend_mastercategory_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
@@ -128,7 +128,7 @@ class Spending_model extends MY_Model
             }
 
             $subCategoryNameList = $this->getSubCategory(CODE_INCOME_IN_SPEND, CODE_NAME_SELECTION);
-            $sql = "CALL sp_income_summary_in_spend('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_income_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
