@@ -35,6 +35,7 @@ class Spending_model extends MY_Model
                 'data' => $query->result_array(),
                 'query' => $this->db->last_query(),
                 'main_summary_year_month'  => $this->get_Main_Summary($post_data),
+                'financial_year_summary'  => $this->get_Financial_Summary($post_data),
                 'sub_summary_year_month'  => $this->get_Sub_Summary($post_data)
             );
         } else {
@@ -119,7 +120,7 @@ class Spending_model extends MY_Model
 
         if ($post_data['spend_year_month'] != '') {
             $mainCategoryNameList = $this->getMainCategory(CODE_NAME_SELECTION);
-            $sql = "CALL sp_spend_mastercategory_summary('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_mastercategory_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
@@ -148,7 +149,7 @@ class Spending_model extends MY_Model
         if ($post_data['spend_category_code'] != '') {
             if ($this->_validate_subcategory_from_spend($post_data['spend_year_month'], $post_data['spend_category_code'])) {
                 $subCategoryNameList = $this->getSubCategory($post_data['spend_category_code'], CODE_NAME_SELECTION);
-                $sql = "CALL sp_spend_subcategory_summary('". $post_data['spend_year_month']."','". $post_data['spend_category_code']."' )";
+                $sql = "CALL sp_subcategory_summary('". $post_data['spend_year_month']."','". $post_data['spend_category_code']."' )";
                 if ($query = $this->db->query($sql)) {
                     mysqli_next_result($CI->db->conn_id);
                     $query_result = $query->result_array();
@@ -161,12 +162,42 @@ class Spending_model extends MY_Model
         return $generated_sub_table;
     }
 
+    public function get_Financial_Summary($post_data)
+    {
+        $generated_main_table = '';
+        $generated_income_table = '';
+
+        $CI = & get_instance();
+
+        if ($post_data['spend_year_month'] != '') {
+            $mainCategoryNameList = $this->getMainCategory(CODE_NAME_SELECTION);
+            $sql = "CALL sp_finance_year_summary('". $post_data['spend_year_month']."')";
+            if ($query = $this->db->query($sql)) {
+                mysqli_next_result($CI->db->conn_id);
+                $query_result = $query->result_array();
+                $query->free_result();
+                $generated_main_table = $this->_getMainCategory_Summary($query_result, $post_data['spend_category_code'], $mainCategoryNameList);
+            }
+
+            $subCategoryNameList = $this->getSubCategory(CODE_INCOME_IN_SPEND, CODE_NAME_SELECTION);
+            $sql = "CALL sp_finance_income_summary('". $post_data['spend_year_month']."')";
+            if ($query = $this->db->query($sql)) {
+                mysqli_next_result($CI->db->conn_id);
+                $query_result = $query->result_array();
+                $query->free_result();
+                $generated_income_table = $this->_getIncome_Summary($query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
+            }
+        }
+
+        return $generated_main_table.$generated_income_table;
+    }
+
     private function _getMainCategory_Summary($query_result, $category_code, $code_list)
     {
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         $sum_mainCategory = $query_result[0]['Total'];
 
-        $filterOutKeys = array('Total', 'Year Month');
+        $filterOutKeys = array('Total', 'Year Month', 'Financial Year');
         $filteredArr = array_diff_key($query_result[0], array_flip($filterOutKeys));
 
         $max_key = array_keys($filteredArr, min($filteredArr));
@@ -177,29 +208,28 @@ class Spending_model extends MY_Model
                     $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-danger');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
-
-                } elseif ($key == 'Year Month') {
+                } elseif ($key == 'Year Month' || $key == 'Financial Year' ) {
                     $cell = array('data' => $value, 'class' => 'table-success');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
                 } elseif ($key == $category_code) {
-                    $percentage_value = round(($value/$sum_mainCategory)*100,2);
+                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
                     $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
                     $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                     $table_cells_data[] = $cell;
                 } elseif ($key == $max_key[0]) {
-                    $percentage_value = round(($value/$sum_mainCategory)*100,2);
+                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
                     $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table_red_font');
                     $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                     $table_cells_data[] = $cell;
                 } else {
-                    $percentage_value = round(($value/$sum_mainCategory)*100,2);
+                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
                     $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                     $table_cells_data[] = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
                 }
             }
         }
-        return $this->_render_html_table($table_headers,$table_cells_data, TABLE_MAIN_TEMPLATE);
+        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_MAIN_TEMPLATE);
     }
 
     private function _getIncome_Summary($query_result, $category_code, $code_list)
@@ -219,7 +249,7 @@ class Spending_model extends MY_Model
             }
         }
 
-        return $this->_render_html_table($table_headers,$table_cells_data, TABLE_SUB_TEMPLATE);
+        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_SUB_TEMPLATE);
     }
 
     private function _getSubCategory_Summary($query_result, $category_code, $code_list)
@@ -243,7 +273,7 @@ class Spending_model extends MY_Model
             }
         }
 
-        return $this->_render_html_table($table_headers,$table_cells_data, TABLE_SUB_TEMPLATE);
+        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_SUB_TEMPLATE);
     }
 
     private function _validate_subcategory_from_spend($spend_ym, $category_code)

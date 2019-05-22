@@ -11,8 +11,8 @@
 
                 <p><span class="far fa-plus-square"></span>Summary</p>
 
-                <div class="row" id="sp_summary_section">
-                    <div class="col-2">
+                <div class="row align-items-center" id="sp_summary_section">
+                    <div class="col">
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="sp_year_month">Year-Month</label>
@@ -22,19 +22,21 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-2">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="sp_category">Category</label>
-                                </div>
-                                <select class="custom-select" id="sp_category">
-                                   {category}
-                                </select>
+                    <div class="col">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="sp_category">Category</label>
                             </div>
+                            <select class="custom-select" id="sp_category">
+                                {category}
+                            </select>
                         </div>
+                    </div>
+                    <div id="spending_sub_summary_wrapper"></div>
                 </div>
                 <div class="row justify-content-end" id="spending_main_summary_wrapper"></div>
-                <div class="row justify-content-end" id="spending_sub_summary_wrapper"></div>
+                <!-- <div class="row justify-content-between" id="spending_sub_summary_wrapper"></div> -->
+                <div class="row justify-content-end" id="spending_financial_summary_wrapper"></div>
 
                 <p><span class="far fa-plus-square"></span>Details</p>
 
