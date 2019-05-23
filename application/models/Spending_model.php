@@ -126,7 +126,7 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                $generated_main_table = $this->_getMainCategory_Summary($query_result, $post_data['spend_category_code'], $mainCategoryNameList);
+                $generated_main_table = $this->_generated_html_table_data(TABLE_MAIN_CAT, $query_result, $post_data['spend_category_code'], $mainCategoryNameList);
             }
 
             $subCategoryNameList = $this->getSubCategory(CODE_INCOME_IN_SPEND, CODE_NAME_SELECTION);
@@ -135,7 +135,7 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                $generated_income_table = $this->_getIncome_Summary($query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
+                $generated_income_table = $this->_generated_html_table_data(TABLE_INCOME, $query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
             }
         }
 
@@ -155,7 +155,7 @@ class Spending_model extends MY_Model
                     mysqli_next_result($CI->db->conn_id);
                     $query_result = $query->result_array();
                     $query->free_result();
-                    $generated_sub_table = $this->_getSubCategory_Summary($query_result, $post_data['spend_category_code'], $subCategoryNameList);
+                    $generated_sub_table = $this->_generated_html_table_data(TABLE_SUB_CAT, $query_result, $post_data['spend_category_code'], $subCategoryNameList);
                 }
             }
         }
@@ -177,7 +177,7 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                $generated_main_table = $this->_getMainCategory_Summary($query_result, $post_data['spend_category_code'], $mainCategoryNameList);
+                $generated_main_table = $this->_generated_html_table_data(TABLE_MAIN_CAT, $query_result, $post_data['spend_category_code'], $mainCategoryNameList);
             }
 
             $subCategoryNameList = $this->getSubCategory(CODE_INCOME_IN_SPEND, CODE_NAME_SELECTION);
@@ -186,7 +186,6 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                // $generated_income_table = $this->_getIncome_Summary($query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
                 $generated_income_table = $this->_generated_html_table_data(TABLE_INCOME, $query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
             }
         }
@@ -213,96 +212,23 @@ class Spending_model extends MY_Model
         return $generated_trends_table;
     }
 
-    private function _getMainCategory_Summary($query_result, $category_code, $code_list)
-    {
-        $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-        $sum_mainCategory = $query_result[0]['Total'];
-
-        $filterOutKeys = array('Total', 'Year Month', 'Financial Year');
-        $filteredArr = array_diff_key($query_result[0], array_flip($filterOutKeys));
-
-        $max_key = array_keys($filteredArr, min($filteredArr));
-
-        foreach ($query_result as $row) {
-            foreach ($row as $key => $value) {
-                if ($key == 'Total') {
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-danger');
-                    $table_headers[] = $key;
-                    $table_cells_data[] = $cell;
-                } elseif ($key == 'Year Month' || $key == 'Financial Year') {
-                    $cell = array('data' => $value, 'class' => 'table-success');
-                    $table_headers[] = $key;
-                    $table_cells_data[] = $cell;
-                } elseif ($key == $category_code) {
-                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
-                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
-                    $table_cells_data[] = $cell;
-                } elseif ($key == $max_key[0]) {
-                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
-                    $cell = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
-                    $table_headers[] = array('data' => $this->getCategoryName($code_list, $key.'00'), 'class' => 'table_red_font');
-                    $table_cells_data[] = $cell;
-                } else {
-                    $percentage_value = round(($value/$sum_mainCategory)*100, 2);
-                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
-                    $table_cells_data[] = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
-                }
-            }
-        }
-        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_MAIN_TEMPLATE);
-    }
-
-    private function _getIncome_Summary($query_result, $category_code, $code_list)
-    {
-        $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-
-        foreach ($query_result as $row) {
-            foreach ($row as $key => $value) {
-                if ($key == 'Total') {
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
-                    $table_headers[] = $key;
-                    $table_cells_data[] = $cell;
-                } else {
-                    $table_headers[] = $this->getCategoryName($code_list, $key);
-                    $table_cells_data[] = $fmt->formatCurrency($value, "USD");
-                }
-            }
-        }
-
-        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_SUB_TEMPLATE);
-    }
-
-    private function _getSubCategory_Summary($query_result, $category_code, $code_list)
-    {
-        $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-
-        $table_headers[] = 'Sub Category';
-        $cell = array('data' => $this->getCategoryName($code_list, $category_code.'00'), 'class' => 'table-success');
-        $table_cells_data[] = $cell;
-
-        foreach ($query_result as $row) {
-            foreach ($row as $key => $value) {
-                if ($key == 'Total') {
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
-                    $table_headers[] = $key;
-                    $table_cells_data[] = $cell;
-                } else {
-                    $table_headers[] = $this->getCategoryName($code_list, $key);
-                    $table_cells_data[] = $fmt->formatCurrency($value, "USD");
-                }
-            }
-        }
-
-        return $this->_render_html_table($table_headers, $table_cells_data, TABLE_SUB_TEMPLATE);
-    }
-
     private function _generated_html_table_data($tbType, $query_result, $category_code = '', $code_list = array())
     {
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
         $results = '';
+        $max_key[0] = '';
 
-        if ($tbType == TABLE_TRENDS) {
+        if ($tbType == TABLE_MAIN_CAT || $tbType == TABLE_INCOME) {
+            $sum_mainCategory = $query_result[0]['Total'];
+
+            $filterOutKeys = array('Total', 'Year Month', 'Financial Year');
+            $filteredArr = array_diff_key($query_result[0], array_flip($filterOutKeys));
+    
+            $max_key = array_keys($filteredArr, min($filteredArr));
+        } elseif ($tbType == TABLE_SUB_CAT) {
+            $table_headers[] = 'Sub Category';
+            $table_cells_data[] =  array('data' => $this->getCategoryName($code_list, $category_code.'00'), 'class' => 'table-success');
+        } elseif ($tbType == TABLE_TRENDS) {
             $table_headers[] = 'Trends';
             $table_cells_data[] = array('data' => '', 'class' => 'table-success');
         }
@@ -311,17 +237,56 @@ class Spending_model extends MY_Model
             foreach ($row as $key => $value) {
                 if ($key == 'Total') {
                     switch ($tbType) {
+                        case TABLE_MAIN_CAT:
+                            $table_headers[] = $key;
+                            $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-danger');
+                            break;
+                        case TABLE_SUB_CAT:
                         case TABLE_INCOME:
                             $table_headers[] = $key;
                             $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
                             break;
-                        case TABLE_TRENDS:
+                        default:
+                            break;
+                    }
+                } elseif ($key == 'Year Month' || $key == 'Financial Year') {
+                    switch ($tbType) {
+                        case TABLE_MAIN_CAT:
+                            $table_headers[] = $key;
+                            $table_cells_data[] = array('data' => $value, 'class' => 'table-success');
+                            break;
+                        default:
+                            break;
+                    }
+                } elseif ($key == $category_code) {
+                    switch ($tbType) {
+                        case TABLE_MAIN_CAT:
+                            $percentage_value = round(($value/$sum_mainCategory)*100, 2);
+                            $table_headers[] = $this->getCategoryName($code_list, $key.'00');
+                            $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
+                            break;
+                        default:
+                            break;
+                    }
+                } elseif ($key == $max_key[0]) {
+                    switch ($tbType) {
+                        case TABLE_MAIN_CAT:
+                        case TABLE_INCOME:
+                            $percentage_value = round(($value/$sum_mainCategory)*100, 2);
+                            $table_headers[] = array('data' => $this->getCategoryName($code_list, $key.'00'), 'class' => 'text-danger');
+                            $table_cells_data[] = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
                             break;
                         default:
                             break;
                     }
                 } else {
                     switch ($tbType) {
+                        case TABLE_MAIN_CAT:
+                            $percentage_value = round(($value/$sum_mainCategory)*100, 2);
+                            $table_headers[] = $this->getCategoryName($code_list, $key.'00');
+                            $table_cells_data[] = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
+                            break;
+                        case TABLE_SUB_CAT:
                         case TABLE_INCOME:
                             $table_headers[] = $this->getCategoryName($code_list, $key);
                             $table_cells_data[] = $fmt->formatCurrency($value, "USD");
@@ -358,11 +323,17 @@ class Spending_model extends MY_Model
 
     private function _render_html_table($header, $cells, $temp = TABLE_MAIN_TEMPLATE)
     {
-        if ($temp == TABLE_MAIN_TEMPLATE || $temp == TABLE_TRENDS) {
+        if ($temp == TABLE_MAIN_CAT || $temp == TABLE_TRENDS) {
             $tb_template = array(
                 'table_open' => '<div class="col">  <table class="table table-sm table-bordered table-hover text-right">',
                 'thead_open' => '<thead class="thead-light">',
                 'table_close' => '</table> </div>'
+            );
+        } elseif ($temp == TABLE_SUB_CAT) {
+            $tb_template = array(
+                'table_open' => '<table class="table table-sm table-bordered table-hover text-right">',
+                'thead_open' => '<thead class="thead-light">',
+                'table_close' => '</table>'
             );
         } else {
             $tb_template = array(
