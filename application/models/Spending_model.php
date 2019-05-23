@@ -36,7 +36,8 @@ class Spending_model extends MY_Model
                 'query' => $this->db->last_query(),
                 'main_summary_year_month'  => $this->get_Main_Summary($post_data),
                 'financial_year_summary'  => $this->get_Financial_Summary($post_data),
-                'sub_summary_year_month'  => $this->get_Sub_Summary($post_data)
+                'sub_summary_year_month'  => $this->get_Sub_Summary($post_data),
+                'financial_trends' => $this->get_Financial_Trends($post_data)
             );
         } else {
             return false;
@@ -185,11 +186,31 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                $generated_income_table = $this->_getIncome_Summary($query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
+                // $generated_income_table = $this->_getIncome_Summary($query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
+                $generated_income_table = $this->_generated_html_table_data(TABLE_INCOME, $query_result, CODE_INCOME_IN_SPEND, $subCategoryNameList);
             }
         }
 
         return $generated_main_table.$generated_income_table;
+    }
+
+    public function get_Financial_Trends($post_data)
+    {
+        $generated_trends_table = '';
+
+        $CI = & get_instance();
+
+        if ($post_data['spend_year_month'] != '') {
+            $sql = "CALL sp_finance_months_summary('". $post_data['spend_year_month']."')";
+            if ($query = $this->db->query($sql)) {
+                mysqli_next_result($CI->db->conn_id);
+                $query_result = $query->result_array();
+                $query->free_result();
+                $generated_trends_table = $this->_generated_html_table_data(TABLE_TRENDS, $query_result);
+            }
+        }
+
+        return $generated_trends_table;
     }
 
     private function _getMainCategory_Summary($query_result, $category_code, $code_list)
@@ -208,7 +229,7 @@ class Spending_model extends MY_Model
                     $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-danger');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
-                } elseif ($key == 'Year Month' || $key == 'Financial Year' ) {
+                } elseif ($key == 'Year Month' || $key == 'Financial Year') {
                     $cell = array('data' => $value, 'class' => 'table-success');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
@@ -219,8 +240,8 @@ class Spending_model extends MY_Model
                     $table_cells_data[] = $cell;
                 } elseif ($key == $max_key[0]) {
                     $percentage_value = round(($value/$sum_mainCategory)*100, 2);
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table_red_font');
-                    $table_headers[] = $this->getCategoryName($code_list, $key.'00');
+                    $cell = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
+                    $table_headers[] = array('data' => $this->getCategoryName($code_list, $key.'00'), 'class' => 'table_red_font');
                     $table_cells_data[] = $cell;
                 } else {
                     $percentage_value = round(($value/$sum_mainCategory)*100, 2);
@@ -239,7 +260,7 @@ class Spending_model extends MY_Model
         foreach ($query_result as $row) {
             foreach ($row as $key => $value) {
                 if ($key == 'Total') {
-                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-info');
+                    $cell = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
                     $table_headers[] = $key;
                     $table_cells_data[] = $cell;
                 } else {
@@ -276,6 +297,51 @@ class Spending_model extends MY_Model
         return $this->_render_html_table($table_headers, $table_cells_data, TABLE_SUB_TEMPLATE);
     }
 
+    private function _generated_html_table_data($tbType, $query_result, $category_code = '', $code_list = array())
+    {
+        $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+        $results = '';
+
+        if ($tbType == TABLE_TRENDS) {
+            $table_headers[] = 'Trends';
+            $table_cells_data[] = array('data' => '', 'class' => 'table-success');
+        }
+
+        foreach ($query_result as $row) {
+            foreach ($row as $key => $value) {
+                if ($key == 'Total') {
+                    switch ($tbType) {
+                        case TABLE_INCOME:
+                            $table_headers[] = $key;
+                            $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
+                            break;
+                        case TABLE_TRENDS:
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    switch ($tbType) {
+                        case TABLE_INCOME:
+                            $table_headers[] = $this->getCategoryName($code_list, $key);
+                            $table_cells_data[] = $fmt->formatCurrency($value, "USD");
+                            break;
+                        case TABLE_TRENDS:
+                            $table_headers[] = $key;
+                            $table_cells_data[] = $fmt->formatCurrency($value, "USD");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        $results = $this->_render_html_table($table_headers, $table_cells_data, $tbType);
+
+        return $results;
+    }
+
     private function _validate_subcategory_from_spend($spend_ym, $category_code)
     {
         $sql = "SELECT count(spend_category) as cnt FROM wspending
@@ -292,7 +358,7 @@ class Spending_model extends MY_Model
 
     private function _render_html_table($header, $cells, $temp = TABLE_MAIN_TEMPLATE)
     {
-        if ($temp == TABLE_MAIN_TEMPLATE) {
+        if ($temp == TABLE_MAIN_TEMPLATE || $temp == TABLE_TRENDS) {
             $tb_template = array(
                 'table_open' => '<div class="col">  <table class="table table-sm table-bordered table-hover text-right">',
                 'thead_open' => '<thead class="thead-light">',

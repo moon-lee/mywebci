@@ -88,23 +88,28 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 | Custom defines
 |--------------------------------------------------------------------------
 */
-defined('BASE_RATE')           OR define('BASE_RATE', 24.50);
+defined('BASE_RATE')            OR define('BASE_RATE', 24.50);
 
-defined('CSS_JS_DEFAULT')      OR define('CSS_JS_DEFAULT', 0);
-defined('CSS_JS_DASHBOARD')    OR define('CSS_JS_DASHBOARD', 1);
-defined('CSS_JS_PAYMENT')      OR define('CSS_JS_PAYMENT', 2);
-defined('CSS_JS_WEIGHT')       OR define('CSS_JS_WEIGHT', 3);
-defined('CSS_JS_SPENDING')     OR define('CSS_JS_SPENDING', 4);
+defined('CSS_JS_DEFAULT')       OR define('CSS_JS_DEFAULT', 0);
+defined('CSS_JS_DASHBOARD')     OR define('CSS_JS_DASHBOARD', 1);
+defined('CSS_JS_PAYMENT')       OR define('CSS_JS_PAYMENT', 2);
+defined('CSS_JS_WEIGHT')        OR define('CSS_JS_WEIGHT', 3);
+defined('CSS_JS_SPENDING')      OR define('CSS_JS_SPENDING', 4);
 
-defined('VIEW_DEFAULT')        OR define('VIEW_DEFAULT', 'layouts/main_layout');
-defined('SUMMARY_DEFAULT')     OR define('SUMMARY_DEFAULT', 0);
-defined('SUMMARY_OTHER')       OR define('SUMMARY_OTHER', 1);
+defined('VIEW_DEFAULT')         OR define('VIEW_DEFAULT', 'layouts/main_layout');
+defined('SUMMARY_DEFAULT')      OR define('SUMMARY_DEFAULT', 0);
+defined('SUMMARY_OTHER')        OR define('SUMMARY_OTHER', 1);
 
-defined('CODE_SELECTION')      OR define('CODE_SELECTION', 0);
-defined('SPEND_YM_SELECTION')  OR define('SPEND_YM_SELECTION', 1);
-defined('CODE_NAME_SELECTION') OR define('CODE_NAME_SELECTION', 2);
+defined('CODE_SELECTION')       OR define('CODE_SELECTION', 0);
+defined('SPEND_YM_SELECTION')   OR define('SPEND_YM_SELECTION', 1);
+defined('CODE_NAME_SELECTION')  OR define('CODE_NAME_SELECTION', 2);
 
 defined('CODE_INCOME_IN_SPEND') OR define('CODE_INCOME_IN_SPEND', 'G');
 
-defined('TABLE_MAIN_TEMPLATE') OR define('TABLE_MAIN_TEMPLATE', 0);
-defined('TABLE_SUB_TEMPLATE') OR define('TABLE_SUB_TEMPLATE', 1);
+defined('TABLE_MAIN_TEMPLATE')  OR define('TABLE_MAIN_TEMPLATE', 0);
+defined('TABLE_SUB_TEMPLATE')   OR define('TABLE_SUB_TEMPLATE', 1);
+
+defined('TABLE_MAIN_CAT')       OR define('TABLE_MAIN_CAT', 1);
+defined('TABLE_SUB_CAT')        OR define('TABLE_SUB_CAT', 2);
+defined('TABLE_INCOME')         OR define('TABLE_INCOME', 3);
+defined('TABLE_TRENDS')         OR define('TABLE_TRENDS', 4);
