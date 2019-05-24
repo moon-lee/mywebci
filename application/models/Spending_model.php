@@ -205,7 +205,7 @@ class Spending_model extends MY_Model
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
                 $query->free_result();
-                $generated_trends_table = $this->_generated_html_table_data(TABLE_TRENDS, $query_result);
+                $generated_trends_table = $this->_generated_html_table_data(TABLE_TRENDS, $query_result,$post_data['spend_year_month'] );
             }
         }
 
@@ -218,7 +218,7 @@ class Spending_model extends MY_Model
         $results = '';
         $max_key[0] = '';
 
-        if ($tbType == TABLE_MAIN_CAT || $tbType == TABLE_INCOME) {
+        if ($tbType == TABLE_MAIN_CAT) {
             $sum_mainCategory = $query_result[0]['Total'];
 
             $filterOutKeys = array('Total', 'Year Month', 'Financial Year');
@@ -230,7 +230,7 @@ class Spending_model extends MY_Model
             $table_cells_data[] =  array('data' => $this->getCategoryName($code_list, $category_code.'00'), 'class' => 'table-success');
         } elseif ($tbType == TABLE_TRENDS) {
             $table_headers[] = 'Trends';
-            $table_cells_data[] = array('data' => '', 'class' => 'table-success');
+            $table_cells_data[] = array('data' => 'Total', 'class' => 'table-success');
         }
 
         foreach ($query_result as $row) {
@@ -246,16 +246,12 @@ class Spending_model extends MY_Model
                             $table_headers[] = $key;
                             $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-primary');
                             break;
-                        default:
-                            break;
                     }
                 } elseif ($key == 'Year Month' || $key == 'Financial Year') {
                     switch ($tbType) {
                         case TABLE_MAIN_CAT:
                             $table_headers[] = $key;
                             $table_cells_data[] = array('data' => $value, 'class' => 'table-success');
-                            break;
-                        default:
                             break;
                     }
                 } elseif ($key == $category_code) {
@@ -265,18 +261,17 @@ class Spending_model extends MY_Model
                             $table_headers[] = $this->getCategoryName($code_list, $key.'00');
                             $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
                             break;
-                        default:
+                        case TABLE_TRENDS:
+                            $table_headers[] = $key;
+                            $table_cells_data[] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-warning');
                             break;
                     }
                 } elseif ($key == $max_key[0]) {
                     switch ($tbType) {
                         case TABLE_MAIN_CAT:
-                        case TABLE_INCOME:
                             $percentage_value = round(($value/$sum_mainCategory)*100, 2);
                             $table_headers[] = array('data' => $this->getCategoryName($code_list, $key.'00'), 'class' => 'text-danger');
                             $table_cells_data[] = $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)';
-                            break;
-                        default:
                             break;
                     }
                 } else {
@@ -294,8 +289,6 @@ class Spending_model extends MY_Model
                         case TABLE_TRENDS:
                             $table_headers[] = $key;
                             $table_cells_data[] = $fmt->formatCurrency($value, "USD");
-                            break;
-                        default:
                             break;
                     }
                 }
