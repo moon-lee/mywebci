@@ -203,7 +203,7 @@ class Spending_model extends MY_Model
         $table_headers = array();
         $table_cells_data = array();
 
-        $check_icon = '<svg class="icon"><use xlink:href="#check"></use></svg>';
+        $check_icon = '<svg class="icon_max_check"><use xlink:href="#check"></use></svg>';
         $up_icon = '<svg class="icon_trend_up"><use xlink:href="#caret-up"></use></svg>';
         $down_icon = '<svg class="icon_trend_down"><use xlink:href="#caret-down"></use></svg>';
         $prev_array_value = 0;
@@ -222,15 +222,14 @@ class Spending_model extends MY_Model
                     break;
                 case TABLE_TRENDS:
                     if ($header != 'Trends') {
-                        $diff_array_value = $prev_array_value - $query_result[0][$header];
-                        if ($diff_array_value > 0 ) {
+                        $diff_array_value = $query_result[1][$header] + $query_result[0][$header];
+                        if ($diff_array_value < 0 ) {
                             $table_headers[] = $down_icon.$header;
-                        } elseif ($diff_array_value < 0 ) {
+                        } elseif ($diff_array_value > 0 ) {
                             $table_headers[] = $up_icon.$header;
                         } else {
                             $table_headers[] = $header;
                         }
-                        $prev_array_value = $query_result[0][$header];
                     } else {
                         $table_headers[] = $header;
                     }
@@ -250,6 +249,8 @@ class Spending_model extends MY_Model
                     $sum_mainCategory = $row['Total'];
                     break;
             }
+
+            $prev_array_value = 0;
 
             foreach ($row as $key => $value) {
                 if ($key == 'Total') {
@@ -271,7 +272,15 @@ class Spending_model extends MY_Model
                             $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD").' ('.$percentage_value.'%)', 'class' => 'table-warning');
                             break;
                         case TABLE_TRENDS:
-                            $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-warning');
+                            $diff_array_value = $prev_array_value - $value;
+                            if ($diff_array_value > 0 && $value != 0) {
+                                $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD").$down_icon, 'class' => 'table-warning');
+                            } elseif ($diff_array_value < 0 && $value != 0 ) {
+                                $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD").$up_icon, 'class' => 'table-warning');
+                            } else {
+                                $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-warning');
+                            }
+                            $prev_array_value = $value;
                             break;
                     }
                 } elseif ($key == $max_key[0]) {
@@ -289,8 +298,18 @@ class Spending_model extends MY_Model
                             break;
                         case TABLE_SUB_CAT:
                         case TABLE_INCOME:
-                        case TABLE_TRENDS:
                             $table_cells_data[$i][] = $fmt->formatCurrency($value, "USD");
+                            break;
+                        case TABLE_TRENDS:
+                            $diff_array_value = $prev_array_value - $value;
+                            if ($diff_array_value > 0 && $value != 0) {
+                                $table_cells_data[$i][] = $fmt->formatCurrency($value, "USD").$down_icon;
+                            } elseif ($diff_array_value < 0 && $value != 0) {
+                                $table_cells_data[$i][] = $fmt->formatCurrency($value, "USD").$up_icon;
+                            } else {
+                                $table_cells_data[$i][] = $fmt->formatCurrency($value, "USD");
+                            }
+                            $prev_array_value = $value;
                             break;
                     }
                 }
