@@ -126,7 +126,7 @@ class Spending_model extends MY_Model
                 $category_name = '';
             }
 
-            $sql = "CALL masterCategory_summary('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_mastercategory_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
@@ -134,7 +134,7 @@ class Spending_model extends MY_Model
                 $generated_main_table = $this->_generated_html_table_data(TABLE_MAIN_CAT, $query_result, $category_name);
             }
 
-            $sql = "CALL income_summary('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_income_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
@@ -166,7 +166,6 @@ class Spending_model extends MY_Model
         return $generated_sub_table;
     }
 
-
     public function get_Financial_Trends($post_data)
     {
         $generated_trends_table = '';
@@ -174,7 +173,7 @@ class Spending_model extends MY_Model
         $CI = & get_instance();
 
         if ($post_data['spend_year_month'] != '') {
-            $sql = "CALL sp_finance_months_summary('". $post_data['spend_year_month']."')";
+            $sql = "CALL sp_finance_trends_summary('". $post_data['spend_year_month']."')";
             if ($query = $this->db->query($sql)) {
                 mysqli_next_result($CI->db->conn_id);
                 $query_result = $query->result_array();
@@ -185,6 +184,7 @@ class Spending_model extends MY_Model
 
         return $generated_trends_table;
     }
+
     private function _generated_html_table_data($tbType, $query_result, $category_code = '')
     {
         $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);

@@ -1,4 +1,4 @@
-CREATE DEFINER=`wom`@`localhost` PROCEDURE `masterCategory_summary`(IN c_date VARCHAR(10))
+CREATE DEFINER=`wom`@`localhost` PROCEDURE `sp_mastercategory_summary`(IN c_date VARCHAR(10))
 BEGIN
 	SET @spend_ym = CONCAT(c_date,'%');
 	SET @f_date = CONCAT(c_date,'-01');
@@ -9,16 +9,16 @@ BEGIN
     
     
 	SET @sql_first_row = 
-		'(SELECT DATE_FORMAT(spend_date, ''%Y-%m'') AS spend_year_month, 
+		'(SELECT DATE_FORMAT(spend_date, ''%Y-%m'') AS row_title, 
 			 SUBSTR(spend_category, 1, 1) AS master_category,
 			 SUM(spend_amount) AS sum_spend_amount
 		FROM wspending 
 		WHERE spend_date like ? 
-		GROUP BY spend_year_month, master_category
+		GROUP BY row_title, master_category
 		ORDER BY master_category) a';
     
 	SET @sql_second_row = 
-		'(SELECT ? AS `Financial Year`, SUBSTR(spend_category, 1, 1) AS master_category,
+		'(SELECT ? AS row_title, SUBSTR(spend_category, 1, 1) AS master_category,
 			 SUM(spend_amount) AS sum_spend_amount
 		FROM wspending
         WHERE spend_date between ? and ?
@@ -30,7 +30,7 @@ BEGIN
 		GROUP_CONCAT(DISTINCT CONCAT(' IFNULL(MAX(CASE WHEN master_category =\'',
                 SUBSTR(cat_code,1,1),
                 '\' THEN sum_spend_amount END),0) AS `',
-                SUBSTR(cat_code,1,1),
+                cat_name,
                 '`'))
 	INTO @sql_columns FROM wcategory
 	WHERE SUBSTR(cat_code,2,2) = '00' AND cat_status = 1 ;
@@ -43,13 +43,11 @@ BEGIN
 	INTO @total_column FROM wcategory
 	WHERE SUBSTR(cat_code,2,2) = '00' AND cat_status = 1 ;
 
-	SET @first_row_sql = CONCAT('SELECT ',
-							@sql_columns, ',', @total_column,
-							' AS Total FROM ' , @sql_first_row);
+	SET @first_row_sql = CONCAT('SELECT row_title, ',@sql_columns, ',', @total_column,
+							' AS Total FROM ' , @sql_first_row ,' GROUP BY row_title');
 
-	SET @second_row_sql = CONCAT('SELECT ',
-							@sql_columns, ',', @total_column,
-							' AS Total FROM ' , @sql_second_row);
+	SET @second_row_sql = CONCAT('SELECT row_title, ',@sql_columns, ',', @total_column,
+							' AS Total FROM ' , @sql_second_row ,' GROUP BY row_title');
                             
 	SET @final_sql = CONCAT('(',@first_row_sql,') union (',@second_row_sql,')');
 

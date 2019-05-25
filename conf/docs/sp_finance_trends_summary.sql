@@ -1,4 +1,4 @@
-CREATE DEFINER=`wom`@`localhost` PROCEDURE `sp_finance_months_summary`(IN c_date VARCHAR(10))
+CREATE DEFINER=`wom`@`localhost` PROCEDURE `sp_finance_trends_summary`(IN c_date VARCHAR(10))
 BEGIN
 	SET @f_date = CONCAT(c_date,'-01');
 	SET @finance_from_year = current_financial_year(1,@f_date);
@@ -7,7 +7,7 @@ BEGIN
     SELECT CONCAT(YEAR(current_financial_year(1,@f_date)),'-',YEAR(current_financial_year(2,@f_date))) INTO @finance_year ;
     
 	SET @sql_row = 
-		'(SELECT  DATE_FORMAT(spend_date, ''%Y-%m'') AS s_ym, 
+		'(SELECT  "" as Trends, DATE_FORMAT(spend_date, ''%Y-%m'') AS s_ym, 
 			   SUM(spend_amount) AS sum_amount
 		FROM wspending 
 		WHERE spend_date between ? and ? 
@@ -32,7 +32,7 @@ BEGIN
 		FROM wspending) b;
 	*/
 
-	SET @final_sql = CONCAT('SELECT  ', @sql_columns, ' FROM ', @sql_row);
+	SET @final_sql = CONCAT('SELECT `Trends`, ', @sql_columns, ' FROM ', @sql_row,' GROUP BY `Trends`');
                         
 	PREPARE stmt FROM @final_sql ;
 	EXECUTE stmt USING @finance_from_year, @finance_to_year;
