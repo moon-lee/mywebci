@@ -203,15 +203,35 @@ class Spending_model extends MY_Model
         $table_headers = array();
         $table_cells_data = array();
 
+        $check_icon = '<svg class="icon"><use xlink:href="#check"></use></svg>';
+        $up_icon = '<svg class="icon_trend_up"><use xlink:href="#caret-up"></use></svg>';
+        $down_icon = '<svg class="icon_trend_down"><use xlink:href="#caret-down"></use></svg>';
+        $prev_array_value = 0;
+
         $query_result_keys = array_keys($query_result[0]);
         foreach ($query_result_keys as $header) {
             switch ($tbType) {
                 case TABLE_MAIN_CAT:
                     if ($header == $max_key[0]) {
-                        $table_headers[] = array('data' => $header, 'class' => 'text-danger');
+                        $table_headers[] = array('data' => $check_icon.$header, 'class' => 'text-danger');
                     } elseif ($header == 'row_title') {
                         $table_headers[] = 'Main Categories';
                     }else {
+                        $table_headers[] = $header;
+                    }
+                    break;
+                case TABLE_TRENDS:
+                    if ($header != 'Trends') {
+                        $diff_array_value = $prev_array_value - $query_result[0][$header];
+                        if ($diff_array_value > 0 ) {
+                            $table_headers[] = $down_icon.$header;
+                        } elseif ($diff_array_value < 0 ) {
+                            $table_headers[] = $up_icon.$header;
+                        } else {
+                            $table_headers[] = $header;
+                        }
+                        $prev_array_value = $query_result[0][$header];
+                    } else {
                         $table_headers[] = $header;
                     }
                     break;
