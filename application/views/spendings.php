@@ -35,7 +35,6 @@
                     <div class="col-auto" id="spending_sub_summary_wrapper"></div>
                 </div>
                 <div class="row justify-content-end" id="spending_main_summary_wrapper"></div>
-                <div class="row justify-content-end" id="spending_financial_summary_wrapper"></div>
                 <div class="row justify-content-between" id="spending_financial_trends_wrapper"></div>
 
                 <p><span class="far fa-plus-square"></span>Details</p>
