@@ -8,6 +8,7 @@ class Spendings extends MY_Controller
     {
         parent::__construct();
         $this->load->model('spending_model');
+        $this->load->model('categories_model');
     }
 
     public function index()
@@ -34,7 +35,7 @@ class Spendings extends MY_Controller
                         'spend_year_month' => 
                         $this->set_selection(SPEND_YM_SELECTION, $this->spending_model->get_spending_year_month()),
                         'category' => 
-                        $this->set_selection(CODE_SELECTION, $this->spending_model->getMainCategory(SPEND_YM_SELECTION))
+                        $this->set_selection(CODE_SELECTION, $this->categories_model->getMainCategory(SPEND_YM_SELECTION))
                     ));
 
         /**
@@ -42,7 +43,7 @@ class Spendings extends MY_Controller
          */
         $accountType = $this->myconfig['account_type'];
         $subCategory_first =  $this->myconfig['sub_category_first'];
-        $mainCategory = $this->spending_model->getMainCategory(CODE_SELECTION);
+        $mainCategory = $this->categories_model->getMainCategory(CODE_SELECTION);
         $this->data['modal'] = $this->set_content(
             'layouts/spendings_modal',
             array('account_type' => $this->set_selection(CODE_SELECTION, $accountType),
@@ -56,7 +57,7 @@ class Spendings extends MY_Controller
     public function get_subcategory()
     {
         $post_data = $this->input->post(null, true);
-        $result = $this->spending_model->getSubCategory($post_data['mcategory_code']);
+        $result = $this->categories_model->getSubCategory($post_data['mcategory_code']);
         $subCategory = $this->set_selection(CODE_SELECTION, $result);
         $subCategory_first =  $this->myconfig['sub_category_first'];
         echo  $this->set_selection(CODE_SELECTION, $subCategory_first) . $subCategory;

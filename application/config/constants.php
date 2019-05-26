@@ -95,6 +95,7 @@ defined('CSS_JS_DASHBOARD')     OR define('CSS_JS_DASHBOARD', 1);
 defined('CSS_JS_PAYMENT')       OR define('CSS_JS_PAYMENT', 2);
 defined('CSS_JS_WEIGHT')        OR define('CSS_JS_WEIGHT', 3);
 defined('CSS_JS_SPENDING')      OR define('CSS_JS_SPENDING', 4);
+defined('CSS_JS_SETTING')       OR define('CSS_JS_SETTING', 5);
 
 defined('VIEW_DEFAULT')         OR define('VIEW_DEFAULT', 'layouts/main_layout');
 defined('SUMMARY_DEFAULT')      OR define('SUMMARY_DEFAULT', 0);

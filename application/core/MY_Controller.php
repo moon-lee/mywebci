@@ -40,7 +40,11 @@ class MY_Controller extends CI_Controller
         } elseif ($setstate === CSS_JS_SPENDING) {
             $css_spending = $this->myconfig['css_list_spending'];
             $csslists = array_merge_recursive($css_def, $css_spending);
+        } elseif ($setstate === CSS_JS_SETTING) {
+            $css_spending = $this->myconfig['css_list_setting'];
+            $csslists = array_merge_recursive($css_def, $css_spending);
         }
+        
         
         return $this->parser->parse_string($css_template, $csslists, true);
     }
@@ -60,6 +64,9 @@ class MY_Controller extends CI_Controller
             $jslists = array_merge_recursive($js_def, $js_payment);
         } elseif ($setstate === CSS_JS_SPENDING) {
             $js_spending =  $this->myconfig['js_list_spending'];
+            $jslists = array_merge_recursive($js_def, $js_spending);
+        } elseif ($setstate === CSS_JS_SETTING) {
+            $js_spending =  $this->myconfig['js_list_setting'];
             $jslists = array_merge_recursive($js_def, $js_spending);
         }
 

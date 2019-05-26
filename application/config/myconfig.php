@@ -30,6 +30,14 @@ $config['css_list_spending'] = array(
     )
 );
 
+$config['css_list_setting'] = array(
+    'csslist' => array(
+    array('cssdata' => base_url('assets/dist/css/dataTables.bootstrap4.min.css')),
+    array('cssdata' => base_url('assets/dist/css/select.bootstrap4.min.css')),
+    array('cssdata' => base_url('assets/dist/css/buttons.bootstrap4.min.css')),
+    )
+);
+
 $config['js_list_default'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/jquery.min.js')),
@@ -60,10 +68,16 @@ $config['js_list_spending'] = array(
     'jslist' => array(
     array('jsdata' => base_url('assets/dist/js/mySpendings.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.flatpickr.js')),
-    // array('jsdata' => base_url('assets/dist/js/bundles.datatable.js')),
     array('jsdata' => base_url('assets/dist/js/bundles.moment.js'))
     )
 );
+
+$config['js_list_setting'] = array(
+    'jslist' => array(
+    array('jsdata' => base_url('assets/dist/js/mySettings.js'))
+    )
+);
+
 
 $config['account_type'] = array(
     array('code_value' => "",  "code_name" => "Select Account Type"),

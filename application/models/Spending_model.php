@@ -11,6 +11,7 @@ class Spending_model extends MY_Model
         $this->tb_name['upload'] = "wuploaddata";
         $this->tb_name['temp'] = "tmp_spend";
         $this->view_tb_name['view_spend'] = "v_spending";
+        $this->load->model('categories_model');
     }
  
     /* ///////////////////////////////////////////////
@@ -119,7 +120,7 @@ class Spending_model extends MY_Model
         $CI = & get_instance();
 
         if ($post_data['spend_year_month'] != '') {
-            $selected_category = $this->getMainCategory(CODE_NAME_SELECTION, $post_data['spend_category_code']);
+            $selected_category = $this->categories_model->getMainCategory(CODE_NAME_SELECTION, $post_data['spend_category_code']);
             if ($selected_category) {
                 $category_name = $selected_category[0]['code_name'];
             } else {
@@ -195,7 +196,7 @@ class Spending_model extends MY_Model
             $filterOutKeys = array('Total', 'Year Month', 'Financial Year', 'row_title');
             $filteredArr = array_diff_key($query_result[0], array_flip($filterOutKeys));
             $max_key = array_keys($filteredArr, min($filteredArr));
-        } 
+        }
 
         /**
          * Set Table columns header
@@ -216,16 +217,16 @@ class Spending_model extends MY_Model
                         $table_headers[] = array('data' => $check_icon.$header, 'class' => 'text-danger');
                     } elseif ($header == 'row_title') {
                         $table_headers[] = 'Main Categories';
-                    }else {
+                    } else {
                         $table_headers[] = $header;
                     }
                     break;
                 case TABLE_TRENDS:
                     if ($header != 'Trends') {
                         $diff_array_value = $query_result[1][$header] + $query_result[0][$header];
-                        if ($diff_array_value < 0 ) {
+                        if ($diff_array_value < 0) {
                             $table_headers[] = $down_icon.$header;
-                        } elseif ($diff_array_value > 0 ) {
+                        } elseif ($diff_array_value > 0) {
                             $table_headers[] = $up_icon.$header;
                         } else {
                             $table_headers[] = $header;
@@ -241,7 +242,7 @@ class Spending_model extends MY_Model
             }
         }
 
-        for ($i=0, $size = count($query_result); $i < $size ; $i++) { 
+        for ($i=0, $size = count($query_result); $i < $size ; $i++) {
             $row = $query_result[$i];
 
             switch ($tbType) {
@@ -264,7 +265,7 @@ class Spending_model extends MY_Model
                             break;
                     }
                 } elseif ($key == 'row_title'|| $key == 'Sub Category' || $key =='Trends') {
-                        $table_cells_data[$i][] = array('data' => $value, 'class' => 'table-success');
+                    $table_cells_data[$i][] = array('data' => $value, 'class' => 'table-success');
                 } elseif ($key == $category_code) {
                     switch ($tbType) {
                         case TABLE_MAIN_CAT:
@@ -275,7 +276,7 @@ class Spending_model extends MY_Model
                             $diff_array_value = $prev_array_value - $value;
                             if ($diff_array_value > 0 && $value != 0) {
                                 $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD").$down_icon, 'class' => 'table-warning');
-                            } elseif ($diff_array_value < 0 && $value != 0 ) {
+                            } elseif ($diff_array_value < 0 && $value != 0) {
                                 $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD").$up_icon, 'class' => 'table-warning');
                             } else {
                                 $table_cells_data[$i][] = array('data' => $fmt->formatCurrency($value, "USD"), 'class' => 'table-warning');
@@ -363,60 +364,6 @@ class Spending_model extends MY_Model
             $this->table->add_row($cell);
         }
         return $this->table->generate();
-    }
-
-    /* ////////////////////////////////////
-    // wcategory table functions
-    */ /////////////////////////////////////
-    public function getMainCategory($selection = CODE_SELECTION, $mainCategory_code = '')
-    {
-        if ($selection == CODE_SELECTION) {
-            $sql = "SELECT '' AS code_value, 'Select Main Category' as code_name
-                    UNION
-                    SELECT SUBSTR(cat_code,1,1) as code_value, cat_name as code_name FROM wcategory
-                    WHERE SUBSTR(cat_code,2,2) = '00' AND cat_status = 1 ";
-        } elseif ($selection == SPEND_YM_SELECTION) {
-            $sql = "SELECT '' AS code_value, 'ALL' as code_name
-                    UNION
-                    SELECT SUBSTR(cat_code,1,1) as code_value, cat_name as code_name FROM wcategory
-                    WHERE SUBSTR(cat_code,2,2) = '00' AND cat_status = 1 ";
-        } elseif ($selection == CODE_NAME_SELECTION) {
-            $sql = "SELECT cat_name as code_name FROM wcategory
-                    WHERE SUBSTR(cat_code,1,1) = '".$mainCategory_code."' AND SUBSTR(cat_code,2,2) = '00' ";
-        }
-
-        if ($query = $this->db->query($sql)) {
-            return $query->result_array();
-        } else {
-            return false;
-        }
-    }
-
-    public function getSubCategory($mainCategory_code, $selection = CODE_SELECTION)
-    {
-        if ($selection == CODE_SELECTION) {
-            $sql = "SELECT cat_code as code_value, cat_name as code_name FROM wcategory
-                    WHERE SUBSTR(cat_code,2,2) != '00'
-                    AND cat_code LIKE '".$mainCategory_code."%' ";
-        } elseif ($selection == CODE_NAME_SELECTION) {
-            $sql = "SELECT cat_code as code_value, cat_name as code_name FROM wcategory
-                    WHERE cat_code LIKE '".$mainCategory_code."%' ";
-        }
-        if ($query = $this->db->query($sql)) {
-            return $query->result_array();
-        } else {
-            return false;
-        }
-    }
-
-    public function getCategoryName($name_lists, $categoryCode)
-    {
-        foreach ($name_lists as $list) {
-            if ($list['code_value'] == $categoryCode) {
-                return $list['code_name'];
-            }
-        }
-        return '';
     }
 
     /* ///////////////////////////////////////////////
