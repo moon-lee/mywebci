@@ -13,7 +13,7 @@
                     <div class="form-row">
                         <div class="form-group col-11">
                             <label for="taskItem">Task</label>
-                            <div class="input-group">
+                            <div class="input-group-sm">
                                 <input type="text" name="task_item" id="taskItem" class="form-control" maxlength="80"
                                     required>
                                 <div class="invalid-tooltip"></div>
@@ -24,7 +24,7 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="taskDueDate">Due Date</label>
-                            <div class="input-group">
+                            <div class="input-group-sm">
                                 <input type="text" name="task_due_date" id="taskDueDate" class="form-control"
                                     placeholder="Select date ..." required>
                                 <div class="invalid-tooltip"></div>
@@ -32,20 +32,22 @@
                         </div>
                         <div class="form-group col">
                             <label for="taskPriority">Priority</label>
-                            <select class="form-control" name="task_priority" id="taskPriority">
-                                <option value="0">Select Priority</option>
-                                <option value="1">Urgent</option>
-                                <option value="2">High</option>
-                                <option value="3">Medium</option>
-                                <option value="4">Low</option>
-                            </select>
-                            <div class="invalid-tooltip"></div>
+                            <div class="input-group-sm">
+                                <select class="form-control" name="task_priority" id="taskPriority">
+                                    <option value="0">Select Priority</option>
+                                    <option value="1">Urgent</option>
+                                    <option value="2">High</option>
+                                    <option value="3">Medium</option>
+                                    <option value="4">Low</option>
+                                </select>
+                                <div class="invalid-tooltip"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
                 </div>
             </form>
         </div>
