@@ -1,12 +1,12 @@
 <div class="content-body">
     <div class="container-fluid">
-        <div class="cd-title card mb-3">
+        <div class="cd-title card mb-2">
             <div class="card-header">
                 <i class="fas fa-money-check"></i><strong>{contenttitle}</strong>
             </div>
         </div>
 
-        <div class="card-spendings card my-4">
+        <div class="card-spendings card my-2">
             <div class="card-body">
 
                 <p><span class="far fa-plus-square"></span>Summary</p>

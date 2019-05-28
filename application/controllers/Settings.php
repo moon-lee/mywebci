@@ -8,6 +8,7 @@ class Settings extends MY_Controller
     {
         parent::__construct();
         $this->load->model('categories_model');
+        $this->load->model('keywords_model');
     }
 
     public function index()
@@ -130,6 +131,14 @@ class Settings extends MY_Controller
         $this->categories_model->categories_delete($post_data);
         echo json_encode(array("status" => true));
     }
+
+    public function list_keywords()
+    {
+        $post_data = $this->input->post(null, true);
+        $list_data = $this->keywords_model->keywords_list($post_data);
+        echo json_encode($list_data);
+    }
+
 }
 
 /* End of file Settings.php */
