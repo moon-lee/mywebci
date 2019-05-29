@@ -34,6 +34,18 @@
                         </table>
                         
                         <p><span class="far fa-plus-square"></span>Keywords</p>
+                        <div class="row" id="keywords_section">
+                            <div class="col">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="setting_keyword">Category</label>
+                                    </div>
+                                    <select class="custom-select" id="setting_keyword">
+                                        {category}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <table id="tb-keywords" class="table table-sm table-hover">
                             <thead>
                                 <tr>

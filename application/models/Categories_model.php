@@ -22,10 +22,6 @@ class Categories_model extends MY_Model {
                 'recordsFiltered' => $this->filtered_categories_count($post_data),
                 'data' => $query->result_array(),
                 'query' => $this->db->last_query()
-                // ,
-                // 'main_summary_year_month'  => $this->get_Main_Summary($post_data),
-                // 'sub_summary_year_month'  => $this->get_Sub_Summary($post_data),
-                // 'financial_trends' => $this->get_Financial_Trends($post_data)
             );
         } else {
             return false;

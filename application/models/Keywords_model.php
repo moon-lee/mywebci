@@ -35,9 +35,30 @@ class Keywords_model extends MY_Model {
         $this->db->select($select_columns);
         $this->db->from($this->view_tb_name['view_keyword']);
 
-        // if ($post_data['category_code'] != '') {
-        //     $this->db->like('sub_code', $post_data['category_code'], 'after');
-        // }
+        $this->_get_filtered_spending($post_data);
+    }
+
+    private function _get_filtered_spending($post_data)
+    {
+        $search_columns = $this->get_like_clauses($post_data['columns']);
+
+        foreach ($search_columns as $key => $value) {
+            if ($post_data['search']['value']) {
+                if ($key === 0) {
+                    $this->db->group_start();
+                    $this->db->like($value, $post_data['search']['value']);
+                } else {
+                    $this->db->or_like($value, $post_data['search']['value']);
+                }
+                if ($key == array_keys($search_columns)[count($search_columns)-1]) {
+                    $this->db->group_end();
+                }
+            }
+        }
+
+        if ($post_data['category_code'] != '') {
+            $this->db->like('sub_code', $post_data['category_code'], 'after');
+        }
     }
 
     public function keywords_count_all()
