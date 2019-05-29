@@ -2,23 +2,24 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Keywords_model extends MY_Model {
+class Transactions_model extends MY_Model {
+
     public function __construct()
     {
         parent::__construct();
-        $this->tb_name['keyword'] = "wkeyword";
-        $this->view_tb_name['view_keyword'] = "v_keyword";
+        $this->tb_name['transaction'] = "wtransaction";
+        $this->view_tb_name['view_transaction'] = "v_transaction";
     }
 
-    public function keywords_list($post_data) {
-        $this->_get_select_keyword($post_data);
+    public function transactions_list($post_data) {
+        $this->_get_select_transaction($post_data);
         $this->db->limit($post_data['length'], $post_data['start']);
         
         if ($query = $this->db->get()) {
             return array(
                 'draw' => $post_data['draw'],
-                'recordsTotal' => $this->keywords_count_all(),
-                'recordsFiltered' => $this->filtered_kewwords_count($post_data),
+                'recordsTotal' => $this->transactions_count_all(),
+                'recordsFiltered' => $this->filtered_transactions_count($post_data),
                 'data' => $query->result_array(),
                 'query' => $this->db->last_query()
             );
@@ -28,17 +29,17 @@ class Keywords_model extends MY_Model {
 
     }
 
-    private function _get_select_keyword($post_data)
+    private function _get_select_transaction($post_data)
     {
         $select_columns = 'DT_RowId, '.$this->get_columns_name($post_data['columns']);
 
         $this->db->select($select_columns);
-        $this->db->from($this->view_tb_name['view_keyword']);
+        $this->db->from($this->view_tb_name['view_transaction']);
 
-        $this->_get_filtered_keyword($post_data);
+        $this->_get_filtered_transaction($post_data);
     }
 
-    private function _get_filtered_keyword($post_data)
+    private function _get_filtered_transaction($post_data)
     {
         $search_columns = $this->get_like_clauses($post_data['columns']);
 
@@ -56,23 +57,23 @@ class Keywords_model extends MY_Model {
             }
         }
 
-        if ($post_data['category_code'] != '') {
-            $this->db->like('sub_code', $post_data['category_code'], 'after');
-        }
+        // if ($post_data['category_code'] != '') {
+        //     $this->db->like('sub_code', $post_data['category_code'], 'after');
+        // }
     }
 
-    public function keywords_count_all()
+    public function transactions_count_all()
     {
-        return $this->db->count_all($this->tb_name['keyword']);
+        return $this->db->count_all($this->tb_name['transaction']);
     }
 
-    public function filtered_kewwords_count($post_data)
+    public function filtered_transactions_count($post_data)
     {
-        $this->_get_select_keyword($post_data);
+        $this->_get_select_transaction($post_data);
         $query = $this->db->get();
         return $query->num_rows();
     }   
 
 }
 
-/* End of file Keywords_model.php */
+/* End of file Transactions_model.php */
