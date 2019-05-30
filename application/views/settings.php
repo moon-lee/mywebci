@@ -67,8 +67,8 @@
                                     <th>Date</td>
                                     <th>Detail</th>
                                     <th>Category</th>
-                                    <th>Amount</th>
                                     <th>Status</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                         </table>
