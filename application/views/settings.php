@@ -60,10 +60,34 @@
                     </div>
                     <div class="col-7">
                         <p><span class="far fa-plus-square"></span>Load - Spending Data</p>
+                        <div class="row" id="trans_section">
+                            <div class="col">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="setting_trans">Category</label>
+                                    </div>
+                                    <select class="custom-select" id="setting_trans">
+                                        {category}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="setting_tStatus">Status</label>
+                                    </div>
+                                    <select class="custom-select" id="setting_tStatus">
+                                        <option value="">ALL</option>
+                                        <option value="0">LOAD</option>
+                                        <option value="1">MATCH</option>
+                                        <option value="2">APPLY</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <table id="tb-load-spend" class="table table-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Date</td>
                                     <th>Detail</th>
                                     <th>Category</th>

@@ -98,6 +98,8 @@
     <i data-fa-symbol="minus-circle" class="fas fa-minus-circle"></i>
     <i data-fa-symbol="plus-circle" class="fas fa-plus-circle"></i>
     <i data-fa-symbol="file-upload" class="fas fa-file-upload"></i>
+    <i data-fa-symbol="file-alt" class="fas fa-file-alt"></i>
+    <i data-fa-symbol="file-import" class="fas fa-file-import"></i>
     <i data-fa-symbol="caret-up" class="fas fa-caret-up"></i>
     <i data-fa-symbol="caret-down" class="fas fa-caret-down"></i>
     <i data-fa-symbol="check" class="fas fa-check"></i>

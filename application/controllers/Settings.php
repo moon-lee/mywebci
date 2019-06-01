@@ -47,10 +47,7 @@ class Settings extends MY_Controller
             'layouts/categories_modal',
             array('main_category' => $this->set_selection(CODE_SELECTION, $mainCategory)
          )
-        );
-
-        //$this->data['modal'] = '';
-
+        ).$this->set_content('layouts/load_trans_modal');
 
         $this->render();
     }
@@ -156,6 +153,43 @@ class Settings extends MY_Controller
         echo json_encode($list_data);
     }
 
+    public function load_transactions() {
+        $config['upload_path']  = '/opt/lampstack-7.1.26-0/mysql/uploads/';
+        $config['allowed_types'] = 'csv|pdf';
+        $config['encrypt_name'] = true;
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('load_data')) {
+            $upload_result = array('upload_data' => $this->upload->data());
+            $data['upload_file_name'] = $config['upload_path'].$upload_result['upload_data']['file_name'];
+            $data['upload_orig_name'] = $upload_result['upload_data']['orig_name'];
+            $data['upload_file_type'] = $upload_result['upload_data']['file_type'];
+            $data['upload_file_size'] = $upload_result['upload_data']['file_size'];
+            $data['upload_user'] = $this->session->userdata('user_name');
+            if ($this->transactions_model->transactions_load($data)) {
+                $data['status'] = true;
+                $data['msg'] = 'Transactions Data successfully loaded. ';     
+            } else {
+                $data['status'] = false;
+                $data['inputerror'][] = 'load_data';
+                $data['error_string'][] = $error['error'];
+                }
+        } else {
+            $error = array('error' => $this->upload->display_errors('',''));
+            $data['inputerror'][] = 'load_data';
+            $data['error_string'][] = $error['error'];
+            $data['status'] = false;
+        }
+
+        echo json_encode($data);    
+    }
+
+    public function match_transactions() {
+        $result = $this->transactions_model->transactions_match($this->session->userdata('user_name'));
+        $data["status"] =  $result;
+        echo json_encode($data);
+    }
 }
 
 /* End of file Settings.php */

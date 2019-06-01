@@ -8,6 +8,7 @@ class Transactions_model extends MY_Model {
     {
         parent::__construct();
         $this->tb_name['transaction'] = "wtransaction";
+        $this->tb_name['upload'] = "wuploaddata";
         $this->view_tb_name['view_transaction'] = "v_transaction";
     }
 
@@ -57,9 +58,12 @@ class Transactions_model extends MY_Model {
             }
         }
 
-        // if ($post_data['category_code'] != '') {
-        //     $this->db->like('sub_code', $post_data['category_code'], 'after');
-        // }
+        if ($post_data['category_code'] != '') {
+            $this->db->like('sub_code', $post_data['category_code'], 'after');
+        }
+        if ($post_data['tstatus'] != '') {
+            $this->db->like('t_status', $post_data['tstatus'], 'after');
+        }
     }
 
     public function transactions_count_all()
@@ -74,6 +78,61 @@ class Transactions_model extends MY_Model {
         return $query->num_rows();
     }   
 
+    public function transactions_load(&$data)
+    {
+        //return $this->db->insert($this->tb_name['upload'], $data);
+
+        if ($this->db->insert($this->tb_name['upload'], $data)) {
+            $data['upload_id'] = $this->db->insert_id();
+            if ($this->_load_csv_data($data)) {
+                return true;
+            } else {
+                $data['error_msg'] = 'Fail to load transaction data to database.';
+                return false;
+            }
+        } else {
+            $data['error_msg'] = 'Fail to insert the upload information.';
+            return false;
+        }
+    }
+    private function _load_csv_data($data)
+    {
+        /* //////////////////////////////////////////////////// */
+        $this->db->trans_start();
+        /* /////////////////////////////////////////
+            2. Load csv file to temp table
+        //////////////////////////////////////////*/
+        $sql = "LOAD DATA INFILE '".$data['upload_file_name']."'
+                INTO TABLE wtransaction
+                FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'
+                LINES TERMINATED BY '\n'
+                (@trans_date, @trans_amount, trans_desc)
+                SET trans_date = CAST(str_to_date(@trans_date,'%d/%m/%Y') AS DATE),
+                    trans_amount = CAST(@trans_amount AS DECIMAL(13,2))";
+
+        $this->db->query($sql);
+        /* ////////////////////////////////////////////////////
+            3. Transfer data from temp table to spending table
+        /////////////////////////////////////////////////////*/
+        // $default_account = '1';
+
+        // $sql = "CALL sp_trans_spend_data('".$default_account."', '". $data['upload_user'] ."')";
+        // $this->db->query($sql);
+        /* ////////////////////////////////////////////////////
+            4. Update status  to upload data table
+        /////////////////////////////////////////////////////*/
+        $this->db->update($this->tb_name['upload'], array('upload_file_status' => 99), array('id' =>  $data['upload_id']));
+
+        /* //////////////////////////////////////////////////// */
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+    }
+
+    public function transactions_match($user) {
+        $sql = "CALL sp_match_trans_data('".$user."')";
+        return $this->db->simple_query($sql);
+    }
 }
 
 /* End of file Transactions_model.php */
