@@ -1,9 +1,9 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Transactions_model extends MY_Model {
-
+class Transactions_model extends MY_Model
+{
     public function __construct()
     {
         parent::__construct();
@@ -12,7 +12,8 @@ class Transactions_model extends MY_Model {
         $this->view_tb_name['view_transaction'] = "v_transaction";
     }
 
-    public function transactions_list($post_data) {
+    public function transactions_list($post_data)
+    {
         $this->_get_select_transaction($post_data);
         $this->db->limit($post_data['length'], $post_data['start']);
         
@@ -27,7 +28,6 @@ class Transactions_model extends MY_Model {
         } else {
             return false;
         }
-
     }
 
     private function _get_select_transaction($post_data)
@@ -76,7 +76,7 @@ class Transactions_model extends MY_Model {
         $this->_get_select_transaction($post_data);
         $query = $this->db->get();
         return $query->num_rows();
-    }   
+    }
 
     public function transactions_load(&$data)
     {
@@ -110,28 +110,45 @@ class Transactions_model extends MY_Model {
                 SET trans_date = CAST(str_to_date(@trans_date,'%d/%m/%Y') AS DATE),
                     trans_amount = CAST(@trans_amount AS DECIMAL(13,2))";
 
-        $this->db->query($sql);
-        /* ////////////////////////////////////////////////////
-            3. Transfer data from temp table to spending table
-        /////////////////////////////////////////////////////*/
-        // $default_account = '1';
+        if ($query = $this->db->query($sql)) {
+            $this->db->update($this->tb_name['upload'], array('upload_file_status' => 99), array('id' =>  $data['upload_id']));
 
-        // $sql = "CALL sp_trans_spend_data('".$default_account."', '". $data['upload_user'] ."')";
-        // $this->db->query($sql);
-        /* ////////////////////////////////////////////////////
-            4. Update status  to upload data table
-        /////////////////////////////////////////////////////*/
-        $this->db->update($this->tb_name['upload'], array('upload_file_status' => 99), array('id' =>  $data['upload_id']));
+        } else {
+            return false;
+        }
 
-        /* //////////////////////////////////////////////////// */
         $this->db->trans_complete();
 
         return $this->db->trans_status();
     }
 
-    public function transactions_match($user) {
+    public function transactions_match($user)
+    {
         $sql = "CALL sp_match_trans_data('".$user."')";
-        return $this->db->simple_query($sql);
+
+        if ($query = $this->db->query($sql)) {
+            return array(
+                'recordsTotal' => $this->transactions_count_all(),
+                'recordsMatched' => $this->matched_transaction_count(),
+                'query' => $this->db->last_query(),
+                'status' => true
+            );
+        } else {
+            return false;
+        }
+    }
+
+    public function matched_transaction_count() {
+        $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
+                WHERE trans_status = 1 ";
+
+        if ($query = $this->db->query($sql)) {
+            $row =  $query->row();
+            return $row->cnt;
+        } else {
+            return 0;
+        }
+
     }
 }
 

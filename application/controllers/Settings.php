@@ -187,8 +187,7 @@ class Settings extends MY_Controller
 
     public function match_transactions() {
         $result = $this->transactions_model->transactions_match($this->session->userdata('user_name'));
-        $data["status"] =  $result;
-        echo json_encode($data);
+        echo json_encode($result);
     }
 }
 
