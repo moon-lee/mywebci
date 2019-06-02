@@ -138,6 +138,27 @@ class Transactions_model extends MY_Model
         }
     }
 
+    public function transactions_apply($user)
+    {
+                /* ////////////////////////////////////////////////////
+            3. Transfer data from temp table to spending table
+        /////////////////////////////////////////////////////*/
+        $default_account = '1';
+
+        $sql = "CALL sp_trans_spend_data('".$default_account."', '". $user ."')";
+
+        if ($query = $this->db->query($sql)) {
+            return array(
+                'recordsTotal' => $this->transactions_count_all(),
+                'recordsApply' => $this->apply_transaction_count(),
+                'query' => $this->db->last_query(),
+                'status' => true
+            );
+        } else {
+            return false;
+        }
+    }
+
     public function matched_transaction_count() {
         $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
                 WHERE trans_status = 1 ";
@@ -149,6 +170,18 @@ class Transactions_model extends MY_Model
             return 0;
         }
 
+    }
+
+    public function apply_transaction_count() {
+        $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
+                WHERE trans_status = 2 ";
+
+        if ($query = $this->db->query($sql)) {
+            $row =  $query->row();
+            return $row->cnt;
+        } else {
+            return 0;
+        }        
     }
 }
 
