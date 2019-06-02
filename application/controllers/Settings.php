@@ -187,37 +187,6 @@ class Settings extends MY_Controller
         echo json_encode($data);
     }
 
- 
-    public function update_keywords()
-    {
-        $data = array();
-        $post_data = $this->input->post(null, true);
-        $validated_data = $this->validate_data($post_data);
-        $result = $this->keywords_model->keywords_update($validated_data);
-        $data["status"] =  $result;
-        echo json_encode($data);
-    }
-
-    public function edit_keywords()
-    {
-        $data = array();
-        $post_data = $this->input->post(null, true);
-
-        $result = $this->keywords_model->get_keyword_by_id($post_data);
-
-        if ($result) {
-            $data = array(
-                "mastercode" => $result->mastercode,
-                "subcode" => $result->subcode,
-                "keyname" => $result->keyname,
-                "status" => true
-            );
-        } else {
-            $data["status"] =  false;
-        }
-        echo json_encode($data);
-    }
-
     public function delete_keywords()
     {
         $post_data = $this->input->post(null, true);

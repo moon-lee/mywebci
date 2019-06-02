@@ -99,26 +99,6 @@ class Keywords_model extends MY_Model
         }
     }
 
-    public function get_keyword_by_id($post_data) {
-
-        $sql = "SELECT SUBSTR(key_code,1,1) AS mastercode, key_code as subcode, key_name as keyname
-        FROM wkeyword
-                WHERE id = ".$post_data['id'];
-        $query = $this->db->query($sql);
-
-        $row = $query->row();
-        if (isset($row)) {
-            return $row;
-        } else {
-            return false;
-        }
-    }
-
-    public function keywords_update($post_data) {
-        $update_data = array("key_name" => $post_data['keywordname']);
-        return $this->db->update($this->tb_name['keyword'], $update_data,array('id' => $post_data['id']));
-    }
-
     public function keywords_delete($post_data)
     {
         $this->db->delete($this->tb_name['keyword'], array('id'=> $post_data['id']));
