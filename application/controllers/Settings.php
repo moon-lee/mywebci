@@ -42,14 +42,55 @@ class Settings extends MY_Controller
         /**
          * Render for Modal
          */
+        $subCategory_first =  $this->myconfig['sub_category_first'];
         $mainCategory = $this->categories_model->getMainCategory(CODE_SELECTION);
         $this->data['modal'] = $this->set_content(
-            'layouts/categories_modal',
-            array('main_category' => $this->set_selection(CODE_SELECTION, $mainCategory)
-         )
-        ).$this->set_content('layouts/load_trans_modal');
+                'layouts/categories_modal',
+                array(
+                  'main_category' => $this->set_selection(CODE_SELECTION, $mainCategory)
+                )
+            )
+            .$this->set_content('layouts/load_trans_modal')
+            .$this->set_content(
+                'layouts/keywords_modal',
+                array(
+                  'main_category' => $this->set_selection(CODE_SELECTION, $mainCategory),
+                  'sub_category_first' => $this->set_selection(CODE_SELECTION, $subCategory_first)
+                )
+            );
 
         $this->render();
+    }
+
+    private function validate_data($post_data)
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = true;
+ 
+        foreach ($post_data as $key => $value) {
+            if ($value == "") {
+                $data['inputerror'][] = $key;
+                $data['error_string'][] = 'Please provide a valid data';
+                $data['status'] = false;
+            }
+
+            if ($key == "keywordname") {
+                $validated = $this->keywords_model->is_unique_keyword($value);
+                if (! $validated) {
+                    $data['inputerror'][] = $key;
+                    $data['error_string'][] = 'keyword is not unique';
+                    $data['status'] = false;
+                }
+            }
+        }
+        if (!$data['status']) {
+            echo json_encode($data);
+            exit;
+        } else {
+            return $post_data;
+        }
     }
 
     /*
@@ -75,27 +116,7 @@ class Settings extends MY_Controller
         echo json_encode($data);
     }
 
-    private function validate_data($post_data)
-    {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = true;
- 
-        foreach ($post_data as $key => $value) {
-            if ($value == "") {
-                $data['inputerror'][] = $key;
-                $data['error_string'][] = 'Please provide a valid data';
-                $data['status'] = false;
-            }
-        }
-        if (!$data['status']) {
-            echo json_encode($data);
-            exit;
-        } else {
-            return $post_data;
-        }
-    }
+
 
     public function update_categories()
     {
@@ -143,6 +164,66 @@ class Settings extends MY_Controller
         echo json_encode($list_data);
     }
 
+    public function get_subcategory()
+    {
+        $post_data = $this->input->post(null, true);
+        $result = $this->categories_model->getSubCategory($post_data['mcategory_code']);
+        $subCategory = $this->set_selection(CODE_SELECTION, $result);
+        $subCategory_first =  $this->myconfig['sub_category_first'];
+        echo  $this->set_selection(CODE_SELECTION, $subCategory_first) . $subCategory;
+    }
+
+
+    public function add_keywords()
+    {
+        $data = array();
+        $post_data = $this->input->post(null, true);
+        $validated_data = $this->validate_data($post_data);
+        $validated_data['key_user'] = $this->session->userdata('user_name');
+        
+        $result = $this->keywords_model->keywords_add($validated_data);
+
+        $data["status"] =  true;
+        echo json_encode($data);
+    }
+
+ 
+    public function update_keywords()
+    {
+        $data = array();
+        $post_data = $this->input->post(null, true);
+        $validated_data = $this->validate_data($post_data);
+        $result = $this->keywords_model->keywords_update($validated_data);
+        $data["status"] =  $result;
+        echo json_encode($data);
+    }
+
+    public function edit_keywords()
+    {
+        $data = array();
+        $post_data = $this->input->post(null, true);
+
+        $result = $this->keywords_model->get_keyword_by_id($post_data);
+
+        if ($result) {
+            $data = array(
+                "mastercode" => $result->mastercode,
+                "subcode" => $result->subcode,
+                "keyname" => $result->keyname,
+                "status" => true
+            );
+        } else {
+            $data["status"] =  false;
+        }
+        echo json_encode($data);
+    }
+
+    public function delete_keywords()
+    {
+        $post_data = $this->input->post(null, true);
+        $this->keywords_model->keywords_delete($post_data);
+        echo json_encode(array("status" => true));
+    }
     /*
     * Transaction 
     */

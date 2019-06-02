@@ -88,6 +88,7 @@
                         <table id="tb-load-spend" class="table table-sm table-hover">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Date</td>
                                     <th>Detail</th>
                                     <th>Category</th>
