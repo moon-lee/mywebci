@@ -20,8 +20,11 @@ class Transactions_model extends MY_Model
         if ($query = $this->db->get()) {
             return array(
                 'draw' => $post_data['draw'],
-                'recordsTotal' => $this->transactions_count_all(),
+                'recordsTotal' => $this->transactions_count_all(99),
                 'recordsFiltered' => $this->filtered_transactions_count($post_data),
+                'enable_match' => (bool)$this->transaction_count(0),
+                'enable_apply' => (bool)$this->transaction_count(1),
+                'enable_archive' => (bool)$this->transaction_count(2),
                 'data' => $query->result_array(),
                 'query' => $this->db->last_query()
             );
@@ -66,9 +69,18 @@ class Transactions_model extends MY_Model
         }
     }
 
-    public function transactions_count_all()
+    public function transactions_count_all($transstatus)
     {
-        return $this->db->count_all($this->tb_name['transaction']);
+        $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
+                WHERE trans_status <> ".$transstatus;
+
+        if ($query = $this->db->query($sql)) {
+            $row =  $query->row();
+            return $row->cnt;
+        } else {
+            return 0;
+        }        
+
     }
 
     public function filtered_transactions_count($post_data)
@@ -105,7 +117,7 @@ class Transactions_model extends MY_Model
         $sql = "LOAD DATA INFILE '".$data['upload_file_name']."'
                 INTO TABLE wtransaction
                 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"'
-                LINES TERMINATED BY '\n'
+                LINES TERMINATED BY '\r\n'
                 (@trans_date, @trans_amount, trans_desc)
                 SET trans_date = CAST(str_to_date(@trans_date,'%d/%m/%Y') AS DATE),
                     trans_amount = CAST(@trans_amount AS DECIMAL(13,2))";
@@ -128,8 +140,8 @@ class Transactions_model extends MY_Model
 
         if ($query = $this->db->query($sql)) {
             return array(
-                'recordsTotal' => $this->transactions_count_all(),
-                'recordsMatched' => $this->matched_transaction_count(),
+                'recordsTotal' => $this->transactions_count_all(99),
+                'recordsMatched' => $this->transaction_count(1),
                 'query' => $this->db->last_query(),
                 'status' => true
             );
@@ -140,17 +152,14 @@ class Transactions_model extends MY_Model
 
     public function transactions_apply($user)
     {
-                /* ////////////////////////////////////////////////////
-            3. Transfer data from temp table to spending table
-        /////////////////////////////////////////////////////*/
         $default_account = '1';
 
         $sql = "CALL sp_trans_spend_data('".$default_account."', '". $user ."')";
 
         if ($query = $this->db->query($sql)) {
             return array(
-                'recordsTotal' => $this->transactions_count_all(),
-                'recordsApply' => $this->apply_transaction_count(),
+                'recordsTotal' => $this->transactions_count_all(99),
+                'recordsApply' => $this->transaction_count(2),
                 'query' => $this->db->last_query(),
                 'status' => true
             );
@@ -159,22 +168,34 @@ class Transactions_model extends MY_Model
         }
     }
 
-    public function matched_transaction_count() {
-        $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
-                WHERE trans_status = 1 ";
+    public function transactions_archive() {
+        $before_archive_cnt = $this->transaction_count(2);
 
-        if ($query = $this->db->query($sql)) {
-            $row =  $query->row();
-            return $row->cnt;
+        $res = $this->db->update($this->tb_name['transaction'], array('trans_status' => 99), array('trans_status' =>  2));
+
+        $after_archive_cnt = $this->transaction_count(2);
+
+        if ($after_archive_cnt == 0 ) {
+            $total_archive_cnt = $before_archive_cnt;
         } else {
-            return 0;
+            $total_archive_cnt = $before_archive_cnt - $after_archive_cnt;
         }
 
+        if ($res) {
+            return array(
+                'recordsTotal' => $before_archive_cnt,
+                'recordsArchive' => $total_archive_cnt,
+                'query' => $this->db->last_query(),
+                'status' => true
+            );
+        } else {
+            return false;
+        }
     }
 
-    public function apply_transaction_count() {
+    public function transaction_count ($transstatus) {
         $sql = "SELECT COUNT(ID) as cnt FROM wtransaction 
-                WHERE trans_status = 2 ";
+                WHERE trans_status = ".$transstatus;
 
         if ($query = $this->db->query($sql)) {
             $row =  $query->row();
@@ -182,6 +203,7 @@ class Transactions_model extends MY_Model
         } else {
             return 0;
         }        
+
     }
 }
 

@@ -244,6 +244,10 @@ class Settings extends MY_Controller
         $result = $this->transactions_model->transactions_apply($this->session->userdata('user_name'));
         echo json_encode($result);        
     }
+    public function archive_transactions() {
+        $result = $this->transactions_model->transactions_archive($this->session->userdata('user_name'));
+        echo json_encode($result);        
+    }
 }
 
 /* End of file Settings.php */

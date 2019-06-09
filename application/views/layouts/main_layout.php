@@ -103,6 +103,7 @@
     <i data-fa-symbol="caret-up" class="fas fa-caret-up"></i>
     <i data-fa-symbol="caret-down" class="fas fa-caret-down"></i>
     <i data-fa-symbol="check" class="fas fa-check"></i>
+    <i data-fa-symbol="archive" class="fas fa-archive"></i>
 
     <!-- Modal -->
     {modal}
